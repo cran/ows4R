@@ -36,6 +36,9 @@
 #'  \item{\code{getCapabilities()}}{
 #'    Get service capabilities. Inherited from OWS Client
 #'  }
+#'  \item{\code{reloadCapabilities()}}{
+#'    Reload service capabilities
+#'  }
 #'  \item{\code{describeRecord(namespace, ...)}}{
 #'    Describe records. Retrieves the XML schema for CSW records. By default, returns the XML schema 
 #'    for the CSW records (http://www.opengis.net/cat/csw/2.0.2). For other schemas, specify the
@@ -64,6 +67,16 @@ CSWClient <- R6Class("CSWClient",
        if(startsWith(serviceVersion, "3.0")) serviceVersion <- "3.0.0"
        super$initialize(url, service = private$serviceName, serviceVersion, user, pwd, logger)
        self$capabilities = CSWCapabilities$new(self$url, self$version, logger = logger)
+     },
+     
+     #getCapabilities
+     getCapabilities = function(){
+       return(self$capabilities)
+     },
+     
+     #reloadCapabilities
+     reloadCapabilities = function(){
+      self$capabilities = CSWCapabilities$new(self$url, self$version, logger = self$loggerType)
      },
      
      #describeRecord
@@ -102,7 +115,7 @@ CSWClient <- R6Class("CSWClient",
      },
      
      #getRecords
-     getRecords = function(query = CSWQuery$new(), ...){
+     getRecords = function(query = CSWQuery$new(), maxRecords = NULL, maxRecordsPerRequest = 10L, ...){
        self$INFO("Fetching records ...")
        operations <- self$capabilities$getOperationsMetadata()$getOperations()
        op <- operations[sapply(operations,function(x){x$getName()=="GetRecords"})]
@@ -114,19 +127,47 @@ CSWClient <- R6Class("CSWClient",
          stop(errorMsg)
        }
        query$setServiceVersion(self$getVersion())
+       
+       hasMaxRecords <- !is.null(maxRecords)
+       if(hasMaxRecords) if(maxRecords < maxRecordsPerRequest) maxRecordsPerRequest <- maxRecords
+       
        firstRequest <- CSWGetRecords$new(op, self$getUrl(), self$getVersion(),
                                     user = self$getUser(), pwd = self$getPwd(),
-                                    query = query, logger = self$loggerType, ...)
+                                    query = query, logger = self$loggerType, 
+                                    maxRecords = maxRecordsPerRequest, ...)
        records <- firstRequest$getResponse()
+       
+       numberOfRecordsMatched <- attr(records, "numberOfRecordsMatched")
+       numberOfRecordsMatchedSafe <- numberOfRecordsMatched
+       
+       if(hasMaxRecords){
+         numberOfRecordsMatched <- maxRecords
+         if(length(records) >= maxRecords){
+          records <- records[1:maxRecords]
+          return(records)
+         }
+       }
        nextRecord <- attr(records, "nextRecord")
        while(nextRecord != 0L){
+         if(hasMaxRecords) {
+           if(maxRecords - length(records) < maxRecordsPerRequest){
+            maxRecordsPerRequest <- maxRecords - length(records)
+           }
+         }else{
+           if(numberOfRecordsMatched - length(records) < maxRecordsPerRequest){
+             maxRecordsPerRequest <- numberOfRecordsMatched - length(records)
+           }
+         }
          nextRequest <- CSWGetRecords$new(op, self$getUrl(), self$getVersion(),
                                           user = self$getUser(), pwd = self$getPwd(),
                                           query = query, logger = self$loggerType, 
-                                          startPosition = nextRecord)
+                                          startPosition = nextRecord, 
+                                          maxRecords = maxRecordsPerRequest, ...)
          nextRecords <- nextRequest$getResponse()
          records <- c(records, nextRecords)
+         if(length(records) == numberOfRecordsMatched) break
          nextRecord <- attr(nextRecords, "nextRecord")
+         if(nextRecord > numberOfRecordsMatchedSafe) nextRecord <- 0L
        }
        return(records)
      },
