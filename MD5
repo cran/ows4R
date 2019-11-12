@@ -1,7 +1,7 @@
-ee4fd0fc8cdf51941368dfb42f4d624b *DESCRIPTION
+6b3ad21857de7b4e6194baec1ec2dc9d *DESCRIPTION
 826c27c7eff174e709f8e71004c20133 *LICENSE
 aea0617d1f6858e9f2853bdb9c034873 *NAMESPACE
-97b2a2deff9fc13611baf439aa37270b *NEWS.md
+d967bc4facfa16bd6d90b722075c797e *NEWS.md
 320d2a2b0eba7e7ed1c9db7994b670bf *R/CSWCapabilities.R
 cc7f3af0275ac2c7ba4c53dde32be688 *R/CSWClient.R
 e425debc913fe2e96c1ad40dddc1cecc *R/CSWConstraint.R
@@ -29,10 +29,10 @@ b3e923e6e15aff09f726271d6a30f289 *R/OWSOperation.R
 ca37c77779b1653f4dcbce7a70faf411 *R/WFSDescribeFeatureType.R
 ddb82f98177896fef80bf93431698aef *R/WFSFeatureType.R
 7c936c63d75d45c56896a1eae3c25a3d *R/WFSFeatureTypeElement.R
-002bc1315bd9f2de404d73ba78e92033 *R/WFSGetFeature.R
-7a3f56c722848f03c12935a283d32ad3 *R/ows4R.R
+39d32852f1fa7b10d92acc462561fc74 *R/WFSGetFeature.R
+11ddc4b31fc711aa3f7258290a914ce0 *R/ows4R.R
 dce05dc6f8fbbfe2da287f50848f3221 *R/profile.R
-4a0c258767a652a84938f8f2aa1a8a6b *README.md
+6fcaba03b7d5ef771b453444039079d9 *README.md
 681397029833ebdf011420a4f95968b3 *inst/extdata/data/metadata-i18n.xml
 e57847d7540a5790d582ff2eaea511c8 *inst/extdata/data/metadata.xml
 ba44eb83f34f8c5858636de6f10dcd6d *man/And.Rd
