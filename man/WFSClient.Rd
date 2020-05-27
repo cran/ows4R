@@ -53,9 +53,11 @@ WFSClient
    caps <- wfs$getCapabilities()
    
    #find feature type
-   ft <- caps$findFeatureTypeByName("mylayer", exact = TRUE)
-   data <- ft$getFeatures()
-   data_with_filter <- ft$getFeatures(cql_filter = "somefilter")
+   ft <- caps$findFeatureTypeByName("mylayer")
+   if(length(ft)>0){
+     data <- ft$getFeatures()
+     data_with_filter <- ft$getFeatures(cql_filter = "somefilter")
+   }
    
    #Advanced examples at https://github.com/eblondel/ows4R/wiki#wfs
 }

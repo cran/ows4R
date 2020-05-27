@@ -9,8 +9,8 @@
 #' 
 #' @examples
 #' \donttest{
-#'    #example based on CSW endpoint responding at http://localhost:8000/geoserver/wfs
-#'    caps <- WFSCapabilities$new("http://localhost:8000/geoserver/wfs", version = "1.1.1")
+#'    #example based on CSW endpoint responding at http://localhost:8080/geoserver/wfs
+#'    caps <- WFSCapabilities$new("http://localhost:8080/geoserver/wfs", version = "1.1.1")
 #' }
 #'
 #' @section Methods:
@@ -83,20 +83,15 @@ WFSCapabilities <- R6Class("WFSCapabilities",
      },
      
      #findFeatureTypeByName
-     findFeatureTypeByName = function(expr, exact = FALSE){
-       result <- lapply(private$featureTypes,
-                        function(x){
-                          ft <- NULL
-                          if(exact){
-                            if(x$getName() == expr) ft <- x
-                          }else{
-                            if(attr(regexpr(expr, x$getName()),
-                                    "match.length") != -1){
-                              ft <- x
-                            }
-                          }                         
-                          return(ft)
-                        })
+     findFeatureTypeByName = function(expr, exact = TRUE){
+       result <- lapply(private$featureTypes, function(x){
+          ft <- NULL
+          if(attr(regexpr(expr, x$getName()), "match.length") != -1 
+             && endsWith(x$getName(), expr)){
+            ft <- x
+          }
+           return(ft)
+       })
        result <- result[!sapply(result, is.null)]
        if(length(result) == 1) result <- result[[1]]
        return(result)

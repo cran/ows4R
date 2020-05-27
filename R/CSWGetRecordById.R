@@ -100,7 +100,7 @@ CSWGetRecordById <- R6Class("CSWGetRecordById",
             if(length(xmlObjs)>0){
               xmlObj <- xmlObjs[[1]]
               out <- geometa::ISOFeatureCatalogue$new()
-              out$decode(xml = xml)
+              out$decode(xml = xmlObj)
             }
             out
           },
