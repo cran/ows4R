@@ -4,9 +4,8 @@
 \name{BinaryComparisonOpType}
 \alias{BinaryComparisonOpType}
 \title{BinaryComparisonOpType}
-\format{\code{\link{R6Class}} object.}
-\usage{
-BinaryComparisonOpType
+\format{
+\code{\link{R6Class}} object.
 }
 \value{
 Object of \code{\link{R6Class}} for modelling an BinaryComparisonOpType
@@ -20,7 +19,7 @@ abstract super class of all the property operation classes
 \section{Methods}{
 
 \describe{
- \item{\code{new(PropertyName, Literal, matchCase)}}{
+ \item{\code{new(element, namespacePrefix, PropertyName, Literal, matchCase)}}{
    This method is used to instantiate an BinaryComparisonOpType
  }
 }

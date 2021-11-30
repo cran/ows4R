@@ -4,9 +4,8 @@
 \name{WFSGetFeature}
 \alias{WFSGetFeature}
 \title{WFSGetFeature}
-\format{\code{\link{R6Class}} object.}
-\usage{
-WFSGetFeature
+\format{
+\code{\link{R6Class}} object.
 }
 \value{
 Object of \code{\link{R6Class}} for modelling a WFS GetFeature request
@@ -20,7 +19,7 @@ Abstract class used by \pkg{ows4R} to trigger a WFS DescribeFeatureType request
 \section{Methods}{
 
 \describe{
- \item{\code{new(op, url, version, typeName, logger, ...)}}{
+ \item{\code{new(capabilities, op, url, version, typeName, outputFormat, logger, ...)}}{
    This method is used to instantiate a WFSGetFeature object
  }
 }

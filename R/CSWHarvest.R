@@ -8,7 +8,7 @@
 #'
 #' @section Methods:
 #' \describe{
-#'  \item{\code{new(op, url, serviceVersion, user, pwd, source, resourceType, resourceFormat, logger, ...)}}{
+#'  \item{\code{new(capabilities, op, url, serviceVersion, user, pwd, source, resourceType, resourceFormat, logger, ...)}}{
 #'    This method is used to instantiate a CSWHarvest object
 #'  }
 #' }
@@ -18,10 +18,10 @@
 #' @author Emmanuel Blondel <emmanuel.blondel1@@gmail.com>
 #'
 CSWHarvest <- R6Class("CSWHarvest",
-   inherit = OWSRequest,
+   inherit = OWSHttpRequest,
    private = list(
      xmlElement = "Harvest",
-     xmlNamespace = c(csw = "http://www.opengis.net/cat/csw"),
+     xmlNamespacePrefix = "CSW",
      defaultAttrs = list(
        service = "CSW",
        version = "2.0.2"
@@ -31,19 +31,19 @@ CSWHarvest <- R6Class("CSWHarvest",
      Source = NULL,
      ResourceType = "http://www.isotc211.org/2005/gmd",
      ResourceFormat = "application/xml",
-     initialize = function(op, url, serviceVersion = "2.0.2", 
-                           user = NULL, pwd = NULL, token = NULL,
+     initialize = function(capabilities, op, url, serviceVersion = "2.0.2", 
+                           user = NULL, pwd = NULL, token = NULL, headers = list(),
                            source = NULL,
                            resourceType = "http://www.isotc211.org/schemas/2005/gmd/",
                            resourceFormat = "application/xml",
                            logger = NULL, ...) {
-       super$initialize(op, "POST", url, request = private$xmlElement,
-                        user = user, pwd = pwd, token = token,
+       nsVersion <- ifelse(serviceVersion=="3.0.0", "3.0", serviceVersion)
+       private$xmlNamespacePrefix = paste(private$xmlNamespacePrefix, gsub("\\.", "_", nsVersion), sep="_")
+       super$initialize(element = private$xmlElement, namespacePrefix = private$xmlNamespacePrefix,
+                        capabilities, op, "POST", url, request = private$xmlElement,
+                        user = user, pwd = pwd, token = token, headers = headers,
                         contentType = "text/xml", mimeType = "text/xml",
                         logger = logger, ...)
-       nsVersion <- ifelse(serviceVersion=="3.0.0", "3.0", serviceVersion)
-       private$xmlNamespace = paste(private$xmlNamespace, nsVersion, sep="/")
-       names(private$xmlNamespace) <- ifelse(serviceVersion=="3.0.0", "csw30", "csw")
        
        self$attrs <- private$defaultAttrs
        

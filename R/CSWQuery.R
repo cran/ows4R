@@ -6,8 +6,11 @@
 #' @format \code{\link{R6Class}} object.
 #' @section Methods:
 #' \describe{
-#'  \item{\code{new(filter, serviceVersion)}}{
-#'    This method is used to instantiate an CSWQUery object.
+#'  \item{\code{new(elementSetName, constraint, typeNames, serviceVersion)}}{
+#'    This method is used to instantiate an CSWQUery object. The \code{elementSetName} can be 
+#'    either "full" (default), "brief" or "summary". A constraint \code{CSWConstraint} can be
+#'    defined for the query. The \code{typeNames} indicates to query (default "csw:Record").
+#'    The \code{serviceVersion} gives the CSW service version (default "2.0.2")
 #'  }
 #' }
 #' 
@@ -69,8 +72,7 @@ CSWQuery <-  R6Class("CSWQuery",
   inherit = OGCAbstractObject,
   private = list(
     xmlElement = "Query",
-    xmlNamespaceBase = "http://www.opengis.net/cat/csw",
-    xmlNamespace = c(csw = "http://www.opengis.net/cat/csw"),
+    xmlNamespacePrefix = "CSW",
     typeNames = "csw:Record"
   ),
   public = list(
@@ -80,7 +82,9 @@ CSWQuery <-  R6Class("CSWQuery",
                           typeNames = "csw:Record", serviceVersion = "2.0.2"){
       private$typeNames <- typeNames
       self$setServiceVersion(serviceVersion)
-      super$initialize(attrs = list(typeNames = private$typeNames))
+      super$initialize(
+        element = private$xmlElement, namespacePrefix = private$xmlNamespacePrefix,
+        attrs = list(typeNames = private$typeNames))
       if(!is(elementSetName, "character")){
         stop("The argument 'elementSetName' should be an object of class 'character'")
       }
@@ -95,10 +99,9 @@ CSWQuery <-  R6Class("CSWQuery",
     #setServiceVersion
     setServiceVersion = function(serviceVersion){
       nsVersion <- ifelse(serviceVersion=="3.0.0", "3.0", serviceVersion)
-      private$xmlNamespace = paste(private$xmlNamespaceBase, nsVersion, sep="/")
-      names(private$xmlNamespace) <- ifelse(serviceVersion=="3.0.0", "csw30", "csw")
+      private$xmlNamespacePrefix = paste(private$xmlNamespacePrefix, gsub("\\.", "_", nsVersion), sep="_")
       if(private$typeNames == "csw:Record" && serviceVersion=="3.0.0"){
-        private$typeNames <- paste0(names(private$xmlNamespace),":Record")
+        private$typeNames <- "csw30:Record"
       }
     }
     

@@ -8,7 +8,7 @@
 #'
 #' @section Methods:
 #' \describe{
-#'  \item{\code{new(op, url, serviceVersion, user, pwd, token, id, elementSetName, logger, ...)}}{
+#'  \item{\code{new(capabilities, op, url, serviceVersion, user, pwd, token, headers, id, elementSetName, logger, ...)}}{
 #'    This method is used to instantiate a CSWGetRecordById object
 #'  }
 #' }
@@ -18,10 +18,10 @@
 #' @author Emmanuel Blondel <emmanuel.blondel1@@gmail.com>
 #'
 CSWGetRecordById <- R6Class("CSWGetRecordById",
-    inherit = OWSRequest,
+    inherit = OWSHttpRequest,
     private = list(
       xmlElement = "GetRecordById",
-      xmlNamespace = c(csw = "http://www.opengis.net/cat/csw"),
+      xmlNamespacePrefix = "CSW",
       defaultAttrs = list(
         service = "CSW",
         version = "2.0.2",
@@ -31,8 +31,8 @@ CSWGetRecordById <- R6Class("CSWGetRecordById",
     public = list(
       Id = NA,
       ElementSetName = "full",
-      initialize = function(op, url, serviceVersion = "2.0.2",
-                            user = NULL, pwd = NULL, token = NULL,
+      initialize = function(capabilities, op, url, serviceVersion = "2.0.2",
+                            user = NULL, pwd = NULL, token = NULL, headers = headers,
                             id, elementSetName = "full", logger = NULL, ...) {
         self$Id = id
         allowedElementSetNames <- c("full", "brief", "summary")
@@ -41,14 +41,15 @@ CSWGetRecordById <- R6Class("CSWGetRecordById",
                        paste(allowedElementSetNames, collapse=",")))
         }
         self$ElementSetName = elementSetName
-        super$initialize(op, "POST", url, request = private$xmlElement,
-                         user = user, pwd = pwd, token = token,
-                         contentType = "text/xml", mimeType = "text/xml",
-                         logger = logger, ...)
         
         nsVersion <- ifelse(serviceVersion=="3.0.0", "3.0", serviceVersion)
-        private$xmlNamespace = paste(private$xmlNamespace, nsVersion, sep="/")
-        names(private$xmlNamespace) <- ifelse(serviceVersion=="3.0.0", "csw30", "csw")
+        private$xmlNamespacePrefix = paste(private$xmlNamespacePrefix, gsub("\\.", "_", nsVersion), sep="_")
+        
+        super$initialize(element = private$xmlElement, namespacePrefix = private$xmlNamespacePrefix,
+                         capabilities, op, "POST", url, request = "GetRecordById",
+                         user = user, pwd = pwd, token = token, headers = headers,
+                         contentType = "text/xml", mimeType = "text/xml",
+                         logger = logger, ...)
         
         self$attrs <- private$defaultAttrs
         
@@ -66,6 +67,7 @@ CSWGetRecordById <- R6Class("CSWGetRecordById",
         self$execute()
         
         #check response in case of ISO
+        ns <- getOWSNamespace(private$xmlNamespacePrefix)
         outputSchema <- self$attrs$outputSchema
         isoSchemas <- c("http://www.isotc211.org/2005/gmd","http://www.isotc211.org/2005/gfc")
         if(outputSchema %in% isoSchemas){
@@ -110,7 +112,7 @@ CSWGetRecordById <- R6Class("CSWGetRecordById",
             warnings(warnMsg)
             self$WARN(warnMsg)
             self$WARN("Dublin Core returned as R list...")
-            recordsXML <- getNodeSet(private$response, "//csw:Record", private$xmlNamespace[1])
+            recordsXML <- getNodeSet(private$response, "//csw:Record", unlist(ns$getDefinition()))
             if(length(recordsXML)>0){
               recordXML <- recordsXML[[1]]
               children <- xmlChildren(recordXML)
@@ -125,7 +127,7 @@ CSWGetRecordById <- R6Class("CSWGetRecordById",
             warnings(warnMsg)
             self$WARN(warnMsg)
             self$WARN("Dublin Core returned as R list...")
-            recordsXML <- getNodeSet(private$response, "//csw30:Record", private$xmlNamespace[1])
+            recordsXML <- getNodeSet(private$response, "//csw30:Record", unlist(ns$getDefinition()))
             if(length(recordsXML)>0){
               recordXML <- recordsXML[[1]]
               children <- xmlChildren(recordXML)

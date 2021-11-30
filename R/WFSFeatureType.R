@@ -34,7 +34,7 @@
 #'    the output will be an object of class \code{data.frame}
 #'  }
 #'  \item{\code{getFeatures()}}{
-#'    Get features
+#'    Get features.
 #'  }
 #' }
 #' 
@@ -202,7 +202,10 @@ WFSFeatureType <- R6Class("WFSFeatureType",
           stop("Operation 'DescribeFeatureType' not supported by this service")
         }
       }
-      ftDescription <- WFSDescribeFeatureType$new(op = op, private$url, private$version, private$name, logger = self$loggerType)
+      client = private$capabilities$getClient()
+      ftDescription <- WFSDescribeFeatureType$new(private$capabilities, op = op, private$url, private$version, private$name, 
+                                                  user = client$getUser(), pwd = client$getPwd(), token = client$getToken(), headers = client$getHeaders(),
+                                                  logger = self$loggerType)
       xmlObj <- ftDescription$getResponse()
       namespaces <- OWSUtils$getNamespaces(xmlObj)
       xsdNs <- OWSUtils$findNamespace(namespaces, "XMLSchema")
@@ -215,9 +218,9 @@ WFSFeatureType <- R6Class("WFSFeatureType",
           out_element <- data.frame(
             name = element$getName(),
             type = element$getType(),
-            minOccurs = element$getMinOccurs(),
-            maxOccurs = element$getMaxOccurs(),
-            nillable = element$isNillable(),
+            minOccurs = ifelse(!is.null(element$getMinOccurs()), element$getMinOccurs(), NA),
+            maxOccurs = ifelse(!is.null(element$getMaxOccurs()), element$getMaxOccurs(), NA),
+            nillable = ifelse(!is.null(element$isNillable()), element$isNillable(), NA),
             stringsAsFactors = FALSE
           )
           return(out_element)
@@ -227,7 +230,50 @@ WFSFeatureType <- R6Class("WFSFeatureType",
     },
     
     #getFeatures
-    getFeatures = function(...){
+    getFeatures = function(..., 
+                           outputFormat = NULL,
+                           paging = FALSE, paging_length = 1000,
+                           parallel = FALSE, parallel_handler = NULL, cl = NULL){
+      
+      #getdescription
+      if(is.null(self$description)){
+        self$description = self$getDescription()
+      }
+      
+      vendorParams <- list(...)
+      
+      if(paging){
+        hitParams <- vendorParams
+        hitParams$resulttype <- "hits"
+        hits <- do.call(self$getFeatures, hitParams)
+        numberMatched <- as.integer(hits$numberMatched)
+        startIndexes <- seq(from = 0, to = numberMatched, by = paging_length)
+        getFeaturesPaging <- function(startIndex, self){
+          pageParams <- vendorParams
+          pageParams$startIndex <- startIndex
+          pageParams$sortBy <- self$description[sapply(self$description, function(x){x$getType()!="geometry"})][[1]]$getName()
+          pageParams$count <- paging_length
+          pageParams$outputFormat <- outputFormat
+          do.call(self$getFeatures, pageParams)
+        }
+        out <- NULL
+        if(parallel){
+          if(is.null(parallel_handler)){
+            errMsg = "No 'parallel_handler' defined to get features in parallel"
+            self$ERROR(errMsg)
+            stop(errMsg)
+          }
+          if(!is.null(cl)){
+            out <- do.call("rbind", parallel_handler(cl, startIndexes, getFeaturesPaging, self))
+          }else{
+            out <- do.call("rbind", parallel_handler(startIndexes, getFeaturesPaging, self))
+          }
+        }else{
+          out <- do.call("rbind", lapply(startIndexes, getFeaturesPaging, self))
+        }
+        return(out)
+      }
+      
       op <- NULL
       operations <- private$capabilities$getOperationsMetadata()$getOperations()
       if(length(operations)>0){
@@ -238,16 +284,18 @@ WFSFeatureType <- R6Class("WFSFeatureType",
           stop("Operation 'GetFeature' not supported by this service")
         }
       }
-      ftFeatures <- WFSGetFeature$new(op = op, private$url, private$version, private$name, logger = self$loggerType, ...)
-      xmlObj <- ftFeatures$getResponse()
+      client = private$capabilities$getClient()
+      ftFeatures <- WFSGetFeature$new(private$capabilities, op = op, private$url, private$version, private$name, outputFormat = outputFormat, 
+                                      user = client$getUser(), pwd = client$getPwd(), token = client$getToken(), headers = client$getHeaders(),
+                                      logger = self$loggerType, ...)
+      obj <- ftFeatures$getResponse()
       
-      vendorParams <- list(...)
       if(length(vendorParams)>0){
         names(vendorParams) <- tolower(names(vendorParams))
         if("resulttype" %in% names(vendorParams)){
           resultType = vendorParams[["resulttype"]]
           if(resultType == "hits"){
-            hits <- xmlAttrs(xmlRoot(xmlObj))
+            hits <- xmlAttrs(xmlRoot(obj))
             hits <- as.list(hits)
             hits <- hits[sapply(names(hits), function(x){x %in% c("numberOfFeatures", "numberMatched", "numberReturned", "timeStamp")})]
             return(hits)
@@ -256,55 +304,39 @@ WFSFeatureType <- R6Class("WFSFeatureType",
       }
       
       #write the file to disk
-      tempf = tempfile() 
-      destfile = paste(tempf,".gml",sep='')
-      saveXML(xmlObj, destfile)
-      
-      #hasGeometry?
-      hasGeometry = FALSE
-      if(is.null(self$description)){
-        self$description = self$getDescription()
-      }
-      for(element in self$description){
-        if(element$getType() == "geometry"){
-          hasGeometry = TRUE
-          break
-        }
-      }
-      
-      #ftFeatures
-      if(hasGeometry){
-        ftFeatures <- sf::st_read(destfile, quiet = TRUE)
-        if(is.null(st_crs(ftFeatures))){
-          st_crs(ftFeatures) <- self$getDefaultCRS()
-        }
+      tempf = tempfile()
+      if(is.null(outputFormat)){
+        destfile = paste0(tempf,".gml")
+        saveXML(obj, destfile)
       }else{
-        if(private$version == "1.0.0"){
-          membersContent <- sapply(getNodeSet(xmlObj, "//gml:featureMember"), function(x) xmlChildren(x))
-          fid <- sapply(membersContent, function(x) xmlAttrs(x))
-          membersAttributes <- xmlToDataFrame(
-            nodes = getNodeSet(xmlObj, "//gml:featureMember/*[@*]"),
-            stringsAsFactors = FALSE
-          )
-          
-        }else if(private$version == "1.1.0"){
-          membersContent <- xmlChildren(getNodeSet(xmlObj, "//gml:featureMembers")[[1]])
-          fid <- sapply(membersContent, function(x) xmlAttrs(x))
-          membersAttributes <- xmlToDataFrame(
-            nodes = getNodeSet(xmlObj, "//gml:featureMembers/*[@*]"),
-            stringsAsFactors = FALSE
-          )
-          
-        }else if(private$version == "2.0.0"){
-          membersContent <- sapply(getNodeSet(xmlObj, "//wfs:member"), function(x) xmlChildren(x))
-          fid <- sapply(membersContent, function(x) xmlAttrs(x))
-          membersAttributes <- xmlToDataFrame(
-            nodes = getNodeSet(xmlObj, "//wfs:member/*[@*]"),
-            stringsAsFactors = FALSE
-          )
-        }
-        
-        ftFeatures <- cbind(fid, membersAttributes, stringsAsFactors = FALSE)
+        switch(tolower(outputFormat),
+          "gml2" = {
+            destfile = paste0(tempf,".gml")
+            saveXML(obj, destfile)
+          },
+          "gml3" = {
+            destfile = paste0(tempf,".gml")
+            saveXML(obj, destfile)
+          },
+          "application/json" = {
+            destfile = paste0(tempf,".json")
+            write(obj, destfile)
+          },
+          "json" = {
+            destfile = paste0(tempf,".json")
+            write(obj, destfile)
+          },
+          "csv" = {
+            destfile = paste0(tempf,".csv")
+            write(obj, destfile)
+          }
+        )
+      }
+      
+      #read features
+      ftFeatures <- sf::st_read(destfile, quiet = TRUE)
+      if(is.null(st_crs(ftFeatures))){
+        st_crs(ftFeatures) <- self$getDefaultCRS()
       }
       
       #validating attributes vs. schema
@@ -321,7 +353,7 @@ WFSFeatureType <- R6Class("WFSFeatureType",
           }
         }
       }
-      self$features <- ftFeatures;
+      self$features <- ftFeatures
       return(self$features)
     }
   )

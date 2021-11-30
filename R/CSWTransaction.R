@@ -8,7 +8,8 @@
 #'
 #' @section Methods:
 #' \describe{
-#'  \item{\code{new(url, version, id)}}{
+#'  \item{\code{new(capabilities, op, url, serviceVersion, type, user, pwd, token, headers,
+#'                  record, recordProperty, constraint, logger, ...)}}{
 #'    This method is used to instantiate a CSWTransaction object
 #'  }
 #' }
@@ -19,26 +20,27 @@
 #'
 CSWTransaction <- R6Class("CSWTransaction",
   lock_objects = FALSE,
-  inherit = OWSRequest, 
+  inherit = OWSHttpRequest, 
   private = list(
     xmlElement = "Transaction",
-    xmlNamespace = c(csw = "http://www.opengis.net/cat/csw")
+    xmlNamespacePrefix = "CSW"
   ),
   public = list(
-    initialize = function(op, url, serviceVersion, type, user = NULL, pwd = NULL, token = NULL,
+    initialize = function(capabilities, op, url, serviceVersion, type, 
+                          user = NULL, pwd = NULL, token = NULL, headers = list(),
                           record = NULL, recordProperty = NULL, constraint = NULL,
                           logger = NULL, ...) {
       nsVersion <- ifelse(serviceVersion=="3.0.0", "3.0", serviceVersion)
-      private$xmlNamespace = paste(private$xmlNamespace, nsVersion, sep="/")
-      names(private$xmlNamespace) <- ifelse(serviceVersion=="3.0.0", "csw30", "csw")
+      private$xmlNamespacePrefix = paste(private$xmlNamespacePrefix, gsub("\\.", "_", nsVersion), sep="_")
       
       self[[type]] = list(
         record = record,
         recordProperty = recordProperty,
         constraint = constraint
       )
-      super$initialize(op, "POST", url, request = private$xmlElement,
-                       user = user, pwd = pwd, token = token,
+      super$initialize(element = private$xmlElement, namespacePrefix = private$xmlNamespacePrefix,
+                       capabilities, op, "POST", url, request = private$xmlElement,
+                       user = user, pwd = pwd, token = token, headers = headers,
                        contentType = "text/xml", mimeType = "text/xml",
                        logger = logger, ...)
       self$wrap <- TRUE

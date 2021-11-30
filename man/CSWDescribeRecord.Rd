@@ -4,9 +4,8 @@
 \name{CSWDescribeRecord}
 \alias{CSWDescribeRecord}
 \title{CSWDescribeRecord}
-\format{\code{\link{R6Class}} object.}
-\usage{
-CSWDescribeRecord
+\format{
+\code{\link{R6Class}} object.
 }
 \value{
 Object of \code{\link{R6Class}} for modelling a CSW DescribeRecord request
@@ -20,7 +19,7 @@ Class used internally by \pkg{ows4R} to trigger a CSW DescribeRecord request
 \section{Methods}{
 
 \describe{
- \item{\code{new(url, version, namespace, ...)}}{
+ \item{\code{new(capabilities, op, url, version, namespace, logger, ...)}}{
    This method is used to instantiate a CSWDescribeRecord object
  }
 }

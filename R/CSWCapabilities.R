@@ -6,17 +6,11 @@
 #' @return Object of \code{\link{R6Class}} with methods for interfacing an OGC
 #' Catalogue Service for the Web (CSW) Get Capabilities document.
 #' @format \code{\link{R6Class}} object.
-#' 
-#' @examples
-#' \donttest{
-#'    #example based on CSW endpoint responding at http://localhost:8000/csw
-#'    caps <- CSWCapabilities$new("http://localhost:8000/geonetwork/csw", version = "2.0.2")
-#' }
 #'
 #' @section Methods:
 #' \describe{
-#'  \item{\code{new(url, version, logger)}}{
-#'    This method is used to instantiate a WFSGetCapabilities object
+#'  \item{\code{new(url, version, client logger)}}{
+#'    This method is used to instantiate a \code{CSWCapabilities} object
 #'  }
 #' }
 #' 
@@ -27,17 +21,23 @@
 #'
 CSWCapabilities <- R6Class("CSWCapabilities",
    inherit = OWSCapabilities,
-   private = list(),
+   private = list(
+      xmlElement = "Capabilities",
+      xmlNamespacePrefix = "CSW"
+   ),
    public = list(
      
      #initialize
-     initialize = function(url, version, logger = NULL) {
+     initialize = function(url, version, client = NULL, logger = NULL, ...) {
        owsVersion <- switch(version,
          "2.0.2" = "1.1",
          "3.0.0" = "2.0"
        )
-       super$initialize(url, service = "CSW", serviceVersion = version,
-                        owsVersion = owsVersion, logger = logger)
+       private$xmlNamespacePrefix <- paste0(private$xmlNamespacePrefix,"_",gsub("\\.","_",version))
+       super$initialize(
+          element = private$xmlElement, namespacePrefix = private$xmlNamespacePrefix,
+          url, service = "CSW", owsVersion = owsVersion, serviceVersion = version, 
+          logger = logger, ...)
        xmlObj <- self$getRequest()$getResponse()
      }
    )

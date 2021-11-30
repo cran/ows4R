@@ -4,9 +4,8 @@
 \name{WFSCapabilities}
 \alias{WFSCapabilities}
 \title{WFSCapabilities}
-\format{\code{\link{R6Class}} object.}
-\usage{
-WFSCapabilities
+\format{
+\code{\link{R6Class}} object.
 }
 \value{
 Object of \code{\link{R6Class}} with methods for interfacing an OGC
@@ -22,7 +21,7 @@ recommended instead to benefit from the full set of capabilities associated to a
 \section{Methods}{
 
 \describe{
- \item{\code{new(url, version)}}{
+ \item{\code{new(url, version, logger)}}{
    This method is used to instantiate a WFSGetCapabilities object
  }
  \item{\code{getFeatureTypes(pretty)}}{
@@ -35,13 +34,6 @@ recommended instead to benefit from the full set of capabilities associated to a
 }
 }
 
-\examples{
-\donttest{
-   #example based on CSW endpoint responding at http://localhost:8080/geoserver/wfs
-   caps <- WFSCapabilities$new("http://localhost:8080/geoserver/wfs", version = "1.1.1")
-}
-
-}
 \author{
 Emmanuel Blondel <emmanuel.blondel1@gmail.com>
 }

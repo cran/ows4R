@@ -4,9 +4,8 @@
 \name{CSWRecordProperty}
 \alias{CSWRecordProperty}
 \title{CSWRecordProperty}
-\format{\code{\link{R6Class}} object.}
-\usage{
-CSWRecordProperty
+\format{
+\code{\link{R6Class}} object.
 }
 \value{
 Object of \code{\link{R6Class}} for modelling an CSW RecordProperty
@@ -17,7 +16,7 @@ CSWRecordProperty
 \section{Methods}{
 
 \describe{
- \item{\code{new(name, value)}}{
+ \item{\code{new(name, value, cswVersion)}}{
    This method is used to instantiate an CSWRecordProperty object.
  }
 }

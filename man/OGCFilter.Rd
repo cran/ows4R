@@ -4,9 +4,8 @@
 \name{OGCFilter}
 \alias{OGCFilter}
 \title{OGCFilter}
-\format{\code{\link{R6Class}} object.}
-\usage{
-OGCFilter
+\format{
+\code{\link{R6Class}} object.
 }
 \value{
 Object of \code{\link{R6Class}} for modelling an OGC Filter
@@ -17,9 +16,12 @@ OGCFilter
 \section{Methods}{
 
 \describe{
- \item{\code{new(expr)}}{
+ \item{\code{new(expr, filterVersion)}}{
    This method is used to instantiate an OGCFilter object. The unique
    argument should be an object of class \code{\link{OGCExpression}}
+ }
+ \item{\code{setFilterVersion(filterVersion)}}{
+   Set filter version
  }
 }
 }

@@ -4,9 +4,8 @@
 \name{CSWGetRecordById}
 \alias{CSWGetRecordById}
 \title{CSWGetRecordById}
-\format{\code{\link{R6Class}} object.}
-\usage{
-CSWGetRecordById
+\format{
+\code{\link{R6Class}} object.
 }
 \value{
 Object of \code{\link{R6Class}} for modelling a CSW GetRecordById request
@@ -20,7 +19,7 @@ Class used internally by \pkg{ows4R} to trigger a CSW GetRecordById request
 \section{Methods}{
 
 \describe{
- \item{\code{new(op, url, serviceVersion, user, pwd, token, id, elementSetName, logger, ...)}}{
+ \item{\code{new(capabilities, op, url, serviceVersion, user, pwd, token, headers, id, elementSetName, logger, ...)}}{
    This method is used to instantiate a CSWGetRecordById object
  }
 }

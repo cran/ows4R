@@ -4,9 +4,8 @@
 \name{OWSServiceProvider}
 \alias{OWSServiceProvider}
 \title{OWSServiceProvider}
-\format{\code{\link{R6Class}} object.}
-\usage{
-OWSServiceProvider
+\format{
+\code{\link{R6Class}} object.
 }
 \value{
 Object of \code{\link{R6Class}} for modelling an OGC Service Provider
@@ -20,7 +19,7 @@ Abstract class used internally by \pkg{ows4R}
 \section{Methods}{
 
 \describe{
- \item{\code{new(xmlObj, version)}}{
+ \item{\code{new(xmlObj, owsVersion, serviceVersion)}}{
    This method is used to instantiate a OWSServiceProvider object
  }
  \item{\code{getProviderName()}}{

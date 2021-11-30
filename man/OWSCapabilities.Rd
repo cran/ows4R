@@ -4,9 +4,8 @@
 \name{OWSCapabilities}
 \alias{OWSCapabilities}
 \title{OWSGetCapabilities}
-\format{\code{\link{R6Class}} object.}
-\usage{
-OWSCapabilities
+\format{
+\code{\link{R6Class}} object.
 }
 \value{
 Object of \code{\link{R6Class}} with methods for interfacing an abstract
@@ -21,8 +20,11 @@ abstract class used by \pkg{ows4R}
 \section{Methods}{
 
 \describe{
- \item{\code{new(url, service, serviceVersion, owsVersion, logger)}}{
+ \item{\code{new(url, service,  owsVersion, serviceVersion, logger, ...)}}{
    This method is used to instantiate a OWSGetCapabilities object
+ }
+ \item{\code{setClient(client)}}{
+   Internal method to self-assign the parent client
  }
  \item{\code{getUrl()}}{
    Get URL

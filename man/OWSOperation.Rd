@@ -4,9 +4,8 @@
 \name{OWSOperation}
 \alias{OWSOperation}
 \title{OWSOperation}
-\format{\code{\link{R6Class}} object.}
-\usage{
-OWSOperation
+\format{
+\code{\link{R6Class}} object.
 }
 \value{
 Object of \code{\link{R6Class}} for modelling an OGC Operation
@@ -20,7 +19,7 @@ Abstract class used internally by \pkg{ows4R}
 \section{Methods}{
 
 \describe{
- \item{\code{new(xmlObj, serviceVersion)}}{
+ \item{\code{new(xmlObj, owsVersion, serviceVersion)}}{
    This method is used to instantiate an OWSOperation object
  }
  \item{\code{getName()}}{

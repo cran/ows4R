@@ -6,8 +6,14 @@
 #' @format \code{\link{R6Class}} object.
 #' @section Methods:
 #' \describe{
-#'  \item{\code{new()}}{
-#'    This method is used to instantiate an OGCExpression object
+#'  \item{\code{new(element, namespacePrefix, attrs, defaults, exprVersion)}}{
+#'    This method is used to instantiate an \code{OGCExpression} object
+#'  }
+#'  \item{\code{setExprVersion(exprVersion)}}{
+#'    Set expression version
+#'  }
+#'  \item{\code{getExprVersion()}}{
+#'    Get expression version
 #'  }
 #' }
 #' 
@@ -18,25 +24,22 @@
 OGCExpression <-  R6Class("OGCExpression",
    inherit = OGCAbstractObject,
    private = list(
-     exprVersion = "1.1.0",
-     xmlNamespaceBase = "http://www.opengis.net/ogc",
-     xmlNamespace = c(ogc = "http://www.opengis.net/ogc")
+     exprVersion = "1.1.0"
    ),
    public = list(
-     initialize = function(attrs = NULL, defaults = NULL, exprVersion = "1.1.0"){
+     initialize = function(element, namespacePrefix, attrs = NULL, defaults = NULL, exprVersion = "1.1.0"){
        self$setExprVersion(exprVersion)
-       super$initialize(attrs,defaults)
+       super$initialize(element = element, namespacePrefix = namespacePrefix,
+                        attrs = attrs, defaults = defaults)
      },
      
      #setExprVersion
      setExprVersion = function(exprVersion) {
        private$exprVersion = exprVersion
        if(exprVersion=="2.0"){
-         private$xmlNamespace = "http://www.opengis.net/fes/2.0"
-         names(private$xmlNamespace) <- "fes"
+         private$xmlNamespacePrefix <- "FES"
        }else{
-         private$xmlNamespace = private$xmlNamepaceBase
-         names(private$xmlNamespace) = "ogc"
+         private$xmlNamespacePrefix <- "OGC"
        }
      },
      
@@ -55,7 +58,7 @@ OGCExpression <-  R6Class("OGCExpression",
 #' @format \code{\link{R6Class}} object.
 #' @section Methods:
 #' \describe{
-#'  \item{\code{new(PropertyName, Literal, matchCase)}}{
+#'  \item{\code{new(element, namespacePrefix, PropertyName, Literal, matchCase)}}{
 #'    This method is used to instantiate an BinaryComparisonOpType
 #'  }
 #' }
@@ -69,7 +72,8 @@ BinaryComparisonOpType <-  R6Class("BinaryComparisonOpType",
     PropertyName = NULL,
     Literal = NULL,
     attrs = list(matchCase = NA),
-    initialize = function(PropertyName, Literal, matchCase = NA){
+    initialize = function(element, namespacePrefix, PropertyName, Literal, matchCase = NA){
+      super$initialize(element = element, namespacePrefix = namespacePrefix)
       self$PropertyName = PropertyName
       self$Literal = Literal
       self$attrs$matchCase = matchCase
@@ -98,10 +102,16 @@ BinaryComparisonOpType <-  R6Class("BinaryComparisonOpType",
 #' 
 PropertyIsEqualTo <-R6Class("PropertyIsEqualTo",
   inherit = BinaryComparisonOpType,
-  private = list(xmlElement = "PropertyIsEqualTo"),
+  private = list(
+    xmlElement = "PropertyIsEqualTo",
+    xmlNamespacePrefix = "OGC"
+  ),
   public = list(
     initialize = function(PropertyName, Literal, matchCase = NA){
-      super$initialize(PropertyName, Literal, matchCase)
+      super$initialize(
+        element = private$xmlElement, namespacePrefix = private$xmlNamespacePrefix,
+        PropertyName, Literal, matchCase
+      )
     }
   )
 )
@@ -127,10 +137,16 @@ PropertyIsEqualTo <-R6Class("PropertyIsEqualTo",
 #'
 PropertyIsNotEqualTo <-R6Class("PropertyIsNotEqualTo",
   inherit = BinaryComparisonOpType,
-  private = list(xmlElement = "PropertyIsNotEqualTo"),
+  private = list(
+    xmlElement = "PropertyIsNotEqualTo",
+    xmlNamespacePrefix = "OGC"
+  ),
   public = list(
     initialize = function(PropertyName, Literal, matchCase = NA){
-      super$initialize(PropertyName, Literal, matchCase)
+      super$initialize(
+        element = private$xmlElement, namespacePrefix = private$xmlNamespacePrefix,
+        PropertyName, Literal, matchCase
+      )
     }
   )
 )
@@ -156,10 +172,16 @@ PropertyIsNotEqualTo <-R6Class("PropertyIsNotEqualTo",
 #' 
 PropertyIsLessThan <-R6Class("PropertyIsLessThan",
    inherit = BinaryComparisonOpType,
-   private = list(xmlElement = "PropertyIsLessThan"),
+   private = list(
+     xmlElement = "PropertyIsLessThan",
+     xmlNamespacePrefix = "OGC"
+   ),
    public = list(
      initialize = function(PropertyName, Literal, matchCase = NA){
-       super$initialize(PropertyName, Literal, matchCase)
+       super$initialize(
+         element = private$xmlElement, namespacePrefix = private$xmlNamespacePrefix,
+         PropertyName, Literal, matchCase
+       )
      }
    )
 )
@@ -185,10 +207,16 @@ PropertyIsLessThan <-R6Class("PropertyIsLessThan",
 #' 
 PropertyIsGreaterThan <-R6Class("PropertyIsGreaterThan",
    inherit = BinaryComparisonOpType,
-   private = list(xmlElement = "PropertyIsGreaterThan"),
+   private = list(
+     xmlElement = "PropertyIsGreaterThan",
+     xmlNamespacePrefix = "OGC"
+   ),
    public = list(
      initialize = function(PropertyName, Literal, matchCase = NA){
-       super$initialize(PropertyName, Literal, matchCase)
+       super$initialize(
+         element = private$xmlElement, namespacePrefix = private$xmlNamespacePrefix,
+         PropertyName, Literal, matchCase
+       )
      }
    )
 )
@@ -214,10 +242,16 @@ PropertyIsGreaterThan <-R6Class("PropertyIsGreaterThan",
 #' 
 PropertyIsLessThanOrEqualTo <-R6Class("PropertyIsLessThanOrEqualTo",
  inherit = BinaryComparisonOpType,
- private = list(xmlElement = "PropertyIsLessThanOrEqualTo"),
+ private = list(
+   xmlElement = "PropertyIsLessThanOrEqualTo",
+   xmlNamespacePrefix = "OGC"
+ ),
  public = list(
    initialize = function(PropertyName, Literal, matchCase = NA){
-     super$initialize(PropertyName, Literal, matchCase)
+     super$initialize(
+       element = private$xmlElement, namespacePrefix = private$xmlNamespacePrefix,
+       PropertyName, Literal, matchCase
+     )
    }
  )
 )
@@ -243,10 +277,16 @@ PropertyIsLessThanOrEqualTo <-R6Class("PropertyIsLessThanOrEqualTo",
 #' 
 PropertyIsGreaterThanOrEqualTo <-R6Class("PropertyIsGreaterThanOrEqualTo",
   inherit = BinaryComparisonOpType,
-  private = list(xmlElement = "PropertyIsGreaterThanOrEqualTo"),
+  private = list(
+    xmlElement = "PropertyIsGreaterThanOrEqualTo",
+    xmlNamespacePrefix = "OGC"
+  ),
   public = list(
     initialize = function(PropertyName, Literal, matchCase = NA){
-      super$initialize(PropertyName, Literal, matchCase)
+      super$initialize(
+        element = private$xmlElement, namespacePrefix = private$xmlNamespacePrefix,
+        PropertyName, Literal, matchCase
+      )
     }
   )
 )
@@ -273,7 +313,10 @@ PropertyIsGreaterThanOrEqualTo <-R6Class("PropertyIsGreaterThanOrEqualTo",
 #' 
 PropertyIsLike <-  R6Class("PropertyIsLike",
    inherit = OGCExpression,
-   private = list(xmlElement = "PropertyIsLike"),
+   private = list(
+     xmlElement = "PropertyIsLike",
+     xmlNamespacePrefix = "OGC"
+   ),
    public = list(
      PropertyName = NULL,
      Literal = NULL,
@@ -285,6 +328,7 @@ PropertyIsLike <-  R6Class("PropertyIsLike",
      ),
      initialize = function(PropertyName, Literal,
                            escapeChar = "\\", singleChar = "_", wildCard = "%", matchCase = NA){
+       super$initialize(element = private$xmlElement, namespacePrefix = private$xmlNamespacePrefix)
        self$PropertyName = PropertyName
        self$Literal = Literal
        self$attrs = list(
@@ -318,10 +362,14 @@ PropertyIsLike <-  R6Class("PropertyIsLike",
 #' 
 PropertyIsNull <-  R6Class("PropertyIsNull",
    inherit = OGCExpression,
-   private = list(xmlElement = "PropertyIsNull"),
+   private = list(
+     xmlElement = "PropertyIsNull",
+     xmlNamespacePrefix = "OGC"
+   ),
    public = list(
      PropertyName = NULL,
      initialize = function(PropertyName){
+       super$initialize(element = private$xmlElement, namespacePrefix = private$xmlNamespacePrefix)
        self$PropertyName = PropertyName
      }
    )
@@ -348,12 +396,16 @@ PropertyIsNull <-  R6Class("PropertyIsNull",
 #'
 PropertyIsBetween <-  R6Class("PropertyIsBetween",
    inherit = OGCExpression,
-   private = list(xmlElement = "PropertyIsBetween"),
+   private = list(
+     xmlElement = "PropertyIsBetween",
+     xmlNamespacePrefix = "OGC"
+   ),
    public = list(
      PropertyName = NULL,
      lower = NULL,
      upper = NULL,
      initialize = function(PropertyName, lower, upper){
+       super$initialize(element = private$xmlElement, namespacePrefix = private$xmlNamespacePrefix)
        self$PropertyName = PropertyName
        self$lower = lower
        self$upper = upper
@@ -383,16 +435,20 @@ PropertyIsBetween <-  R6Class("PropertyIsBetween",
 #'
 BBOX <-  R6Class("BBOX",
   inherit = OGCExpression,
-  private = list(xmlElement = "BBOX"),
+  private = list(
+    xmlElement = "BBOX",
+    xmlNamespacePrefix = "OGC"
+  ),
   public = list(
     PropertyName = "ows:BoundingBox",
     Envelope = NULL,
     initialize = function(bbox, srsName = NULL){
+      super$initialize(element = private$xmlElement, namespacePrefix = private$xmlNamespacePrefix)
       envelope <- GMLEnvelope$new(bbox = bbox, srsName = srsName)
       envelope$wrap <- FALSE
-      gmlNS <- envelope$getNamespaceDefinition()
-      private$xmlNamespace = c(private$xmlNamespace, ns = gmlNS$gml)
-      names(private$xmlNamespace)[length(private$xmlNamespace)] <- names(gmlNS)
+      #gmlNS <- envelope$getNamespaceDefinition()
+      #private$xmlNamespace = c(private$xmlNamespace, ns = gmlNS$gml)
+      #names(private$xmlNamespace)[length(private$xmlNamespace)] <- names(gmlNS)
       self$Envelope = envelope
     }
   )
@@ -417,18 +473,20 @@ BinaryLogicOpType <-  R6Class("BinaryLogicOpType",
    inherit = OGCExpression,
    public = list(
      operations = list(),
-     initialize = function(...){
+     initialize = function(..., element, namespacePrefix, exprVersion = "1.1.0"){
+       super$initialize(element = element, namespacePrefix = namespacePrefix, exprVersion = exprVersion)
        operations <- list(...)
        if(length(operations)<2){
          stop("Binary operations (And / Or) require a minimum of two operations")
        }
        self$operations = operations
+       self$setExprVersion(exprVersion)
      },
      
      #setExprVersion
      setExprVersion = function(exprVersion){
        private$exprVersion <- exprVersion
-       for(i in 1:length(self$operations)){
+       if(length(self$operations)>0) for(i in 1:length(self$operations)){
          self$operations[[i]]$setExprVersion(exprVersion)
        }
      }
@@ -458,10 +516,13 @@ BinaryLogicOpType <-  R6Class("BinaryLogicOpType",
 #' 
 And <-  R6Class("And",
   inherit = BinaryLogicOpType,
-  private = list(xmlElement = "And"),
+  private = list(
+    xmlElement = "And",
+    xmlNamespacePrefix = "OGC"
+  ),
   public = list(
     initialize = function(...){
-      super$initialize(...)
+      super$initialize(..., element = private$xmlElement, namespacePrefix = private$xmlNamespacePrefix)
     }
   )
 )
@@ -489,10 +550,13 @@ And <-  R6Class("And",
 #' 
 Or <-  R6Class("Or",
   inherit = BinaryLogicOpType,
-  private = list(xmlElement = "Or"),
+  private = list(
+    xmlElement = "Or",
+    xmlNamespacePrefix = "OGC"
+  ),
   public = list(
     initialize = function(...){
-      super$initialize(...)
+      super$initialize(..., element = private$xmlElement, namespacePrefix = private$xmlNamespacePrefix)
     }
   )
 )
@@ -516,14 +580,16 @@ UnaryLogicOpType <-  R6Class("UnaryLogicOpType",
   inherit = OGCExpression,
   public = list(
     operations = list(),
-    initialize = function(...){
+    initialize = function(..., element, namespacePrefix, exprVersion = "1.1.0"){
+      super$initialize(element = element, namespacePrefix = namespacePrefix, exprVersion = exprVersion)
       self$operations = list(...)
+      self$setExprVersion(exprVersion)
     },
     
     #setExprVersion
     setExprVersion = function(exprVersion){
       private$exprVersion <- exprVersion
-      for(i in 1:length(self$operations)){
+      if(length(self$operations)>0) for(i in 1:length(self$operations)){
         self$operations[[i]]$setExprVersion(exprVersion)
       }
     }
@@ -552,10 +618,13 @@ UnaryLogicOpType <-  R6Class("UnaryLogicOpType",
 #' 
 Not <-  R6Class("Not",
    inherit = UnaryLogicOpType,
-   private = list(xmlElement = "Not"),
+   private = list(
+     xmlElement = "Not",
+     xmlNamespacePrefix = "OGC"
+   ),
    public = list(
      initialize = function(...){
-       super$initialize(...)
+       super$initialize(..., element = private$xmlElement, namespacePrefix = private$xmlNamespacePrefix)
      }
    )
 )

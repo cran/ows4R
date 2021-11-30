@@ -4,9 +4,8 @@
 \name{OWSGetCapabilities}
 \alias{OWSGetCapabilities}
 \title{OWSGetCapabilities}
-\format{\code{\link{R6Class}} object.}
-\usage{
-OWSGetCapabilities
+\format{
+\code{\link{R6Class}} object.
 }
 \value{
 Object of \code{\link{R6Class}} for modelling a GetCapabilities request
@@ -20,7 +19,7 @@ Abstract class used internally by \pkg{ows4R}
 \section{Methods}{
 
 \describe{
- \item{\code{new(op, url, service, version)}}{
+ \item{\code{new(element, namespacePrefix, url, service, version, ...)}}{
    This method is used to instantiate a OWSGetCapabilities object
  }
 }

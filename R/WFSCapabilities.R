@@ -6,16 +6,10 @@
 #' @return Object of \code{\link{R6Class}} with methods for interfacing an OGC
 #' Web Feature Service Get Capabilities document.
 #' @format \code{\link{R6Class}} object.
-#' 
-#' @examples
-#' \donttest{
-#'    #example based on CSW endpoint responding at http://localhost:8080/geoserver/wfs
-#'    caps <- WFSCapabilities$new("http://localhost:8080/geoserver/wfs", version = "1.1.1")
-#' }
 #'
 #' @section Methods:
 #' \describe{
-#'  \item{\code{new(url, version)}}{
+#'  \item{\code{new(url, version, logger)}}{
 #'    This method is used to instantiate a WFSGetCapabilities object
 #'  }
 #'  \item{\code{getFeatureTypes(pretty)}}{
@@ -35,7 +29,8 @@
 WFSCapabilities <- R6Class("WFSCapabilities",
    inherit = OWSCapabilities,
    private = list(
-     
+     xmlElement = "Capabilities",
+     xmlNamespacePrefix = "WFS",
      featureTypes = NA,
 
      #fetchFeatureTypes
@@ -60,9 +55,11 @@ WFSCapabilities <- R6Class("WFSCapabilities",
    public = list(
      
      #initialize
-     initialize = function(url, version, logger = NULL) {
-       super$initialize(url, service = "WFS", serviceVersion = version,
-                        owsVersion = "1.1", logger = logger)
+     initialize = function(url, version, logger = NULL, ...) {
+       super$initialize(
+          element = private$xmlElement, namespacePrefix = private$namespacePrefix,
+          url, service = "WFS", owsVersion = "1.1", serviceVersion = version, logger = logger, 
+          ...)
        xmlObj <- self$getRequest()$getResponse()
        private$featureTypes = private$fetchFeatureTypes(xmlObj, version)
      },

@@ -9,10 +9,10 @@
 #' @import sf
 #' @import rgdal
 #' @import geometa
+#' @import parallel
 #' @export
 #' @keywords OGC Common OWS
-#' @return Object of \code{\link{R6Class}} with methods for interfacing
-#' a Common OGC web-service.
+#' @return Object of \code{\link{R6Class}} with methods for interfacing a Common OGC web-service.
 #' @format \code{\link{R6Class}} object.
 #'
 #' @field url the Base url of OWS service
@@ -22,9 +22,9 @@
 #' \describe{
 #'  \item{\code{new(url, service, serviceVersion, user, pwd, logger)}}{
 #'    This method is used to instantiate a OWSClient with the \code{url} of the
-#'    OGC service. Authentication (\code{user}/\code{pwd}) is not yet supported and will
-#'    be added with the support of service transactional modes. By default, the \code{logger}
-#'    argument will be set to \code{NULL} (no logger). This argument accepts two possible 
+#'    OGC service. Authentication is supported using basic auth (using \code{user}/\code{pwd} arguments), 
+#'    bearer token (using \code{token} argument), or custom (using \code{headers} argument). 
+#'    By default, the \code{logger} argument will be set to \code{NULL} (no logger). This argument accepts two possible 
 #'    values: \code{INFO}: to print only \pkg{ows4R} logs, \code{DEBUG}: to print more verbose logs
 #'  }
 #'  \item{\code{getUrl()}}{
@@ -35,6 +35,18 @@
 #'  }
 #'  \item{\code{getCapabilities()}}{
 #'    Get the service capabilities
+#'  }
+#'  \item{\code{getUser()}}{
+#'    Get user
+#'  }
+#'  \item{\code{getPwd()}}{
+#'    Get password
+#'  }
+#'  \item{\code{getToken()}}{
+#'    Get token
+#'  }
+#'  \item{\code{getHeaders()}}{
+#'    Get headers
 #'  }
 #' }
 #' 
@@ -51,7 +63,8 @@ OWSClient <- R6Class("OWSClient",
   private = list(
     user = NULL,
     pwd = NULL,
-    token = NULL
+    token = NULL,
+    headers = list()
   ),
 
   public = list(
@@ -63,7 +76,7 @@ OWSClient <- R6Class("OWSClient",
     
     #initialize
     initialize = function(url, service, serviceVersion,
-                          user = NULL, pwd = NULL, token = NULL,
+                          user = NULL, pwd = NULL, token = NULL, headers = c(),
                           logger = NULL) {
       
       #logger
@@ -77,6 +90,7 @@ OWSClient <- R6Class("OWSClient",
       private$user <- user
       private$pwd <- pwd
       private$token <- token
+      private$headers <- headers
     },
      
     #getUrl
@@ -107,6 +121,11 @@ OWSClient <- R6Class("OWSClient",
     #getToken
     getToken = function(){
       return(private$token)
+    },
+    
+    #getHeaders
+    getHeaders = function(){
+      return(private$headers)
     }
     
   )

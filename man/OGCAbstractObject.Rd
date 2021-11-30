@@ -4,9 +4,8 @@
 \name{OGCAbstractObject}
 \alias{OGCAbstractObject}
 \title{OGCAbstractObject}
-\format{\code{\link{R6Class}} object.}
-\usage{
-OGCAbstractObject
+\format{
+\code{\link{R6Class}} object.
 }
 \value{
 Object of \code{\link{R6Class}} for modelling an OGCAbstractObject
@@ -20,8 +19,17 @@ abstract class used by \pkg{ows4R}
 \section{Methods}{
 
 \describe{
- \item{\code{new()}}{
+ \item{\code{new(xml, element, namespacePrefix, attrs, defaults, wrap, logger)}}{
    This method is used to instantiate an OGCAbstractObject
+ }
+ \item{\code{getClassName()}}{
+   Get class name
+ }
+ \item{\code{getClass()}}{
+   Get class
+ }
+ \item{\code{encode(addNS, geometa_validate, geometa_inspire)}}{
+   Encode as XML
  }
 }
 }

@@ -4,9 +4,8 @@
 \name{OGCExpression}
 \alias{OGCExpression}
 \title{OGCExpression}
-\format{\code{\link{R6Class}} object.}
-\usage{
-OGCExpression
+\format{
+\code{\link{R6Class}} object.
 }
 \value{
 Object of \code{\link{R6Class}} for modelling an OGC Expression
@@ -20,8 +19,14 @@ abstract class
 \section{Methods}{
 
 \describe{
- \item{\code{new()}}{
-   This method is used to instantiate an OGCExpression object
+ \item{\code{new(element, namespacePrefix, attrs, defaults, exprVersion)}}{
+   This method is used to instantiate an \code{OGCExpression} object
+ }
+ \item{\code{setExprVersion(exprVersion)}}{
+   Set expression version
+ }
+ \item{\code{getExprVersion()}}{
+   Get expression version
  }
 }
 }

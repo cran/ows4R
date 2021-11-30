@@ -4,13 +4,11 @@
 \name{OWSClient}
 \alias{OWSClient}
 \title{OWSClient}
-\format{\code{\link{R6Class}} object.}
-\usage{
-OWSClient
+\format{
+\code{\link{R6Class}} object.
 }
 \value{
-Object of \code{\link{R6Class}} with methods for interfacing
-a Common OGC web-service.
+Object of \code{\link{R6Class}} with methods for interfacing a Common OGC web-service.
 }
 \description{
 OWSClient
@@ -31,9 +29,9 @@ Abstract class used internally by \pkg{ows4R}
 \describe{
  \item{\code{new(url, service, serviceVersion, user, pwd, logger)}}{
    This method is used to instantiate a OWSClient with the \code{url} of the
-   OGC service. Authentication (\code{user}/\code{pwd}) is not yet supported and will
-   be added with the support of service transactional modes. By default, the \code{logger}
-   argument will be set to \code{NULL} (no logger). This argument accepts two possible 
+   OGC service. Authentication is supported using basic auth (using \code{user}/\code{pwd} arguments), 
+   bearer token (using \code{token} argument), or custom (using \code{headers} argument). 
+   By default, the \code{logger} argument will be set to \code{NULL} (no logger). This argument accepts two possible 
    values: \code{INFO}: to print only \pkg{ows4R} logs, \code{DEBUG}: to print more verbose logs
  }
  \item{\code{getUrl()}}{
@@ -44,6 +42,18 @@ Abstract class used internally by \pkg{ows4R}
  }
  \item{\code{getCapabilities()}}{
    Get the service capabilities
+ }
+ \item{\code{getUser()}}{
+   Get user
+ }
+ \item{\code{getPwd()}}{
+   Get password
+ }
+ \item{\code{getToken()}}{
+   Get token
+ }
+ \item{\code{getHeaders()}}{
+   Get headers
  }
 }
 }

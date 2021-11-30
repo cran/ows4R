@@ -4,9 +4,8 @@
 \name{CSWTransaction}
 \alias{CSWTransaction}
 \title{CSWTransaction}
-\format{\code{\link{R6Class}} object.}
-\usage{
-CSWTransaction
+\format{
+\code{\link{R6Class}} object.
 }
 \value{
 Object of \code{\link{R6Class}} for modelling a CSW Transaction request
@@ -20,7 +19,8 @@ Class used internally by \pkg{ows4R} to trigger a CSW Transaction request
 \section{Methods}{
 
 \describe{
- \item{\code{new(url, version, id)}}{
+ \item{\code{new(capabilities, op, url, serviceVersion, type, user, pwd, token, headers,
+                 record, recordProperty, constraint, logger, ...)}}{
    This method is used to instantiate a CSWTransaction object
  }
 }

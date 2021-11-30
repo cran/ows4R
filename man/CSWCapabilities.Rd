@@ -4,9 +4,8 @@
 \name{CSWCapabilities}
 \alias{CSWCapabilities}
 \title{CSWCapabilities}
-\format{\code{\link{R6Class}} object.}
-\usage{
-CSWCapabilities
+\format{
+\code{\link{R6Class}} object.
 }
 \value{
 Object of \code{\link{R6Class}} with methods for interfacing an OGC
@@ -22,19 +21,12 @@ recommended instead to benefit from the full set of capabilities associated to a
 \section{Methods}{
 
 \describe{
- \item{\code{new(url, version, logger)}}{
-   This method is used to instantiate a WFSGetCapabilities object
+ \item{\code{new(url, version, client logger)}}{
+   This method is used to instantiate a \code{CSWCapabilities} object
  }
 }
 }
 
-\examples{
-\donttest{
-   #example based on CSW endpoint responding at http://localhost:8000/csw
-   caps <- CSWCapabilities$new("http://localhost:8000/geonetwork/csw", version = "2.0.2")
-}
-
-}
 \author{
 Emmanuel Blondel <emmanuel.blondel1@gmail.com>
 }
