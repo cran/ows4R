@@ -13,30 +13,134 @@ Web Feature Service Get Capabilities document.
 }
 \description{
 WFSCapabilities
+
+WFSCapabilities
 }
 \note{
 Class used to read a \code{WFSCapabilities} document. The use of \code{WFSClient} is
 recommended instead to benefit from the full set of capabilities associated to a WFS server.
 }
-\section{Methods}{
-
-\describe{
- \item{\code{new(url, version, logger)}}{
-   This method is used to instantiate a WFSGetCapabilities object
- }
- \item{\code{getFeatureTypes(pretty)}}{
-   List the feature types available. If \code{pretty} is TRUE,
-   the output will be an object of class \code{data.frame}
- }
- \item{\code{findFeatureTypeByName(name, exact)}}{
-   Find feature type(s) by name.
- }
-}
-}
-
 \author{
 Emmanuel Blondel <emmanuel.blondel1@gmail.com>
 }
 \keyword{GetCapabilities}
 \keyword{OGC}
 \keyword{WFS}
+\section{Super classes}{
+\code{\link[ows4R:OGCAbstractObject]{ows4R::OGCAbstractObject}} -> \code{\link[ows4R:OWSCapabilities]{ows4R::OWSCapabilities}} -> \code{WFSCapabilities}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-WFSCapabilities-new}{\code{WFSCapabilities$new()}}
+\item \href{#method-WFSCapabilities-getFeatureTypes}{\code{WFSCapabilities$getFeatureTypes()}}
+\item \href{#method-WFSCapabilities-findFeatureTypeByName}{\code{WFSCapabilities$findFeatureTypeByName()}}
+\item \href{#method-WFSCapabilities-clone}{\code{WFSCapabilities$clone()}}
+}
+}
+\if{html}{\out{
+<details><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="ERROR"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-ERROR'><code>ows4R::OGCAbstractObject$ERROR()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="INFO"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-INFO'><code>ows4R::OGCAbstractObject$INFO()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="WARN"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-WARN'><code>ows4R::OGCAbstractObject$WARN()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="encode"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-encode'><code>ows4R::OGCAbstractObject$encode()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getClass"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getClass'><code>ows4R::OGCAbstractObject$getClass()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getClassName"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getClassName'><code>ows4R::OGCAbstractObject$getClassName()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getNamespaceDefinition"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getNamespaceDefinition'><code>ows4R::OGCAbstractObject$getNamespaceDefinition()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="isFieldInheritedFrom"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-isFieldInheritedFrom'><code>ows4R::OGCAbstractObject$isFieldInheritedFrom()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="logger"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-logger'><code>ows4R::OGCAbstractObject$logger()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSCapabilities" data-id="getClient"><a href='../../ows4R/html/OWSCapabilities.html#method-OWSCapabilities-getClient'><code>ows4R::OWSCapabilities$getClient()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSCapabilities" data-id="getOWSVersion"><a href='../../ows4R/html/OWSCapabilities.html#method-OWSCapabilities-getOWSVersion'><code>ows4R::OWSCapabilities$getOWSVersion()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSCapabilities" data-id="getOperationsMetadata"><a href='../../ows4R/html/OWSCapabilities.html#method-OWSCapabilities-getOperationsMetadata'><code>ows4R::OWSCapabilities$getOperationsMetadata()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSCapabilities" data-id="getRequest"><a href='../../ows4R/html/OWSCapabilities.html#method-OWSCapabilities-getRequest'><code>ows4R::OWSCapabilities$getRequest()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSCapabilities" data-id="getService"><a href='../../ows4R/html/OWSCapabilities.html#method-OWSCapabilities-getService'><code>ows4R::OWSCapabilities$getService()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSCapabilities" data-id="getServiceIdentification"><a href='../../ows4R/html/OWSCapabilities.html#method-OWSCapabilities-getServiceIdentification'><code>ows4R::OWSCapabilities$getServiceIdentification()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSCapabilities" data-id="getServiceProvider"><a href='../../ows4R/html/OWSCapabilities.html#method-OWSCapabilities-getServiceProvider'><code>ows4R::OWSCapabilities$getServiceProvider()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSCapabilities" data-id="getServiceVersion"><a href='../../ows4R/html/OWSCapabilities.html#method-OWSCapabilities-getServiceVersion'><code>ows4R::OWSCapabilities$getServiceVersion()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSCapabilities" data-id="getUrl"><a href='../../ows4R/html/OWSCapabilities.html#method-OWSCapabilities-getUrl'><code>ows4R::OWSCapabilities$getUrl()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSCapabilities" data-id="setClient"><a href='../../ows4R/html/OWSCapabilities.html#method-OWSCapabilities-setClient'><code>ows4R::OWSCapabilities$setClient()</code></a></li>
+</ul>
+</details>
+}}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WFSCapabilities-new"></a>}}
+\if{latex}{\out{\hypertarget{method-WFSCapabilities-new}{}}}
+\subsection{Method \code{new()}}{
+Initializes a \link{WFSCapabilities} object
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WFSCapabilities$new(url, version, logger = NULL, ...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{url}}{url}
+
+\item{\code{version}}{version}
+
+\item{\code{logger}}{logger type \code{NULL}, "INFO" or "DEBUG"}
+
+\item{\code{...}}{any other parameter to pass to \link{OWSGetCapabilities} service request}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WFSCapabilities-getFeatureTypes"></a>}}
+\if{latex}{\out{\hypertarget{method-WFSCapabilities-getFeatureTypes}{}}}
+\subsection{Method \code{getFeatureTypes()}}{
+List the feature types available. If \code{pretty} is TRUE,
+   the output will be an object of class \code{data.frame}
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WFSCapabilities$getFeatureTypes(pretty = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{pretty}}{whether the output should be summarized as \code{data.frame}}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+a \code{list} of \link{WFSFeatureType} or a \code{data.frame}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WFSCapabilities-findFeatureTypeByName"></a>}}
+\if{latex}{\out{\hypertarget{method-WFSCapabilities-findFeatureTypeByName}{}}}
+\subsection{Method \code{findFeatureTypeByName()}}{
+Finds a feature type by name
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WFSCapabilities$findFeatureTypeByName(expr, exact = TRUE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{expr}}{expr}
+
+\item{\code{exact}}{exact matching? Default is \code{TRUE}}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WFSCapabilities-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-WFSCapabilities-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WFSCapabilities$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}

@@ -7,7 +7,7 @@
 #' @import openssl
 #' @import XML
 #' @import sf
-#' @import rgdal
+#' @import terra
 #' @import geometa
 #' @import keyring
 #' @import parallel
@@ -15,41 +15,6 @@
 #' @keywords OGC Common OWS
 #' @return Object of \code{\link{R6Class}} with methods for interfacing a Common OGC web-service.
 #' @format \code{\link{R6Class}} object.
-#'
-#' @field url the Base url of OWS service
-#' @field version the version of OWS service
-#'
-#' @section Methods:
-#' \describe{
-#'  \item{\code{new(url, service, serviceVersion, user, pwd, logger)}}{
-#'    This method is used to instantiate a OWSClient with the \code{url} of the
-#'    OGC service. Authentication is supported using basic auth (using \code{user}/\code{pwd} arguments), 
-#'    bearer token (using \code{token} argument), or custom (using \code{headers} argument). 
-#'    By default, the \code{logger} argument will be set to \code{NULL} (no logger). This argument accepts two possible 
-#'    values: \code{INFO}: to print only \pkg{ows4R} logs, \code{DEBUG}: to print more verbose logs
-#'  }
-#'  \item{\code{getUrl()}}{
-#'    Get the service URL
-#'  }
-#'  \item{\code{getVersion()}}{
-#'    Get the service version
-#'  }
-#'  \item{\code{getCapabilities()}}{
-#'    Get the service capabilities
-#'  }
-#'  \item{\code{getUser()}}{
-#'    Get user
-#'  }
-#'  \item{\code{getPwd()}}{
-#'    Get password
-#'  }
-#'  \item{\code{getToken()}}{
-#'    Get token
-#'  }
-#'  \item{\code{getHeaders()}}{
-#'    Get headers
-#'  }
-#' }
 #' 
 #' @note Abstract class used internally by \pkg{ows4R}
 #' 
@@ -65,19 +30,36 @@ OWSClient <- R6Class("OWSClient",
     user = NULL,
     pwd = NULL,
     token = NULL,
-    headers = list()
+    headers = list(),
+    config = NULL,
+    cas_url = NULL
   ),
 
   public = list(
-
-    #fields
+    #'@field url Base url of the OWS service
     url = NA,
+    #'@field version version of the OWS service
     version = NA,
+    #'@field capabilities object giving the OWS service capabilities
     capabilities = NA,
     
-    #initialize
+    #'@description This method is used to instantiate a OWSClient with the \code{url} of the
+    #'    OGC service. Authentication is supported using basic auth (using \code{user}/\code{pwd} arguments), 
+    #'    bearer token (using \code{token} argument), or custom (using \code{headers} argument). 
+    #'    By default, the \code{logger} argument will be set to \code{NULL} (no logger). This argument accepts two possible 
+    #'    values: \code{INFO}: to print only \pkg{ows4R} logs, \code{DEBUG}: to print more verbose logs
+    #'@param url url
+    #'@param service service name
+    #'@param serviceVersion CSW service version
+    #'@param user user
+    #'@param pwd password
+    #'@param token token
+    #'@param headers headers
+    #'@param config config
+    #'@param cas_url Central Authentication Service (CAS) URL
+    #'@param logger logger
     initialize = function(url, service, serviceVersion,
-                          user = NULL, pwd = NULL, token = NULL, headers = c(),
+                          user = NULL, pwd = NULL, token = NULL, headers = c(), config = httr::config(), cas_url = NULL,
                           logger = NULL) {
       
       #logger
@@ -92,41 +74,74 @@ OWSClient <- R6Class("OWSClient",
       private$pwd <- pwd
       private$token <- token
       private$headers <- headers
+      private$config <- config
+      private$cas_url <- cas_url
+      
+      #CAS authentication
+      if(!is.null(cas_url)){
+        cas <- CASClient$new(url = cas_url)
+        cas_logged_in <- cas$login(user = user, pwd = pwd)
+        if(cas_logged_in){
+          self$INFO(sprintf("User '%s' successfully logged in through CAS endpoint '%s'", user, cas_url))
+          self$url <- paste0(cas_url, "?service=", URLencode(self$url, reserved = TRUE))
+        }else{
+          self$WARNsprintf("Error during CAS login, check your user/password!")
+        }
+      }
     },
      
-    #getUrl
+    #'@description Get URL
+    #'@return the url of the service, object of class \code{character}
     getUrl = function(){
       return(self$url)
     },
     
-    #getVersion
+    #'@description Get version
+    #'@return the version of the service, object of class \code{character}
     getVersion = function(){
       return(self$version)
     },
 
-    #getCapabilities     
+    #'@description Get capabilities
+    #'@return the capabilities, object of class \link{OWSCapabilities}     
     getCapabilities = function() {
       return(self$capabilities)
     },
     
-    #getUser
+    #'@description Get user
+    #'@return the user, object of class \code{character}
     getUser = function(){
       return(private$user)
     },
     
-    #getPwd
+    #'@description Get password
+    #'@return the password, object of class \code{character}
     getPwd = function(){
       return(private$pwd)
     },
     
-    #getToken
+    #'@description Get token
+    #'@return the token, object of class \code{character}
     getToken = function(){
       return(private$token)
     },
     
-    #getHeaders
+    #'@description Get headers
+    #'@return the headers, object of class \code{character}
     getHeaders = function(){
       return(private$headers)
+    },
+    
+    #'@description Get \pkg{httr} config
+    #'@return the \pkg{httr} config, if any
+    getConfig = function(){
+      return(private$config)
+    },
+    
+    #'@description Get CAS URL
+    #'@return a CAS URL
+    getCASUrl = function(){
+      return(private$cas_url)
     }
     
   )

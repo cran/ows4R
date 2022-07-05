@@ -5,53 +5,6 @@
 #' @keywords OGC WMS Layer
 #' @return Object of \code{\link{R6Class}} modelling a WMS layer
 #' @format \code{\link{R6Class}} object.
-#'
-#' @section Methods:
-#' \describe{
-#'  \item{\code{new(xmlObj, capabilities, version, logger)}}{
-#'    This method is used to instantiate a \code{WMSLayer} object
-#'  }
-#'  \item{\code{getName()}}{
-#'    Get layer name
-#'  }
-#'  \item{\code{getTitle()}}{
-#'    Get layer title
-#'  }
-#'  \item{\code{getAbstract()}}{
-#'    Get layer abstract
-#'  }
-#'  \item{\code{getKeywords()}}{
-#'    Get layer keywords
-#'  }
-#'  \item{\code{getDefaultCRS()}}{
-#'    Get layer default CRS
-#'  }
-#'  \item{\code{getBoundingBox()}}{
-#'    Get layer bounding box
-#'  }
-#'  \item{\code{getBoundingBoxSRS()}}{
-#'    Get layer bounding box SRS
-#'  }
-#'  \item{\code{getBoundingBoxCRS()}}{
-#'    Get layer bounding box CRS
-#'  }
-#'  \item{\code{getStyle()}}{
-#'    Get layer style
-#'  }
-#'  \item{\code{getDimensions()}}{
-#'    Get layer dimensions
-#'  }
-#'  \item{\code{getTimeDimension()}}{
-#'    Get layer time dimension
-#'  }
-#'  \item{\code{getElevationDimension()}}{
-#'    Get layer elevation dimension
-#'  }
-#'  \item{\code{getFeatureInfo(srs, styles, feature_count,
-#'              x, y, width, height, bbox, info_format)}}{
-#'    Get layer feature info                           
-#'  }
-#' }
 #' 
 #' @note Abstract class used by \pkg{ows4R}
 #' 
@@ -74,7 +27,7 @@ WMSLayer <- R6Class("WMSLayer",
     boundingBox = NA,
     boundingBoxSRS = NA,
     boundingBoxCRS = NA,
-    style = NA,
+    styles = list(),
     dimensions = list(),
     
     #fetchLayer
@@ -134,10 +87,19 @@ WMSLayer <- R6Class("WMSLayer",
         )
       }
       
-      layerStyle <- NULL
-      styleXML <- children$Style
+      layerStyles <- list
+      styleXML <- children[names(children)=="Style"]
       if(!is.null(styleXML)){
-        layerStyle <- xmlValue(xmlChildren(styleXML)$Name)
+        layerStylenames <- as.character(sapply(styleXML, function(x){xmlValue(xmlChildren(x)$Name)}))
+        layerStyles <- lapply(styleXML, function(x){
+          list(
+            name = xmlValue(xmlChildren(x)$Name),
+            title = xmlValue(xmlChildren(x)$Title),
+            abstract = xmlValue(xmlChildren(x)$Abstract),
+            legendUrl = xmlGetAttr(xmlChildren(xmlChildren(x)$LegendURL)$OnlineResource, "xlink:href")
+          )
+        })
+        names(layerStyles) <- layerStylenames
       }
       
       dimensions <- list()
@@ -165,7 +127,7 @@ WMSLayer <- R6Class("WMSLayer",
         boundingBox = layerBoundingBox,
         boundingBoxSRS = layerSRS,
         boundingBoxCRS = layerCRS,
-        style = layerStyle,
+        styles = layerStyles,
         dimensions = dimensions
       )
       
@@ -175,8 +137,16 @@ WMSLayer <- R6Class("WMSLayer",
     
   ),
   public = list(
+    #'@field description description
     description = NULL,
+    #'@field features features
     features = NULL,
+    
+    #'@description Initializes an object of class \link{WMSLayer}
+    #'@param xmlObj an object of class \link{XMLInternalNode-class} to initialize from XML
+    #'@param capabilities object of class \link{WMSCapabilities}
+    #'@param version service version
+    #'@param logger logger
     initialize = function(xmlObj, capabilities, version, logger = NULL){
       super$initialize(element = private$xmlElement, namespacePrefix = private$namespacePrefix, logger = logger)
       
@@ -193,57 +163,74 @@ WMSLayer <- R6Class("WMSLayer",
       private$boundingBox = layer$boundingBox
       private$boundingBoxSRS = layer$boundingBoxSRS
       private$boundingBoxCRS = layer$boundingBoxCRS
-      private$style = layer$style
+      private$styles = layer$styles
       private$dimensions = layer$dimensions
       
     },
     
-    #getName
+    #'@description Get layer name
+    #'@return object of class \code{character}
     getName = function(){
       return(private$name)
     },
     
-    #getTitle
+    #'@description Get layer title
+    #'@return object of class \code{character}
     getTitle = function(){
       return(private$title)
     },
     
-    #getAbstract
+    #'@description Get layer abstract
+    #'@return object of class \code{character}
     getAbstract = function(){
       return(private$abstract)
     },
     
-    #getKeywords
+    #'@description Get layer keywords
+    #'@return object of class \code{character}
     getKeywords = function(){
       return(private$keywords)
     },
     
-    #getDefaultCRS
+    #'@description Get layer default CRS
+    #'@return object of class \code{character}
     getDefaultCRS = function(){
       return(private$defaultCRS)
     },
     
-    #getBoundingBox
+    #'@description Get layer bounding box
+    #'@return object of class \code{matrix}
     getBoundingBox = function(){
       return(private$boundingBox)
     },
-    
-    #getBoundingBoxSRS
+     
+    #'@description Get layer bounding box SRS
+    #'@return object of class \code{character}
     getBoundingBoxSRS = function(){
       return(private$boundingBoxSRS)
     },
     
-    #getBoundingBoxCRS
+    #'@description Get layer bounding box CRS
+    #'@return object of class \code{character}
     getBoundingBoxCRS = function(){
       return(private$boundingBoxCRS)
     },
     
-    #getStyle
-    getStyle = function(){
-      return(private$style)
+    #'@description Get layer styles
+    #'@return an object of class \code{list}
+    getStyles = function(){
+      return(private$styles)
     },
     
-    #getDimensions
+    #'@description Get layer style names
+    #'@return list of object of class \code{character}
+    getStylenames = function(){
+      return(names(private$styles))
+    },
+    
+    #'@description Get layer dimensions
+    #'@param time_format time format. Default is \code{character}
+    #'@return a \code{list} including default value and listed possible values
     getDimensions = function(time_format = "character"){
       dimensions <- private$dimensions
       if(time_format=="posix"){
@@ -253,7 +240,9 @@ WMSLayer <- R6Class("WMSLayer",
       return(dimensions)
     },
     
-    #getTimeDimension
+    #'@description Get layer TIME dimensions
+    #'@param time_format time format. Default is \code{character}
+    #'@return a \code{list} including default value and listed possible values
     getTimeDimension = function(time_format = "character"){
       time_dimensions <- private$dimensions[["time"]]
       if(time_format=="posix"){
@@ -263,19 +252,31 @@ WMSLayer <- R6Class("WMSLayer",
       return(time_dimensions)
     },
     
-    #getElevationDimension
+    #'@description Get layer ELEVATION dimensions
+    #'@return a \code{list} including default value and listed possible values
     getElevationDimension = function(){
       return(private$dimensions[["elevation"]])
     },
     
-    #getFeatureInfo
+    #'@description Get feature info
+    #'@param srs srs
+    #'@param styles styles
+    #'@param feature_count feature count. Default is 1
+    #'@param x x
+    #'@param y y
+    #'@param width width
+    #'@param height height
+    #'@param bbox bbox
+    #'@param info_format info format. Default is "text/xml"
+    #'@param ... any other parameter to pass to a \link{WMSGetFeatureInfo} request
+    #'@return an object of class \code{sf} given the feature(s)
     getFeatureInfo = function(srs = NULL, styles = NULL, feature_count = 1,
                               x, y, width, height, bbox, 
                               info_format = "text/xml",
                               ...){
       
       if(is.null(styles)){
-        styles <- self$getStyle()
+        styles <- self$getStylenames()[1]
       }
       
       if(is.null(srs)){
@@ -294,7 +295,8 @@ WMSLayer <- R6Class("WMSLayer",
         feature_count = feature_count,
         x = x, y = y, width = width, height = height, bbox = bbox,
         info_format = info_format,
-        user = client$getUser(), pwd = client$getPwd(), token = client$getToken(), headers = client$getHeaders(),
+        user = client$getUser(), pwd = client$getPwd(), token = client$getToken(), 
+        headers = client$getHeaders(), config = client$getConfig(),
         logger = self$loggerType, ...)
       obj <- ftFeatures$getResponse()
       

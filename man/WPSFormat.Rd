@@ -12,34 +12,12 @@ Object of \code{\link{R6Class}} modelling a WPS process input description
 }
 \description{
 WPSFormat
+
+WPSFormat
 }
 \note{
 Class used internally by \pkg{ows4R}
 }
-\section{Methods}{
-
-\describe{
- \item{\code{new(xml, version, logger)}}{
-   This method is used to instantiate a \code{WPSFormat} object
- }
- \item{\code{getMimeType()}}{
-   Get mimetype
- }
- \item{\code{getEncoding()}}{
-   Get encoding
- }
- \item{\code{getSchema()}}{
-   Get schema
- }
- \item{\code{setIsDefault(default)}}{
-   Set if default format or not
- }
- \item{\code{isDefault()}}{
-   Is default format
- }
-}
-}
-
 \author{
 Emmanuel Blondel <emmanuel.blondel1@gmail.com>
 }
@@ -48,3 +26,143 @@ Emmanuel Blondel <emmanuel.blondel1@gmail.com>
 \keyword{WPS}
 \keyword{description}
 \keyword{input}
+\section{Super class}{
+\code{\link[ows4R:OGCAbstractObject]{ows4R::OGCAbstractObject}} -> \code{WPSFormat}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-WPSFormat-new}{\code{WPSFormat$new()}}
+\item \href{#method-WPSFormat-getMimeType}{\code{WPSFormat$getMimeType()}}
+\item \href{#method-WPSFormat-getEncoding}{\code{WPSFormat$getEncoding()}}
+\item \href{#method-WPSFormat-getSchema}{\code{WPSFormat$getSchema()}}
+\item \href{#method-WPSFormat-setIsDefault}{\code{WPSFormat$setIsDefault()}}
+\item \href{#method-WPSFormat-isDefault}{\code{WPSFormat$isDefault()}}
+\item \href{#method-WPSFormat-clone}{\code{WPSFormat$clone()}}
+}
+}
+\if{html}{\out{
+<details><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="ERROR"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-ERROR'><code>ows4R::OGCAbstractObject$ERROR()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="INFO"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-INFO'><code>ows4R::OGCAbstractObject$INFO()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="WARN"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-WARN'><code>ows4R::OGCAbstractObject$WARN()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="encode"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-encode'><code>ows4R::OGCAbstractObject$encode()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getClass"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getClass'><code>ows4R::OGCAbstractObject$getClass()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getClassName"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getClassName'><code>ows4R::OGCAbstractObject$getClassName()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getNamespaceDefinition"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getNamespaceDefinition'><code>ows4R::OGCAbstractObject$getNamespaceDefinition()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="isFieldInheritedFrom"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-isFieldInheritedFrom'><code>ows4R::OGCAbstractObject$isFieldInheritedFrom()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="logger"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-logger'><code>ows4R::OGCAbstractObject$logger()</code></a></li>
+</ul>
+</details>
+}}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WPSFormat-new"></a>}}
+\if{latex}{\out{\hypertarget{method-WPSFormat-new}{}}}
+\subsection{Method \code{new()}}{
+Initializes an object of class \link{WPSFormat}
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WPSFormat$new(xml = NULL, version, logger = NULL, ...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{xml}}{an object of class \link{XMLInternalNode-class} to initialize from XML}
+
+\item{\code{version}}{WPS service version}
+
+\item{\code{logger}}{logger}
+
+\item{\code{...}}{any additional parameter}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WPSFormat-getMimeType"></a>}}
+\if{latex}{\out{\hypertarget{method-WPSFormat-getMimeType}{}}}
+\subsection{Method \code{getMimeType()}}{
+Get mime type
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WPSFormat$getMimeType()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+object of class \code{character}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WPSFormat-getEncoding"></a>}}
+\if{latex}{\out{\hypertarget{method-WPSFormat-getEncoding}{}}}
+\subsection{Method \code{getEncoding()}}{
+Get encoding
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WPSFormat$getEncoding()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+object of class \code{character}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WPSFormat-getSchema"></a>}}
+\if{latex}{\out{\hypertarget{method-WPSFormat-getSchema}{}}}
+\subsection{Method \code{getSchema()}}{
+Get schema
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WPSFormat$getSchema()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+object of class \code{character}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WPSFormat-setIsDefault"></a>}}
+\if{latex}{\out{\hypertarget{method-WPSFormat-setIsDefault}{}}}
+\subsection{Method \code{setIsDefault()}}{
+set is default
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WPSFormat$setIsDefault(default)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{default}}{object of class \code{logical}}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WPSFormat-isDefault"></a>}}
+\if{latex}{\out{\hypertarget{method-WPSFormat-isDefault}{}}}
+\subsection{Method \code{isDefault()}}{
+is default
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WPSFormat$isDefault()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+\code{TRUE} if default, \code{FALSE} otherwise
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WPSFormat-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-WPSFormat-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WPSFormat$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}

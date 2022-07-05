@@ -13,36 +13,9 @@ Web Feature Service.
 }
 \description{
 WFSClient
-}
-\section{Methods}{
 
-\describe{
- \item{\code{new(url, serviceVersion, user, pwd, logger)}}{
-   This method is used to instantiate a WFSClient with the \code{url} of the
-   OGC service. Authentication is supported using basic auth (using \code{user}/\code{pwd} arguments), 
-   bearer token (using \code{token} argument), or custom (using \code{headers} argument). By default, the \code{logger}
-   argument will be set to \code{NULL} (no logger). This argument accepts two possible 
-   values: \code{INFO}: to print only \pkg{ows4R} logs, \code{DEBUG}: to print more verbose logs
- }
- \item{\code{getCapabilities()}}{
-   Get service capabilities. Inherited from OWS Client
- }
- \item{\code{reloadCapabilities()}}{
-   Reload service capabilities
- }
- \item{\code{describeFeatureType(typeName)}}{
-   Get the description of a given featureType
- }
- \item{\code{getFeatures(typeName, ...)}}{
-   Retrieves the features for a given feature type.
- }
- \item{\code{getFeatureTypes(pretty)}}{
-   List the feature types available. If \code{pretty} is TRUE,
-   the output will be an object of class \code{data.frame}
- }
+WFSClient
 }
-}
-
 \examples{
 \donttest{
    #example based on a WFS endpoint responding at http://localhost:8080/geoserver/wfs
@@ -68,3 +41,192 @@ Emmanuel Blondel <emmanuel.blondel1@gmail.com>
 \keyword{Feature}
 \keyword{OGC}
 \keyword{WFS}
+\section{Super classes}{
+\code{\link[ows4R:OGCAbstractObject]{ows4R::OGCAbstractObject}} -> \code{\link[ows4R:OWSClient]{ows4R::OWSClient}} -> \code{WFSClient}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-WFSClient-new}{\code{WFSClient$new()}}
+\item \href{#method-WFSClient-getCapabilities}{\code{WFSClient$getCapabilities()}}
+\item \href{#method-WFSClient-reloadCapabilities}{\code{WFSClient$reloadCapabilities()}}
+\item \href{#method-WFSClient-describeFeatureType}{\code{WFSClient$describeFeatureType()}}
+\item \href{#method-WFSClient-getFeatures}{\code{WFSClient$getFeatures()}}
+\item \href{#method-WFSClient-getFeatureTypes}{\code{WFSClient$getFeatureTypes()}}
+\item \href{#method-WFSClient-clone}{\code{WFSClient$clone()}}
+}
+}
+\if{html}{\out{
+<details><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="ERROR"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-ERROR'><code>ows4R::OGCAbstractObject$ERROR()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="INFO"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-INFO'><code>ows4R::OGCAbstractObject$INFO()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="WARN"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-WARN'><code>ows4R::OGCAbstractObject$WARN()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="encode"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-encode'><code>ows4R::OGCAbstractObject$encode()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getClass"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getClass'><code>ows4R::OGCAbstractObject$getClass()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getClassName"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getClassName'><code>ows4R::OGCAbstractObject$getClassName()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getNamespaceDefinition"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getNamespaceDefinition'><code>ows4R::OGCAbstractObject$getNamespaceDefinition()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="isFieldInheritedFrom"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-isFieldInheritedFrom'><code>ows4R::OGCAbstractObject$isFieldInheritedFrom()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="logger"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-logger'><code>ows4R::OGCAbstractObject$logger()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSClient" data-id="getCASUrl"><a href='../../ows4R/html/OWSClient.html#method-OWSClient-getCASUrl'><code>ows4R::OWSClient$getCASUrl()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSClient" data-id="getConfig"><a href='../../ows4R/html/OWSClient.html#method-OWSClient-getConfig'><code>ows4R::OWSClient$getConfig()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSClient" data-id="getHeaders"><a href='../../ows4R/html/OWSClient.html#method-OWSClient-getHeaders'><code>ows4R::OWSClient$getHeaders()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSClient" data-id="getPwd"><a href='../../ows4R/html/OWSClient.html#method-OWSClient-getPwd'><code>ows4R::OWSClient$getPwd()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSClient" data-id="getToken"><a href='../../ows4R/html/OWSClient.html#method-OWSClient-getToken'><code>ows4R::OWSClient$getToken()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSClient" data-id="getUrl"><a href='../../ows4R/html/OWSClient.html#method-OWSClient-getUrl'><code>ows4R::OWSClient$getUrl()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSClient" data-id="getUser"><a href='../../ows4R/html/OWSClient.html#method-OWSClient-getUser'><code>ows4R::OWSClient$getUser()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSClient" data-id="getVersion"><a href='../../ows4R/html/OWSClient.html#method-OWSClient-getVersion'><code>ows4R::OWSClient$getVersion()</code></a></li>
+</ul>
+</details>
+}}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WFSClient-new"></a>}}
+\if{latex}{\out{\hypertarget{method-WFSClient-new}{}}}
+\subsection{Method \code{new()}}{
+This method is used to instantiate a \link{WFSClient} with the \code{url} of the
+   OGC service. Authentication is supported using basic auth (using \code{user}/\code{pwd} arguments), 
+   bearer token (using \code{token} argument), or custom (using \code{headers} argument). By default, the \code{logger}
+   argument will be set to \code{NULL} (no logger). This argument accepts two possible 
+   values: \code{INFO}: to print only \pkg{ows4R} logs, \code{DEBUG}: to print more verbose logs
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WFSClient$new(
+  url,
+  serviceVersion = NULL,
+  user = NULL,
+  pwd = NULL,
+  token = NULL,
+  headers = c(),
+  config = httr::config(),
+  cas_url = NULL,
+  logger = NULL
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{url}}{url}
+
+\item{\code{serviceVersion}}{WFS service version}
+
+\item{\code{user}}{user}
+
+\item{\code{pwd}}{password}
+
+\item{\code{token}}{token}
+
+\item{\code{headers}}{headers}
+
+\item{\code{config}}{config}
+
+\item{\code{cas_url}}{Central Authentication Service (CAS) URL}
+
+\item{\code{logger}}{logger}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WFSClient-getCapabilities"></a>}}
+\if{latex}{\out{\hypertarget{method-WFSClient-getCapabilities}{}}}
+\subsection{Method \code{getCapabilities()}}{
+Get WFS capabilities
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WFSClient$getCapabilities()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+an object of class \link{WFSCapabilities}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WFSClient-reloadCapabilities"></a>}}
+\if{latex}{\out{\hypertarget{method-WFSClient-reloadCapabilities}{}}}
+\subsection{Method \code{reloadCapabilities()}}{
+Reloads WFS capabilities
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WFSClient$reloadCapabilities()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WFSClient-describeFeatureType"></a>}}
+\if{latex}{\out{\hypertarget{method-WFSClient-describeFeatureType}{}}}
+\subsection{Method \code{describeFeatureType()}}{
+Describes a feature type
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WFSClient$describeFeatureType(typeName)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{typeName}}{the name of the feature type}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+a \code{list} of \link{WFSFeatureTypeElement}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WFSClient-getFeatures"></a>}}
+\if{latex}{\out{\hypertarget{method-WFSClient-getFeatures}{}}}
+\subsection{Method \code{getFeatures()}}{
+Get features
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WFSClient$getFeatures(typeName, ...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{typeName}}{the name of the feature type}
+
+\item{\code{...}}{any other parameter to pass to the \link{WFSGetFeature} request}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+features as object of class \code{sf}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WFSClient-getFeatureTypes"></a>}}
+\if{latex}{\out{\hypertarget{method-WFSClient-getFeatureTypes}{}}}
+\subsection{Method \code{getFeatureTypes()}}{
+List the feature types available. If \code{pretty} is TRUE,
+   the output will be an object of class \code{data.frame}
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WFSClient$getFeatureTypes(pretty = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{pretty}}{whether the output should be summarized as \code{data.frame}}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+a \code{list} of \link{WFSFeatureType} or a \code{data.frame}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WFSClient-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-WFSClient-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WFSClient$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}

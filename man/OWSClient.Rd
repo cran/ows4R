@@ -12,55 +12,245 @@ Object of \code{\link{R6Class}} with methods for interfacing a Common OGC web-se
 }
 \description{
 OWSClient
+
+OWSClient
 }
-\section{Fields}{
-
-\describe{
-\item{\code{url}}{the Base url of OWS service}
-
-\item{\code{version}}{the version of OWS service}
-}}
-
 \note{
 Abstract class used internally by \pkg{ows4R}
 }
-\section{Methods}{
-
-\describe{
- \item{\code{new(url, service, serviceVersion, user, pwd, logger)}}{
-   This method is used to instantiate a OWSClient with the \code{url} of the
-   OGC service. Authentication is supported using basic auth (using \code{user}/\code{pwd} arguments), 
-   bearer token (using \code{token} argument), or custom (using \code{headers} argument). 
-   By default, the \code{logger} argument will be set to \code{NULL} (no logger). This argument accepts two possible 
-   values: \code{INFO}: to print only \pkg{ows4R} logs, \code{DEBUG}: to print more verbose logs
- }
- \item{\code{getUrl()}}{
-   Get the service URL
- }
- \item{\code{getVersion()}}{
-   Get the service version
- }
- \item{\code{getCapabilities()}}{
-   Get the service capabilities
- }
- \item{\code{getUser()}}{
-   Get user
- }
- \item{\code{getPwd()}}{
-   Get password
- }
- \item{\code{getToken()}}{
-   Get token
- }
- \item{\code{getHeaders()}}{
-   Get headers
- }
-}
-}
-
 \author{
 Emmanuel Blondel <emmanuel.blondel1@gmail.com>
 }
 \keyword{Common}
 \keyword{OGC}
 \keyword{OWS}
+\section{Super class}{
+\code{\link[ows4R:OGCAbstractObject]{ows4R::OGCAbstractObject}} -> \code{OWSClient}
+}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{url}}{Base url of the OWS service}
+
+\item{\code{version}}{version of the OWS service}
+
+\item{\code{capabilities}}{object giving the OWS service capabilities}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-OWSClient-new}{\code{OWSClient$new()}}
+\item \href{#method-OWSClient-getUrl}{\code{OWSClient$getUrl()}}
+\item \href{#method-OWSClient-getVersion}{\code{OWSClient$getVersion()}}
+\item \href{#method-OWSClient-getCapabilities}{\code{OWSClient$getCapabilities()}}
+\item \href{#method-OWSClient-getUser}{\code{OWSClient$getUser()}}
+\item \href{#method-OWSClient-getPwd}{\code{OWSClient$getPwd()}}
+\item \href{#method-OWSClient-getToken}{\code{OWSClient$getToken()}}
+\item \href{#method-OWSClient-getHeaders}{\code{OWSClient$getHeaders()}}
+\item \href{#method-OWSClient-getConfig}{\code{OWSClient$getConfig()}}
+\item \href{#method-OWSClient-getCASUrl}{\code{OWSClient$getCASUrl()}}
+\item \href{#method-OWSClient-clone}{\code{OWSClient$clone()}}
+}
+}
+\if{html}{\out{
+<details><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="ERROR"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-ERROR'><code>ows4R::OGCAbstractObject$ERROR()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="INFO"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-INFO'><code>ows4R::OGCAbstractObject$INFO()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="WARN"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-WARN'><code>ows4R::OGCAbstractObject$WARN()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="encode"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-encode'><code>ows4R::OGCAbstractObject$encode()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getClass"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getClass'><code>ows4R::OGCAbstractObject$getClass()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getClassName"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getClassName'><code>ows4R::OGCAbstractObject$getClassName()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getNamespaceDefinition"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getNamespaceDefinition'><code>ows4R::OGCAbstractObject$getNamespaceDefinition()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="isFieldInheritedFrom"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-isFieldInheritedFrom'><code>ows4R::OGCAbstractObject$isFieldInheritedFrom()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="logger"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-logger'><code>ows4R::OGCAbstractObject$logger()</code></a></li>
+</ul>
+</details>
+}}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OWSClient-new"></a>}}
+\if{latex}{\out{\hypertarget{method-OWSClient-new}{}}}
+\subsection{Method \code{new()}}{
+This method is used to instantiate a OWSClient with the \code{url} of the
+   OGC service. Authentication is supported using basic auth (using \code{user}/\code{pwd} arguments), 
+   bearer token (using \code{token} argument), or custom (using \code{headers} argument). 
+   By default, the \code{logger} argument will be set to \code{NULL} (no logger). This argument accepts two possible 
+   values: \code{INFO}: to print only \pkg{ows4R} logs, \code{DEBUG}: to print more verbose logs
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OWSClient$new(
+  url,
+  service,
+  serviceVersion,
+  user = NULL,
+  pwd = NULL,
+  token = NULL,
+  headers = c(),
+  config = httr::config(),
+  cas_url = NULL,
+  logger = NULL
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{url}}{url}
+
+\item{\code{service}}{service name}
+
+\item{\code{serviceVersion}}{CSW service version}
+
+\item{\code{user}}{user}
+
+\item{\code{pwd}}{password}
+
+\item{\code{token}}{token}
+
+\item{\code{headers}}{headers}
+
+\item{\code{config}}{config}
+
+\item{\code{cas_url}}{Central Authentication Service (CAS) URL}
+
+\item{\code{logger}}{logger}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OWSClient-getUrl"></a>}}
+\if{latex}{\out{\hypertarget{method-OWSClient-getUrl}{}}}
+\subsection{Method \code{getUrl()}}{
+Get URL
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OWSClient$getUrl()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+the url of the service, object of class \code{character}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OWSClient-getVersion"></a>}}
+\if{latex}{\out{\hypertarget{method-OWSClient-getVersion}{}}}
+\subsection{Method \code{getVersion()}}{
+Get version
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OWSClient$getVersion()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+the version of the service, object of class \code{character}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OWSClient-getCapabilities"></a>}}
+\if{latex}{\out{\hypertarget{method-OWSClient-getCapabilities}{}}}
+\subsection{Method \code{getCapabilities()}}{
+Get capabilities
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OWSClient$getCapabilities()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+the capabilities, object of class \link{OWSCapabilities}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OWSClient-getUser"></a>}}
+\if{latex}{\out{\hypertarget{method-OWSClient-getUser}{}}}
+\subsection{Method \code{getUser()}}{
+Get user
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OWSClient$getUser()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+the user, object of class \code{character}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OWSClient-getPwd"></a>}}
+\if{latex}{\out{\hypertarget{method-OWSClient-getPwd}{}}}
+\subsection{Method \code{getPwd()}}{
+Get password
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OWSClient$getPwd()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+the password, object of class \code{character}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OWSClient-getToken"></a>}}
+\if{latex}{\out{\hypertarget{method-OWSClient-getToken}{}}}
+\subsection{Method \code{getToken()}}{
+Get token
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OWSClient$getToken()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+the token, object of class \code{character}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OWSClient-getHeaders"></a>}}
+\if{latex}{\out{\hypertarget{method-OWSClient-getHeaders}{}}}
+\subsection{Method \code{getHeaders()}}{
+Get headers
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OWSClient$getHeaders()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+the headers, object of class \code{character}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OWSClient-getConfig"></a>}}
+\if{latex}{\out{\hypertarget{method-OWSClient-getConfig}{}}}
+\subsection{Method \code{getConfig()}}{
+Get \pkg{httr} config
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OWSClient$getConfig()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+the \pkg{httr} config, if any
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OWSClient-getCASUrl"></a>}}
+\if{latex}{\out{\hypertarget{method-OWSClient-getCASUrl}{}}}
+\subsection{Method \code{getCASUrl()}}{
+Get CAS URL
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OWSClient$getCASUrl()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+a CAS URL
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OWSClient-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-OWSClient-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OWSClient$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}

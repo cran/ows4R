@@ -12,21 +12,81 @@ Object of \code{\link{R6Class}} for modelling an OWS Namespace
 }
 \description{
 OWSNamespace
+
+OWSNamespace
 }
 \note{
 class used internally by ows4R for specifying XML namespaces
 }
-\section{Methods}{
-
-\describe{
- \item{\code{new(id, uri)}}{
-   This method is used to instantiate an OWS namespace
- }
-}
-}
-
 \author{
 Emmanuel Blondel <emmanuel.blondel1@gmail.com>
 }
 \keyword{OWS}
 \keyword{namespace}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{id}}{namespace id}
+
+\item{\code{uri}}{namespace uri}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-OWSNamespace-new}{\code{OWSNamespace$new()}}
+\item \href{#method-OWSNamespace-getDefinition}{\code{OWSNamespace$getDefinition()}}
+\item \href{#method-OWSNamespace-clone}{\code{OWSNamespace$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OWSNamespace-new"></a>}}
+\if{latex}{\out{\hypertarget{method-OWSNamespace-new}{}}}
+\subsection{Method \code{new()}}{
+Initializes an \link{OWSNamespace}
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OWSNamespace$new(id, uri)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{id}}{id}
+
+\item{\code{uri}}{uri}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OWSNamespace-getDefinition"></a>}}
+\if{latex}{\out{\hypertarget{method-OWSNamespace-getDefinition}{}}}
+\subsection{Method \code{getDefinition()}}{
+Get namespace definition
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OWSNamespace$getDefinition()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+a named \code{list} with id and uri
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OWSNamespace-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-OWSNamespace-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OWSNamespace$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}

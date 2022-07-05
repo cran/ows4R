@@ -13,26 +13,9 @@ Web Map Service.
 }
 \description{
 WMSClient
-}
-\section{Methods}{
 
-\describe{
- \item{\code{new(url, serviceVersion, user, pwd, logger)}}{
-   This method is used to instantiate a WMSClient with the \code{url} of the
-   OGC service. Authentication is supported using basic auth (using \code{user}/\code{pwd} arguments), 
-   bearer token (using \code{token} argument), or custom (using \code{headers} argument). By default, the \code{logger}
-   argument will be set to \code{NULL} (no logger). This argument accepts two possible 
-   values: \code{INFO}: to print only \pkg{ows4R} logs, \code{DEBUG}: to print more verbose logs
- }
- \item{\code{getCapabilities()}}{
-   Get service capabilities. Inherited from OWS Client
- }
- \item{\code{reloadCapabilities()}}{
-   Reload service capabilities
- }
+WMSClient
 }
-}
-
 \examples{
 \donttest{
    #example based on a WMS endpoint responding at http://localhost:8080/geoserver/wms
@@ -54,3 +37,223 @@ Emmanuel Blondel <emmanuel.blondel1@gmail.com>
 \keyword{Map}
 \keyword{OGC}
 \keyword{WMS}
+\section{Super classes}{
+\code{\link[ows4R:OGCAbstractObject]{ows4R::OGCAbstractObject}} -> \code{\link[ows4R:OWSClient]{ows4R::OWSClient}} -> \code{WMSClient}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-WMSClient-new}{\code{WMSClient$new()}}
+\item \href{#method-WMSClient-getCapabilities}{\code{WMSClient$getCapabilities()}}
+\item \href{#method-WMSClient-reloadCapabilities}{\code{WMSClient$reloadCapabilities()}}
+\item \href{#method-WMSClient-getLayers}{\code{WMSClient$getLayers()}}
+\item \href{#method-WMSClient-getMap}{\code{WMSClient$getMap()}}
+\item \href{#method-WMSClient-getFeatureInfo}{\code{WMSClient$getFeatureInfo()}}
+\item \href{#method-WMSClient-getLegendGraphic}{\code{WMSClient$getLegendGraphic()}}
+\item \href{#method-WMSClient-clone}{\code{WMSClient$clone()}}
+}
+}
+\if{html}{\out{
+<details><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="ERROR"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-ERROR'><code>ows4R::OGCAbstractObject$ERROR()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="INFO"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-INFO'><code>ows4R::OGCAbstractObject$INFO()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="WARN"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-WARN'><code>ows4R::OGCAbstractObject$WARN()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="encode"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-encode'><code>ows4R::OGCAbstractObject$encode()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getClass"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getClass'><code>ows4R::OGCAbstractObject$getClass()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getClassName"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getClassName'><code>ows4R::OGCAbstractObject$getClassName()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getNamespaceDefinition"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getNamespaceDefinition'><code>ows4R::OGCAbstractObject$getNamespaceDefinition()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="isFieldInheritedFrom"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-isFieldInheritedFrom'><code>ows4R::OGCAbstractObject$isFieldInheritedFrom()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="logger"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-logger'><code>ows4R::OGCAbstractObject$logger()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSClient" data-id="getCASUrl"><a href='../../ows4R/html/OWSClient.html#method-OWSClient-getCASUrl'><code>ows4R::OWSClient$getCASUrl()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSClient" data-id="getConfig"><a href='../../ows4R/html/OWSClient.html#method-OWSClient-getConfig'><code>ows4R::OWSClient$getConfig()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSClient" data-id="getHeaders"><a href='../../ows4R/html/OWSClient.html#method-OWSClient-getHeaders'><code>ows4R::OWSClient$getHeaders()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSClient" data-id="getPwd"><a href='../../ows4R/html/OWSClient.html#method-OWSClient-getPwd'><code>ows4R::OWSClient$getPwd()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSClient" data-id="getToken"><a href='../../ows4R/html/OWSClient.html#method-OWSClient-getToken'><code>ows4R::OWSClient$getToken()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSClient" data-id="getUrl"><a href='../../ows4R/html/OWSClient.html#method-OWSClient-getUrl'><code>ows4R::OWSClient$getUrl()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSClient" data-id="getUser"><a href='../../ows4R/html/OWSClient.html#method-OWSClient-getUser'><code>ows4R::OWSClient$getUser()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSClient" data-id="getVersion"><a href='../../ows4R/html/OWSClient.html#method-OWSClient-getVersion'><code>ows4R::OWSClient$getVersion()</code></a></li>
+</ul>
+</details>
+}}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WMSClient-new"></a>}}
+\if{latex}{\out{\hypertarget{method-WMSClient-new}{}}}
+\subsection{Method \code{new()}}{
+This method is used to instantiate a \link{WMSClient} with the \code{url} of the
+   OGC service. Authentication is supported using basic auth (using \code{user}/\code{pwd} arguments), 
+   bearer token (using \code{token} argument), or custom (using \code{headers} argument). By default, the \code{logger}
+   argument will be set to \code{NULL} (no logger). This argument accepts two possible 
+   values: \code{INFO}: to print only \pkg{ows4R} logs, \code{DEBUG}: to print more verbose logs
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WMSClient$new(
+  url,
+  serviceVersion = NULL,
+  user = NULL,
+  pwd = NULL,
+  token = NULL,
+  headers = c(),
+  config = httr::config(),
+  cas_url = NULL,
+  logger = NULL
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{url}}{url}
+
+\item{\code{serviceVersion}}{WFS service version}
+
+\item{\code{user}}{user}
+
+\item{\code{pwd}}{password}
+
+\item{\code{token}}{token}
+
+\item{\code{headers}}{headers}
+
+\item{\code{config}}{config}
+
+\item{\code{cas_url}}{Central Authentication Service (CAS) URL}
+
+\item{\code{logger}}{logger}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WMSClient-getCapabilities"></a>}}
+\if{latex}{\out{\hypertarget{method-WMSClient-getCapabilities}{}}}
+\subsection{Method \code{getCapabilities()}}{
+Get WMS capabilities
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WMSClient$getCapabilities()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+an object of class \link{WMSCapabilities}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WMSClient-reloadCapabilities"></a>}}
+\if{latex}{\out{\hypertarget{method-WMSClient-reloadCapabilities}{}}}
+\subsection{Method \code{reloadCapabilities()}}{
+Reloads WFS capabilities
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WMSClient$reloadCapabilities()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WMSClient-getLayers"></a>}}
+\if{latex}{\out{\hypertarget{method-WMSClient-getLayers}{}}}
+\subsection{Method \code{getLayers()}}{
+List the layers available. If \code{pretty} is TRUE,
+   the output will be an object of class \code{data.frame}
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WMSClient$getLayers(pretty = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{pretty}}{pretty}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+a \code{list} of \link{WMSLayer} available, or a \code{data.frame}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WMSClient-getMap"></a>}}
+\if{latex}{\out{\hypertarget{method-WMSClient-getMap}{}}}
+\subsection{Method \code{getMap()}}{
+Get map. NOT YET IMPLEMENTED
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WMSClient$getMap()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WMSClient-getFeatureInfo"></a>}}
+\if{latex}{\out{\hypertarget{method-WMSClient-getFeatureInfo}{}}}
+\subsection{Method \code{getFeatureInfo()}}{
+Get feature info
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WMSClient$getFeatureInfo(
+  layer,
+  srs = NULL,
+  styles = NULL,
+  feature_count = 1,
+  x,
+  y,
+  width,
+  height,
+  bbox,
+  info_format = "application/vnd.ogc.gml",
+  ...
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{layer}}{layer name}
+
+\item{\code{srs}}{srs}
+
+\item{\code{styles}}{styles}
+
+\item{\code{feature_count}}{feature count. Default is 1}
+
+\item{\code{x}}{x}
+
+\item{\code{y}}{y}
+
+\item{\code{width}}{width}
+
+\item{\code{height}}{height}
+
+\item{\code{bbox}}{bbox}
+
+\item{\code{info_format}}{info format. Default is "application/vnd.ogc.gml"}
+
+\item{\code{...}}{any other parameter to pass to a \link{WMSGetFeatureInfo} request}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+an object of class \code{sf} given the feature(s)
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WMSClient-getLegendGraphic"></a>}}
+\if{latex}{\out{\hypertarget{method-WMSClient-getLegendGraphic}{}}}
+\subsection{Method \code{getLegendGraphic()}}{
+Get legend graphic. NOT YET IMPLEMENTED
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WMSClient$getLegendGraphic()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WMSClient-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-WMSClient-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WMSClient$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}

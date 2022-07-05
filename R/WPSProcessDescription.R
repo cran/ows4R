@@ -5,40 +5,6 @@
 #' @keywords OGC WPS Process ProcessDescription
 #' @return Object of \code{\link{R6Class}} modelling a WPS process description
 #' @format \code{\link{R6Class}} object.
-#'
-#' @section Methods:
-#' \describe{
-#'  \item{\code{new(xml, version, logger)}}{
-#'    This method is used to instantiate a \code{WPSProcessDescription} object
-#'  }
-#'  \item{\code{getIdentifier()}}{
-#'    Get process identifier
-#'  }
-#'  \item{\code{getTitle()}}{
-#'    Get process title
-#'  }
-#'  \item{\code{getAbstract()}}{
-#'    Get process abstract
-#'  }
-#'  \item{\code{getVersion()}}{
-#'    Get process version
-#'  }
-#'  \item{\code{isStatusSupported()}}{
-#'    Get whether status is supported
-#'  }
-#'  \item{\code{isStoreSupported()}}{
-#'    Get whether store is supported
-#'  }
-#'  \item{\code{getDataInputs()}}{
-#'    Get data inputs
-#'  }
-#'  \item{\code{getProcessOutputs()}}{
-#'    Get process outputs
-#'  }
-#'  \item{\code{asDataFrame()}}{
-#'    Get process description as data.frame
-#'  }
-#' }
 #' 
 #' @note Class used internally by \pkg{ows4R}
 #' 
@@ -47,11 +13,9 @@
 WPSProcessDescription <- R6Class("WPSProcessDescription",
   inherit = OGCAbstractObject,                       
   private = list(
-    
     capabilities = NULL,
     url = NA,
     version = NA,
-    
     identifier = NA,
     title = NA,
     abstract= NA,
@@ -135,6 +99,11 @@ WPSProcessDescription <- R6Class("WPSProcessDescription",
     
   ),
   public = list(
+    #'@description Initializes an object of class \link{WPSProcessDescription}
+    #'@param xml object of class \link{XMLInternalNode-class} from \pkg{XML}
+    #'@param version version
+    #'@param logger logger
+    #'@param ... any other parameter
     initialize = function(xml, version, logger = NULL, ...){
       super$initialize(logger = logger)
       private$version = version
@@ -150,47 +119,56 @@ WPSProcessDescription <- R6Class("WPSProcessDescription",
       private$processOutputs = processDesc$processOutputs
     },
     
-    #getIdentifier
+    #'@description Get process identifier
+    #'@return the identifier, object of class \code{character}
     getIdentifier = function(){
       return(private$identifier)
     },
     
-    #getTitle
+    #'@description Get process title
+    #'@return the title, object of class \code{character}
     getTitle = function(){
       return(private$title)
     },
     
-    #getAbstract
+    #'@description Get process abstract
+    #'@return the abstract, object of class \code{character}
     getAbstract = function(){
       return(private$abstract)
     },
     
-    #getVersion
+    #'@description Get process version
+    #'@param the version, object of class \code{character}
     getVersion = function(){
       return(private$processVersion)
     },
     
-    #isStatusSupported
+    #'@description Indicates if the status is supported
+    #'@return \code{TRUE} if supported, \code{FALSE} otherwise
     isStatusSupported = function(){
       return(private$statusSupported)
     },
     
-    #isStoreSupported
+    #'@description Indicates if the store is supported
+    #'@return \code{TRUE} if supported, \code{FALSE} otherwise
     isStoreSupported = function(){
       return(private$storeSupported)
     },
     
-    #getDataInputs
+    #'@description Get data inputs
+    #'@return a \code{list} of objects extending \link{WPSInputDescription}
     getDataInputs = function(){
       return(private$dataInputs)
     },
     
-    #getProcessOutputs
+    #'@description Get process outputs
+    #'@return a \code{list} of objects extending \link{WPSOutputDescription}
     getProcessOutputs = function(){
       return(private$processOutputs)
     },
     
-    #asDataFrame
+    #'@description Convenience method to export a process description as \code{data.frame}
+    #'@return a \code{data.frame} giving the process description
     asDataFrame = function(){
       return(data.frame(
         identifier = self$getIdentifier(),

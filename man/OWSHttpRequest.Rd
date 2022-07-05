@@ -12,41 +12,12 @@ Object of \code{\link{R6Class}} for modelling a generic OWS http request
 }
 \description{
 OWSHttpRequest
+
+OWSHttpRequest
 }
 \note{
 Abstract class used internally by \pkg{ows4R}
 }
-\section{Methods}{
-
-\describe{
- \item{\code{new(capabilities, op, type, url, request, user, pwd, namedParams, attrs, 
-                 contentType, mimeType, logger)}}{
-   This method is used to instantiate a object for doing an OWS HTTP request
- }
- \item{\code{getCapabilities()}}{
-   Get the capabilities
- }
- \item{\code{getRequest()}}{
-   Get the request payload
- }
- \item{\code{getRequestHeaders()}}{
-   Get the request headers
- }
- \item{\code{getStatus()}}{
-   Get the request status code
- }
- \item{\code{getResponse()}}{
-   Get the request response
- }
- \item{\code{getException()}}{
-   Get the exception (in case of request failure)
- }
- \item{\code{getResult()}}{
-   Get the result \code{TRUE} if the request is successful, \code{FALSE} otherwise
- }
-}
-}
-
 \author{
 Emmanuel Blondel <emmanuel.blondel1@gmail.com>
 }
@@ -54,3 +25,243 @@ Emmanuel Blondel <emmanuel.blondel1@gmail.com>
 \keyword{OGC}
 \keyword{OWS}
 \keyword{Request}
+\section{Super class}{
+\code{\link[ows4R:OGCAbstractObject]{ows4R::OGCAbstractObject}} -> \code{OWSHttpRequest}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-OWSHttpRequest-new}{\code{OWSHttpRequest$new()}}
+\item \href{#method-OWSHttpRequest-execute}{\code{OWSHttpRequest$execute()}}
+\item \href{#method-OWSHttpRequest-getCapabilities}{\code{OWSHttpRequest$getCapabilities()}}
+\item \href{#method-OWSHttpRequest-getRequest}{\code{OWSHttpRequest$getRequest()}}
+\item \href{#method-OWSHttpRequest-getRequestHeaders}{\code{OWSHttpRequest$getRequestHeaders()}}
+\item \href{#method-OWSHttpRequest-getStatus}{\code{OWSHttpRequest$getStatus()}}
+\item \href{#method-OWSHttpRequest-getResponse}{\code{OWSHttpRequest$getResponse()}}
+\item \href{#method-OWSHttpRequest-getException}{\code{OWSHttpRequest$getException()}}
+\item \href{#method-OWSHttpRequest-getResult}{\code{OWSHttpRequest$getResult()}}
+\item \href{#method-OWSHttpRequest-setResult}{\code{OWSHttpRequest$setResult()}}
+\item \href{#method-OWSHttpRequest-clone}{\code{OWSHttpRequest$clone()}}
+}
+}
+\if{html}{\out{
+<details><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="ERROR"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-ERROR'><code>ows4R::OGCAbstractObject$ERROR()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="INFO"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-INFO'><code>ows4R::OGCAbstractObject$INFO()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="WARN"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-WARN'><code>ows4R::OGCAbstractObject$WARN()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="encode"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-encode'><code>ows4R::OGCAbstractObject$encode()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getClass"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getClass'><code>ows4R::OGCAbstractObject$getClass()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getClassName"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getClassName'><code>ows4R::OGCAbstractObject$getClassName()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getNamespaceDefinition"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getNamespaceDefinition'><code>ows4R::OGCAbstractObject$getNamespaceDefinition()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="isFieldInheritedFrom"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-isFieldInheritedFrom'><code>ows4R::OGCAbstractObject$isFieldInheritedFrom()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="logger"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-logger'><code>ows4R::OGCAbstractObject$logger()</code></a></li>
+</ul>
+</details>
+}}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OWSHttpRequest-new"></a>}}
+\if{latex}{\out{\hypertarget{method-OWSHttpRequest-new}{}}}
+\subsection{Method \code{new()}}{
+Initializes an OWS HTTP request
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OWSHttpRequest$new(
+  element,
+  namespacePrefix,
+  capabilities,
+  op,
+  type,
+  url,
+  request,
+  user = NULL,
+  pwd = NULL,
+  token = NULL,
+  headers = c(),
+  config = httr::config(),
+  namedParams = NULL,
+  attrs = NULL,
+  contentType = "text/xml",
+  mimeType = "text/xml",
+  logger = NULL,
+  ...
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{element}}{element}
+
+\item{\code{namespacePrefix}}{namespace prefix}
+
+\item{\code{capabilities}}{object of class or extending \link{OWSCapabilities}}
+
+\item{\code{op}}{object of class \link{OWSOperation}}
+
+\item{\code{type}}{type of request, eg. GET, POST}
+
+\item{\code{url}}{url}
+
+\item{\code{request}}{request name}
+
+\item{\code{user}}{user}
+
+\item{\code{pwd}}{password}
+
+\item{\code{token}}{token}
+
+\item{\code{headers}}{headers}
+
+\item{\code{config}}{config}
+
+\item{\code{namedParams}}{a named \code{list}}
+
+\item{\code{attrs}}{attributes}
+
+\item{\code{contentType}}{content type. Default value is "text/xml"}
+
+\item{\code{mimeType}}{mime type. Default value is "text/xml"}
+
+\item{\code{logger}}{logger}
+
+\item{\code{...}}{any other parameter}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OWSHttpRequest-execute"></a>}}
+\if{latex}{\out{\hypertarget{method-OWSHttpRequest-execute}{}}}
+\subsection{Method \code{execute()}}{
+Executes the request
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OWSHttpRequest$execute()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OWSHttpRequest-getCapabilities"></a>}}
+\if{latex}{\out{\hypertarget{method-OWSHttpRequest-getCapabilities}{}}}
+\subsection{Method \code{getCapabilities()}}{
+Get capabilities
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OWSHttpRequest$getCapabilities()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+an object of class or extending \link{OWSCapabilities}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OWSHttpRequest-getRequest"></a>}}
+\if{latex}{\out{\hypertarget{method-OWSHttpRequest-getRequest}{}}}
+\subsection{Method \code{getRequest()}}{
+Get request
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OWSHttpRequest$getRequest()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+the request
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OWSHttpRequest-getRequestHeaders"></a>}}
+\if{latex}{\out{\hypertarget{method-OWSHttpRequest-getRequestHeaders}{}}}
+\subsection{Method \code{getRequestHeaders()}}{
+Get request headers
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OWSHttpRequest$getRequestHeaders()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+the request headers
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OWSHttpRequest-getStatus"></a>}}
+\if{latex}{\out{\hypertarget{method-OWSHttpRequest-getStatus}{}}}
+\subsection{Method \code{getStatus()}}{
+get status code
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OWSHttpRequest$getStatus()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+the request status code
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OWSHttpRequest-getResponse"></a>}}
+\if{latex}{\out{\hypertarget{method-OWSHttpRequest-getResponse}{}}}
+\subsection{Method \code{getResponse()}}{
+get request response
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OWSHttpRequest$getResponse()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+the request response
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OWSHttpRequest-getException"></a>}}
+\if{latex}{\out{\hypertarget{method-OWSHttpRequest-getException}{}}}
+\subsection{Method \code{getException()}}{
+get request exception
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OWSHttpRequest$getException()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+the request exception
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OWSHttpRequest-getResult"></a>}}
+\if{latex}{\out{\hypertarget{method-OWSHttpRequest-getResult}{}}}
+\subsection{Method \code{getResult()}}{
+Get the result \code{TRUE} if the request is successful, \code{FALSE} otherwise
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OWSHttpRequest$getResult()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+the result, object of class \code{logical}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OWSHttpRequest-setResult"></a>}}
+\if{latex}{\out{\hypertarget{method-OWSHttpRequest-setResult}{}}}
+\subsection{Method \code{setResult()}}{
+Set the result
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OWSHttpRequest$setResult(result)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{result}}{object of class \code{logical}}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OWSHttpRequest-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-OWSHttpRequest-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OWSHttpRequest$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}

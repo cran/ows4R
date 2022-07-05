@@ -12,31 +12,110 @@ Object of \code{\link{R6Class}} for modelling an OGC Operation
 }
 \description{
 OWSOperation
+
+OWSOperation
 }
 \note{
-Abstract class used internally by \pkg{ows4R}
+Internal class used internally by \pkg{ows4R} when reading capabilities documents
 }
-\section{Methods}{
-
-\describe{
- \item{\code{new(xmlObj, owsVersion, serviceVersion)}}{
-   This method is used to instantiate an OWSOperation object
- }
- \item{\code{getName()}}{
-   Get name
- }
- \item{\code{getParameters()}}{
-   Get the list of parameters
- }
- \item{\code{getParameter(name)}}{
-   Get a given parameter
- }
-}
-}
-
 \author{
 Emmanuel Blondel <emmanuel.blondel1@gmail.com>
 }
 \keyword{OGC}
 \keyword{OWS}
 \keyword{operation}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-OWSOperation-new}{\code{OWSOperation$new()}}
+\item \href{#method-OWSOperation-getName}{\code{OWSOperation$getName()}}
+\item \href{#method-OWSOperation-getParameters}{\code{OWSOperation$getParameters()}}
+\item \href{#method-OWSOperation-getParameter}{\code{OWSOperation$getParameter()}}
+\item \href{#method-OWSOperation-clone}{\code{OWSOperation$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OWSOperation-new"></a>}}
+\if{latex}{\out{\hypertarget{method-OWSOperation-new}{}}}
+\subsection{Method \code{new()}}{
+Initializes an object of class \link{OWSOperation}.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OWSOperation$new(xmlObj, owsVersion, serviceVersion)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{xmlObj}}{object of class \link{XMLInternalNode-class} from \pkg{XML}}
+
+\item{\code{owsVersion}}{OWS version}
+
+\item{\code{serviceVersion}}{service version}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OWSOperation-getName"></a>}}
+\if{latex}{\out{\hypertarget{method-OWSOperation-getName}{}}}
+\subsection{Method \code{getName()}}{
+Get operation name
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OWSOperation$getName()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+an object of class \code{character}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OWSOperation-getParameters"></a>}}
+\if{latex}{\out{\hypertarget{method-OWSOperation-getParameters}{}}}
+\subsection{Method \code{getParameters()}}{
+Get parameters
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OWSOperation$getParameters()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+the parameters
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OWSOperation-getParameter"></a>}}
+\if{latex}{\out{\hypertarget{method-OWSOperation-getParameter}{}}}
+\subsection{Method \code{getParameter()}}{
+Get parameter
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OWSOperation$getParameter(name)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{name}}{name}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+the parameter
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OWSOperation-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-OWSOperation-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OWSOperation$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}

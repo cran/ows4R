@@ -12,16 +12,9 @@ Object of \code{\link{R6Class}} for modelling an BBOX
 }
 \description{
 BBOX
-}
-\section{Methods}{
 
-\describe{
- \item{\code{new(bbox, srsName)}}{
-   This method is used to instantiate an BBOX
- }
+BBOX
 }
-}
-
 \examples{
   bbox <- OWSUtils$toBBOX(-180,-90,180,90)
   expr <- BBOX$new(bbox)
@@ -34,3 +27,76 @@ Emmanuel Blondel <emmanuel.blondel1@gmail.com>
 \keyword{BBOX}
 \keyword{Expression}
 \keyword{OGC}
+\section{Super classes}{
+\code{\link[ows4R:OGCAbstractObject]{ows4R::OGCAbstractObject}} -> \code{\link[ows4R:OGCExpression]{ows4R::OGCExpression}} -> \code{BBOX}
+}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{PropertyName}}{property name field for XML encoding}
+
+\item{\code{Envelope}}{envelope as object of class \link{GMLEnvelope} from \pkg{geometa}}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-BBOX-new}{\code{BBOX$new()}}
+\item \href{#method-BBOX-clone}{\code{BBOX$clone()}}
+}
+}
+\if{html}{\out{
+<details><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="ERROR"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-ERROR'><code>ows4R::OGCAbstractObject$ERROR()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="INFO"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-INFO'><code>ows4R::OGCAbstractObject$INFO()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="WARN"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-WARN'><code>ows4R::OGCAbstractObject$WARN()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="encode"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-encode'><code>ows4R::OGCAbstractObject$encode()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getClass"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getClass'><code>ows4R::OGCAbstractObject$getClass()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getClassName"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getClassName'><code>ows4R::OGCAbstractObject$getClassName()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getNamespaceDefinition"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getNamespaceDefinition'><code>ows4R::OGCAbstractObject$getNamespaceDefinition()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="isFieldInheritedFrom"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-isFieldInheritedFrom'><code>ows4R::OGCAbstractObject$isFieldInheritedFrom()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="logger"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-logger'><code>ows4R::OGCAbstractObject$logger()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCExpression" data-id="getExprVersion"><a href='../../ows4R/html/OGCExpression.html#method-OGCExpression-getExprVersion'><code>ows4R::OGCExpression$getExprVersion()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCExpression" data-id="setExprVersion"><a href='../../ows4R/html/OGCExpression.html#method-OGCExpression-setExprVersion'><code>ows4R::OGCExpression$setExprVersion()</code></a></li>
+</ul>
+</details>
+}}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BBOX-new"></a>}}
+\if{latex}{\out{\hypertarget{method-BBOX-new}{}}}
+\subsection{Method \code{new()}}{
+Initializes a \link{BBOX} expression
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BBOX$new(bbox, srsName = NULL)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{bbox}}{an object of class \code{matrix}}
+
+\item{\code{srsName}}{srs name}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BBOX-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-BBOX-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BBOX$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}

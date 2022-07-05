@@ -13,40 +13,9 @@ Web Processing Service.
 }
 \description{
 WPSClient
-}
-\section{Methods}{
 
-\describe{
- \item{\code{new(url, serviceVersion, user, pwd, logger)}}{
-   This method is used to instantiate a WPSClient with the \code{url} of the
-   OGC service. Authentication is supported using basic auth (using \code{user}/\code{pwd} arguments), 
-   bearer token (using \code{token} argument), or custom (using \code{headers} argument). By default, the \code{logger}
-   argument will be set to \code{NULL} (no logger). This argument accepts two possible 
-   values: \code{INFO}: to print only \pkg{ows4R} logs, \code{DEBUG}: to print more verbose logs
- }
- \item{\code{getCapabilities()}}{
-   Get service capabilities. Inherited from OWS Client
- }
- \item{\code{reloadCapabilities()}}{
-   Reload service capabilities
- }
- \item{\code{getProcesses(pretty, full)}}{
-   Return the list of processes offered by the service capabilities. \code{pretty} allows to control
-   the type output. If \code{TRUE}, a \code{data.frame} will be returned. When prettified output, it
-   is also possible to get a 'full' description of the process by setting \code{full = TRUE} in which 
-   case a the WPS client will request a process description (with more information about the process) for
-   each process listed in the capabilities.
- }
- \item{\code{describeProcess(identifier)}}{
-   Get the description of a process, given its \code{identifier}, returning an object of class \code{WPSProcessDescription}
- }
- \item{\code{execute(identifier, dataInputs, responseForm, storeExecuteResponse, lineage, status,
-                     update, updateInterval)}}{
-   Execute a process, given its \code{identifier}
- }
+WPSClient
 }
-}
-
 \examples{
 \donttest{
    #example based on a WPS endpoint responding at http://localhost:8080/geoserver/wps
@@ -64,3 +33,215 @@ Emmanuel Blondel <emmanuel.blondel1@gmail.com>
 \keyword{Process}
 \keyword{Processing}
 \keyword{WPS}
+\section{Super classes}{
+\code{\link[ows4R:OGCAbstractObject]{ows4R::OGCAbstractObject}} -> \code{\link[ows4R:OWSClient]{ows4R::OWSClient}} -> \code{WPSClient}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-WPSClient-new}{\code{WPSClient$new()}}
+\item \href{#method-WPSClient-getCapabilities}{\code{WPSClient$getCapabilities()}}
+\item \href{#method-WPSClient-reloadCapabilities}{\code{WPSClient$reloadCapabilities()}}
+\item \href{#method-WPSClient-getProcesses}{\code{WPSClient$getProcesses()}}
+\item \href{#method-WPSClient-describeProcess}{\code{WPSClient$describeProcess()}}
+\item \href{#method-WPSClient-execute}{\code{WPSClient$execute()}}
+\item \href{#method-WPSClient-clone}{\code{WPSClient$clone()}}
+}
+}
+\if{html}{\out{
+<details><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="ERROR"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-ERROR'><code>ows4R::OGCAbstractObject$ERROR()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="INFO"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-INFO'><code>ows4R::OGCAbstractObject$INFO()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="WARN"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-WARN'><code>ows4R::OGCAbstractObject$WARN()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="encode"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-encode'><code>ows4R::OGCAbstractObject$encode()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getClass"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getClass'><code>ows4R::OGCAbstractObject$getClass()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getClassName"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getClassName'><code>ows4R::OGCAbstractObject$getClassName()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getNamespaceDefinition"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getNamespaceDefinition'><code>ows4R::OGCAbstractObject$getNamespaceDefinition()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="isFieldInheritedFrom"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-isFieldInheritedFrom'><code>ows4R::OGCAbstractObject$isFieldInheritedFrom()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="logger"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-logger'><code>ows4R::OGCAbstractObject$logger()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSClient" data-id="getCASUrl"><a href='../../ows4R/html/OWSClient.html#method-OWSClient-getCASUrl'><code>ows4R::OWSClient$getCASUrl()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSClient" data-id="getConfig"><a href='../../ows4R/html/OWSClient.html#method-OWSClient-getConfig'><code>ows4R::OWSClient$getConfig()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSClient" data-id="getHeaders"><a href='../../ows4R/html/OWSClient.html#method-OWSClient-getHeaders'><code>ows4R::OWSClient$getHeaders()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSClient" data-id="getPwd"><a href='../../ows4R/html/OWSClient.html#method-OWSClient-getPwd'><code>ows4R::OWSClient$getPwd()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSClient" data-id="getToken"><a href='../../ows4R/html/OWSClient.html#method-OWSClient-getToken'><code>ows4R::OWSClient$getToken()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSClient" data-id="getUrl"><a href='../../ows4R/html/OWSClient.html#method-OWSClient-getUrl'><code>ows4R::OWSClient$getUrl()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSClient" data-id="getUser"><a href='../../ows4R/html/OWSClient.html#method-OWSClient-getUser'><code>ows4R::OWSClient$getUser()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSClient" data-id="getVersion"><a href='../../ows4R/html/OWSClient.html#method-OWSClient-getVersion'><code>ows4R::OWSClient$getVersion()</code></a></li>
+</ul>
+</details>
+}}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WPSClient-new"></a>}}
+\if{latex}{\out{\hypertarget{method-WPSClient-new}{}}}
+\subsection{Method \code{new()}}{
+This method is used to instantiate a \link{WPSClient} with the \code{url} of the
+   OGC service. Authentication is supported using basic auth (using \code{user}/\code{pwd} arguments), 
+   bearer token (using \code{token} argument), or custom (using \code{headers} argument). By default, the \code{logger}
+   argument will be set to \code{NULL} (no logger). This argument accepts two possible 
+   values: \code{INFO}: to print only \pkg{ows4R} logs, \code{DEBUG}: to print more verbose logs
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WPSClient$new(
+  url,
+  serviceVersion = NULL,
+  user = NULL,
+  pwd = NULL,
+  token = NULL,
+  headers = c(),
+  config = httr::config(),
+  cas_url = NULL,
+  logger = NULL
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{url}}{url}
+
+\item{\code{serviceVersion}}{WFS service version}
+
+\item{\code{user}}{user}
+
+\item{\code{pwd}}{password}
+
+\item{\code{token}}{token}
+
+\item{\code{headers}}{headers}
+
+\item{\code{config}}{config}
+
+\item{\code{cas_url}}{Central Authentication Service (CAS) URL}
+
+\item{\code{logger}}{logger}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WPSClient-getCapabilities"></a>}}
+\if{latex}{\out{\hypertarget{method-WPSClient-getCapabilities}{}}}
+\subsection{Method \code{getCapabilities()}}{
+Get WPS capabilities
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WPSClient$getCapabilities()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+an object of class \link{WPSCapabilities}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WPSClient-reloadCapabilities"></a>}}
+\if{latex}{\out{\hypertarget{method-WPSClient-reloadCapabilities}{}}}
+\subsection{Method \code{reloadCapabilities()}}{
+Reloads WPS capabilities
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WPSClient$reloadCapabilities()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WPSClient-getProcesses"></a>}}
+\if{latex}{\out{\hypertarget{method-WPSClient-getProcesses}{}}}
+\subsection{Method \code{getProcesses()}}{
+Get the list of processes offered by the service capabilities. \code{pretty} allows to control
+   the type output. If \code{TRUE}, a \code{data.frame} will be returned. When prettified output, it
+   is also possible to get a 'full' description of the process by setting \code{full = TRUE} in which 
+   case a the WPS client will request a process description (with more information about the process) for
+   each process listed in the capabilities.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WPSClient$getProcesses(pretty = FALSE, full = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{pretty}}{pretty}
+
+\item{\code{full}}{full}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+a \code{list} of \link{WPSProcessDescription} or a \code{data.frame}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WPSClient-describeProcess"></a>}}
+\if{latex}{\out{\hypertarget{method-WPSClient-describeProcess}{}}}
+\subsection{Method \code{describeProcess()}}{
+Get the description of a process, given its \code{identifier}, returning an object of class \code{WPSProcessDescription}
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WPSClient$describeProcess(identifier)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{identifier}}{process identifier}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+an object of class \link{WPSProcessDescription}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WPSClient-execute"></a>}}
+\if{latex}{\out{\hypertarget{method-WPSClient-execute}{}}}
+\subsection{Method \code{execute()}}{
+Execute a process, given its \code{identifier}
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WPSClient$execute(
+  identifier,
+  dataInputs = list(),
+  responseForm = NULL,
+  storeExecuteResponse = FALSE,
+  lineage = NULL,
+  status = NULL,
+  update = FALSE,
+  updateInterval = 1
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{identifier}}{process identifier}
+
+\item{\code{dataInputs}}{a named list of data inputs, objects of class \link{WPSLiteralData}, \link{WPSComplexData} or \link{WPSBoundingBoxData}}
+
+\item{\code{responseForm}}{response form, object of class \link{WPSResponseDocument}}
+
+\item{\code{storeExecuteResponse}}{store execute response? object of class \code{logical}. \code{FALSE} by default}
+
+\item{\code{lineage}}{lineage, object of class \code{logical}}
+
+\item{\code{status}}{status, object of class \code{logical}}
+
+\item{\code{update}}{update, object of class \code{logical}. For asynchronous requests}
+
+\item{\code{updateInterval}}{update interval, object of class \code{integer}. For asynchronous requests}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WPSClient-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-WPSClient-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WPSClient$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}

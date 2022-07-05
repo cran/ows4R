@@ -13,72 +13,9 @@ Catalogue Service for the Web.
 }
 \description{
 CSWClient
-}
-\section{Methods}{
 
-\describe{
- \item{\code{new(url, serviceVersion, user, pwd, token, headers, logger, ...)}}{
-   This method is used to instantiate a CSWClient with the \code{url} of the
-   OGC service. Authentication is supported using basic auth (using \code{user}/\code{pwd} arguments), 
-   bearer token (using \code{token} argument), or custom (using \code{headers} argument). By default, the \code{logger}
-   argument will be set to \code{NULL} (no logger). This argument accepts two possible 
-   values: \code{INFO}: to print only \pkg{ows4R} logs, \code{DEBUG}: to print more verbose logs
- }
- \item{\code{getCapabilities()}}{
-   Get service capabilities.
- }
- \item{\code{reloadCapabilities()}}{
-   Reload service capabilities
- }
- \item{\code{describeRecord(namespace, ...)}}{
-   Describe records. Retrieves the XML schema for CSW records. By default, returns the XML schema 
-   for the CSW records (http://www.opengis.net/cat/csw/2.0.2). For other schemas, specify the
-   \code{outputSchema} required, e.g. http://www.isotc211.org/2005/gmd for ISO 19115/19139 schema
- }
- \item{\code{getRecordById(id, elementSetName, ...)}}{
-   Get a record by Id. By default, the record will be returned following the CSW schema 
-   (http://www.opengis.net/cat/csw/2.0.2). For other schemas, specify the \code{outputSchema} 
-   required,  e.g. http://www.isotc211.org/2005/gmd for ISO 19115/19139 records.
-   The parameter \code{elementSetName} should among values "full", "brief", "summary". The default
-   "full" corresponds to the full metadata sheet returned. "brief" and "summary" will contain only
-   a subset of the metadata content.
- }
- \item{\code{getRecords(query, maxRecords, maxRecordsPerRequest)}}{
-   Get records based on a query, object of class \code{CSWQuery}. The maximum number of records can be
-   set either for the full query (\code{maxRecords}) or per request (\code{maxRecordsPerRequest}, default set to 10 records)
-   considering this operation is paginated. By default, the record will be returned following the CSW schema 
-   (http://www.opengis.net/cat/csw/2.0.2). For other schemas, specify the \code{outputSchema} 
-   required,  e.g. http://www.isotc211.org/2005/gmd for ISO 19115/19139 records.
- }
- \item{\code{transaction(type, record, recordProperty, constraint)}}{
-   Generic transaction method. Used for inserting, updating or deleting metadata using the transactional CSW service.
-   The \code{type} gives the type of transaction (Insert, Update, or Delete). The record
- }
- \item{\code{insertRecord(record, ...)}}{
-   Inserts a new record
- }
- \item{\code{updateRecord(record, recordProperty, constraint, ...)}}{
-   Updates an existing \code{record}. It can be a partial update by specifying a \code{recordProperty}.
-   A constraint (object of class \code{CSWConstraint}) can be specified. 
- }
- \item{\code{deleteRecord(record, constraint, ...)}}{
-   Deletes an existing \code{record}.  A constraint (object of class \code{CSWConstraint}) can be specified to limit
-   the deletion to some records.
- }
- \item{\code{deleteRecordById(record, ...)}}{
-   Deletes an existing record by identifier (constraint used to identify the record based on its identifier).
- }
- \item{\code{harvestRecord(sourceUrl, resourceType)}}{
-   Harvests a single record from a \code{sourceUrl}, given a \code{resourceType} (by default "http://www.isotc211.org/2005/gmd").
- }
- \item{\code{harvestNode(url, query, resourceType, sourceBaseUrl)}}{
-   Harvests a CSW node (having its endpoint defined by an  \code{url}). A \code{query} (object of class \code{CSWQuery}) can be
-   specificed if needed to restrain the harvesting to a subset. The \code{resourceType} defines the type of resources to be harvested
-   (by default "http://www.isotc211.org/2005/gmd")
- }
+CSWClient
 }
-}
-
 \examples{
 \donttest{
    #example based on CSW endpoint responding at http://localhost:8000/csw
@@ -105,3 +42,417 @@ Emmanuel Blondel <emmanuel.blondel1@gmail.com>
 \keyword{catalogue}
 \keyword{service}
 \keyword{web}
+\section{Super classes}{
+\code{\link[ows4R:OGCAbstractObject]{ows4R::OGCAbstractObject}} -> \code{\link[ows4R:OWSClient]{ows4R::OWSClient}} -> \code{CSWClient}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-CSWClient-new}{\code{CSWClient$new()}}
+\item \href{#method-CSWClient-getCapabilities}{\code{CSWClient$getCapabilities()}}
+\item \href{#method-CSWClient-reloadCapabilities}{\code{CSWClient$reloadCapabilities()}}
+\item \href{#method-CSWClient-describeRecord}{\code{CSWClient$describeRecord()}}
+\item \href{#method-CSWClient-getRecordById}{\code{CSWClient$getRecordById()}}
+\item \href{#method-CSWClient-getRecords}{\code{CSWClient$getRecords()}}
+\item \href{#method-CSWClient-transaction}{\code{CSWClient$transaction()}}
+\item \href{#method-CSWClient-insertRecord}{\code{CSWClient$insertRecord()}}
+\item \href{#method-CSWClient-updateRecord}{\code{CSWClient$updateRecord()}}
+\item \href{#method-CSWClient-deleteRecord}{\code{CSWClient$deleteRecord()}}
+\item \href{#method-CSWClient-deleteRecordById}{\code{CSWClient$deleteRecordById()}}
+\item \href{#method-CSWClient-harvestRecord}{\code{CSWClient$harvestRecord()}}
+\item \href{#method-CSWClient-harvestNode}{\code{CSWClient$harvestNode()}}
+\item \href{#method-CSWClient-clone}{\code{CSWClient$clone()}}
+}
+}
+\if{html}{\out{
+<details><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="ERROR"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-ERROR'><code>ows4R::OGCAbstractObject$ERROR()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="INFO"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-INFO'><code>ows4R::OGCAbstractObject$INFO()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="WARN"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-WARN'><code>ows4R::OGCAbstractObject$WARN()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="encode"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-encode'><code>ows4R::OGCAbstractObject$encode()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getClass"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getClass'><code>ows4R::OGCAbstractObject$getClass()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getClassName"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getClassName'><code>ows4R::OGCAbstractObject$getClassName()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getNamespaceDefinition"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getNamespaceDefinition'><code>ows4R::OGCAbstractObject$getNamespaceDefinition()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="isFieldInheritedFrom"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-isFieldInheritedFrom'><code>ows4R::OGCAbstractObject$isFieldInheritedFrom()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="logger"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-logger'><code>ows4R::OGCAbstractObject$logger()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSClient" data-id="getCASUrl"><a href='../../ows4R/html/OWSClient.html#method-OWSClient-getCASUrl'><code>ows4R::OWSClient$getCASUrl()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSClient" data-id="getConfig"><a href='../../ows4R/html/OWSClient.html#method-OWSClient-getConfig'><code>ows4R::OWSClient$getConfig()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSClient" data-id="getHeaders"><a href='../../ows4R/html/OWSClient.html#method-OWSClient-getHeaders'><code>ows4R::OWSClient$getHeaders()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSClient" data-id="getPwd"><a href='../../ows4R/html/OWSClient.html#method-OWSClient-getPwd'><code>ows4R::OWSClient$getPwd()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSClient" data-id="getToken"><a href='../../ows4R/html/OWSClient.html#method-OWSClient-getToken'><code>ows4R::OWSClient$getToken()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSClient" data-id="getUrl"><a href='../../ows4R/html/OWSClient.html#method-OWSClient-getUrl'><code>ows4R::OWSClient$getUrl()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSClient" data-id="getUser"><a href='../../ows4R/html/OWSClient.html#method-OWSClient-getUser'><code>ows4R::OWSClient$getUser()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSClient" data-id="getVersion"><a href='../../ows4R/html/OWSClient.html#method-OWSClient-getVersion'><code>ows4R::OWSClient$getVersion()</code></a></li>
+</ul>
+</details>
+}}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CSWClient-new"></a>}}
+\if{latex}{\out{\hypertarget{method-CSWClient-new}{}}}
+\subsection{Method \code{new()}}{
+This method is used to instantiate a CSWClient with the \code{url} of the
+   OGC service. Authentication is supported using basic auth (using \code{user}/\code{pwd} arguments), 
+   bearer token (using \code{token} argument), or custom (using \code{headers} argument). By default, the \code{logger}
+   argument will be set to \code{NULL} (no logger). This argument accepts two possible 
+   values: \code{INFO}: to print only \pkg{ows4R} logs, \code{DEBUG}: to print more verbose logs
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CSWClient$new(
+  url,
+  serviceVersion = NULL,
+  user = NULL,
+  pwd = NULL,
+  token = NULL,
+  headers = c(),
+  config = httr::config(),
+  cas_url = NULL,
+  logger = NULL
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{url}}{url}
+
+\item{\code{serviceVersion}}{CSW service version}
+
+\item{\code{user}}{user}
+
+\item{\code{pwd}}{password}
+
+\item{\code{token}}{token}
+
+\item{\code{headers}}{headers}
+
+\item{\code{config}}{config}
+
+\item{\code{cas_url}}{Central Authentication Service (CAS) URL}
+
+\item{\code{logger}}{logger}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CSWClient-getCapabilities"></a>}}
+\if{latex}{\out{\hypertarget{method-CSWClient-getCapabilities}{}}}
+\subsection{Method \code{getCapabilities()}}{
+Get CSW capabilities
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CSWClient$getCapabilities()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+an object of class \link{CSWCapabilities}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CSWClient-reloadCapabilities"></a>}}
+\if{latex}{\out{\hypertarget{method-CSWClient-reloadCapabilities}{}}}
+\subsection{Method \code{reloadCapabilities()}}{
+Reloads CSW capabilities
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CSWClient$reloadCapabilities()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CSWClient-describeRecord"></a>}}
+\if{latex}{\out{\hypertarget{method-CSWClient-describeRecord}{}}}
+\subsection{Method \code{describeRecord()}}{
+Describe records. Retrieves the XML schema for CSW records. By default, returns the XML schema 
+   for the CSW records (http://www.opengis.net/cat/csw/2.0.2). For other schemas, specify the
+   \code{outputSchema} required, e.g. http://www.isotc211.org/2005/gmd for ISO 19115/19139 schema
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CSWClient$describeRecord(namespace, ...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{namespace}}{namespace}
+
+\item{\code{...}}{any other parameter to pass to the \link{CSWDescribeRecord} service request}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+the service record description
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CSWClient-getRecordById"></a>}}
+\if{latex}{\out{\hypertarget{method-CSWClient-getRecordById}{}}}
+\subsection{Method \code{getRecordById()}}{
+Get a record by Id. By default, the record will be returned following the CSW schema 
+   (http://www.opengis.net/cat/csw/2.0.2). For other schemas, specify the \code{outputSchema} 
+   required,  e.g. http://www.isotc211.org/2005/gmd for ISO 19115/19139 records.
+   The parameter \code{elementSetName} should among values "full", "brief", "summary". The default
+   "full" corresponds to the full metadata sheet returned. "brief" and "summary" will contain only
+   a subset of the metadata content.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CSWClient$getRecordById(id, elementSetName = "full", ...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{id}}{record id}
+
+\item{\code{elementSetName}}{element set name. Default is "full"}
+
+\item{\code{...}}{any other parameter to pass to \link{CSWGetRecordById} service request}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+the fetched record, \code{NULL} otherwise
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CSWClient-getRecords"></a>}}
+\if{latex}{\out{\hypertarget{method-CSWClient-getRecords}{}}}
+\subsection{Method \code{getRecords()}}{
+Get records based on a query, object of class \code{CSWQuery}. The maximum number of records can be
+   set either for the full query (\code{maxRecords}) or per request (\code{maxRecordsPerRequest}, default set to 10 records)
+   considering this operation is paginated. By default, the record will be returned following the CSW schema 
+   (http://www.opengis.net/cat/csw/2.0.2). For other schemas, specify the \code{outputSchema} 
+   required,  e.g. http://www.isotc211.org/2005/gmd for ISO 19115/19139 records.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CSWClient$getRecords(
+  query = CSWQuery$new(),
+  maxRecords = NULL,
+  maxRecordsPerRequest = 10L,
+  ...
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{query}}{an object of class \link{CSWQuery}. By default, an empty query is set.}
+
+\item{\code{maxRecords}}{max number of total records. Default is \code{NULL} meaning all records are returned.}
+
+\item{\code{maxRecordsPerRequest}}{max number of records to return per request. Default set to 10.}
+
+\item{\code{...}}{any other parameter to be passed to \link{CSWGetRecords} service request}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+the list of records. By default each record will be returned as Dublin Core \code{list} object. In case 
+ ISO 19115/19139 is set as \code{outputSchema}, each record will be object of class \code{ISOMetadata} from 
+ \pkg{geometa}.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CSWClient-transaction"></a>}}
+\if{latex}{\out{\hypertarget{method-CSWClient-transaction}{}}}
+\subsection{Method \code{transaction()}}{
+Generic transaction method. Used for inserting, updating or deleting metadata using the transactional CSW service.
+   The \code{type} gives the type of transaction (Insert, Update, or Delete). The record
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CSWClient$transaction(
+  type,
+  record = NULL,
+  recordProperty = NULL,
+  constraint = NULL,
+  ...
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{type}}{of transaction either "Insert", "Update" or "Delete"}
+
+\item{\code{record}}{the record subject of the transaction}
+
+\item{\code{recordProperty}}{record property, object of class \link{CSWRecordProperty}}
+
+\item{\code{constraint}}{constraint, object of class \link{CSWConstraint}}
+
+\item{\code{...}}{any other parameter to pass to \link{CSWTransaction} service request}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+\code{TRUE} if transaction succeeded, \code{FALSE} otherwise
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CSWClient-insertRecord"></a>}}
+\if{latex}{\out{\hypertarget{method-CSWClient-insertRecord}{}}}
+\subsection{Method \code{insertRecord()}}{
+Inserts a new record
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CSWClient$insertRecord(record, ...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{record}}{record subject of the Insertion}
+
+\item{\code{...}}{any other parameter to pass to the transaction}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+\code{TRUE} if insertion succeeded, \code{FALSE} otherwise
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CSWClient-updateRecord"></a>}}
+\if{latex}{\out{\hypertarget{method-CSWClient-updateRecord}{}}}
+\subsection{Method \code{updateRecord()}}{
+Updates an existing record
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CSWClient$updateRecord(
+  record = NULL,
+  recordProperty = NULL,
+  constraint = NULL,
+  ...
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{record}}{record subject of the Insertion}
+
+\item{\code{recordProperty}}{record property, object of class \link{CSWRecordProperty}}
+
+\item{\code{constraint}}{constraint, object of class \link{CSWConstraint}}
+
+\item{\code{...}}{any other parameter to pass to the transaction}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+\code{TRUE} if update succeeded, \code{FALSE} otherwise
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CSWClient-deleteRecord"></a>}}
+\if{latex}{\out{\hypertarget{method-CSWClient-deleteRecord}{}}}
+\subsection{Method \code{deleteRecord()}}{
+Deletes an existing (set of) record(s).  A constraint (object of class \code{CSWConstraint}) 
+can be specified to limit the deletion to some records.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CSWClient$deleteRecord(record = NULL, constraint = NULL, ...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{record}}{record subject of the Insertion}
+
+\item{\code{constraint}}{constraint, object of class \link{CSWConstraint}}
+
+\item{\code{...}}{any other parameter to pass to the transaction}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+\code{TRUE} if deletion succeeded, \code{FALSE} otherwise
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CSWClient-deleteRecordById"></a>}}
+\if{latex}{\out{\hypertarget{method-CSWClient-deleteRecordById}{}}}
+\subsection{Method \code{deleteRecordById()}}{
+Deletes an existing record by identifier (constraint used to identify the record based on its identifier).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CSWClient$deleteRecordById(id)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{id}}{record id}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+\code{TRUE} if deletion succeeded, \code{FALSE} otherwise
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CSWClient-harvestRecord"></a>}}
+\if{latex}{\out{\hypertarget{method-CSWClient-harvestRecord}{}}}
+\subsection{Method \code{harvestRecord()}}{
+Harvests a single record from a \code{sourceUrl}, given a \code{resourceType} (by default "http://www.isotc211.org/2005/gmd").
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CSWClient$harvestRecord(
+  sourceUrl,
+  resourceType = "http://www.isotc211.org/2005/gmd"
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{sourceUrl}}{source URL}
+
+\item{\code{resourceType}}{resource type. Default is "http://www.isotc211.org/2005/gmd"}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+\code{TRUE} if harvesting succeeded, \code{FALSE} otherwise
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CSWClient-harvestNode"></a>}}
+\if{latex}{\out{\hypertarget{method-CSWClient-harvestNode}{}}}
+\subsection{Method \code{harvestNode()}}{
+Harvests a CSW node (having its endpoint defined by an  \code{url}). A \code{query} (object of class \code{CSWQuery}) can be
+   specificed if needed to restrain the harvesting to a subset. The \code{resourceType} defines the type of resources to be harvested
+   (by default "http://www.isotc211.org/2005/gmd")
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CSWClient$harvestNode(
+  url,
+  query = CSWQuery$new(),
+  resourceType = "http://www.isotc211.org/2005/gmd",
+  sourceBaseUrl
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{url}}{CSW node URL}
+
+\item{\code{query}}{a CSW query, object of class \link{CSWQuery}}
+
+\item{\code{resourceType}}{resource type. Default is "http://www.isotc211.org/2005/gmd"}
+
+\item{\code{sourceBaseUrl}}{source base URL}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+an object of class \code{list} giving the number of records \code{found} and those actually \code{harvested}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CSWClient-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-CSWClient-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CSWClient$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}

@@ -5,28 +5,6 @@
 #' @keywords OGC WFS FeatureType
 #' @return Object of \code{\link{R6Class}} modelling a WFS feature type element
 #' @format \code{\link{R6Class}} object.
-#'
-#' @section Methods:
-#' \describe{
-#'  \item{\code{new(xmlObj)}}{
-#'    This method is used to instantiate a \code{WFSFeatureTypeElement} object
-#'  }
-#'  \item{\code{getMinOccurs()}}{
-#'    Get min occurs
-#'  }
-#'  \item{\code{getMaxOccurs()}}{
-#'    Get max occurs
-#'  }
-#'  \item{\code{isNillable()}}{
-#'    Get TRUE if nillable, FALSE otherwise
-#'  }
-#'  \item{\code{getName()}}{
-#'    Get element name
-#'  }
-#'  \item{\code{getType()}}{
-#'    Get element type
-#'  }
-#' }
 #' 
 #' @note Abstract class used by \pkg{ows4R}
 #' 
@@ -60,7 +38,7 @@ WFSFeatureTypeElement <- R6Class("WFSFeatureTypeElement",
          type <- try(xpathSApply(xmlDoc(xmlObj), "//xs:restriction",
                              namespaces = c(xs = "http://www.w3.org/2001/XMLSchema"),
                              xmlGetAttr, "base"))
-         if(class(type)=="try-error") type <- NULL
+         if(is(type,"try-error")) type <- NULL
        }
        if(is.null(type)){
          stop(sprintf("Unknown data type for type '%s' while parsing FeatureType description!", type))
@@ -77,6 +55,7 @@ WFSFeatureTypeElement <- R6Class("WFSFeatureTypeElement",
                              "string" = "character",
                              "long" = "numeric",
                              "int" = "integer",
+                             "short" = "integer",
                              "decimal" = "double",
                              "double" = "double",
                              "float" = "double",
@@ -99,6 +78,9 @@ WFSFeatureTypeElement <- R6Class("WFSFeatureTypeElement",
    ),                                 
                                  
    public = list(
+      
+     #'@description Initializes a \link{WFSFeatureTypeElement}
+     #'@param xmlObj object of class \link{XMLInternalNode-class} from \pkg{XML}
      initialize = function(xmlObj){
        element = private$fetchElement(xmlObj)
        private$minOccurs = element$minOccurs
@@ -108,27 +90,32 @@ WFSFeatureTypeElement <- R6Class("WFSFeatureTypeElement",
        private$type = element$type
      },
      
-     #getMinOccurs
+     #'@description get min occurs
+     #'@return an object of class \code{character}
      getMinOccurs = function(){
        return(private$minOccurs)
      },
      
-     #getMaxOccurs
+     #'@description get max occurs
+     #'@return an object of class \code{character}
      getMaxOccurs = function(){
        return(private$maxOccurs)
      },
      
-     #isNillable
+     #'@description get if nillable
+     #'@return an object of class \code{logical}
      isNillable = function(){
        return(private$nillable)
      },
      
-     #getName
+     #'@description get name
+     #'@return an object of class \code{character}
      getName = function(){
        return(private$name)
      },
      
-     #getType
+     #'@description get type
+     #'@return an object of class \code{character}
      getType = function(){
        return(private$type)
      }

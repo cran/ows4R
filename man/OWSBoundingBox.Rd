@@ -12,22 +12,132 @@ Object of \code{\link{R6Class}} for modelling an OGC Bounding Box
 }
 \description{
 OWSBoundingBox
-}
-\section{Methods}{
 
-\describe{
- \item{\code{new(xml, element, namespacePrefix, owsVersion, serviceVersion, logger)}}{
-   This method is used to instantiate an \code{OWSBoundingBox} object
- }
- \item{\code{getBBOX()}}{
-   Get BBOX as object of class \code{bbox} from \pkg{sf} package
- }
+OWSBoundingBox
 }
-}
-
 \author{
 Emmanuel Blondel <emmanuel.blondel1@gmail.com>
 }
 \keyword{OGC}
 \keyword{OWS}
 \keyword{boundingbox}
+\section{Super class}{
+\code{\link[ows4R:OGCAbstractObject]{ows4R::OGCAbstractObject}} -> \code{OWSBoundingBox}
+}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{attrs}}{attributes to be associated to XML}
+
+\item{\code{LowerCorner}}{lower corner coordinates}
+
+\item{\code{UpperCorner}}{upper corner coordinates}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-OWSBoundingBox-new}{\code{OWSBoundingBox$new()}}
+\item \href{#method-OWSBoundingBox-decode}{\code{OWSBoundingBox$decode()}}
+\item \href{#method-OWSBoundingBox-getBBOX}{\code{OWSBoundingBox$getBBOX()}}
+\item \href{#method-OWSBoundingBox-clone}{\code{OWSBoundingBox$clone()}}
+}
+}
+\if{html}{\out{
+<details><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="ERROR"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-ERROR'><code>ows4R::OGCAbstractObject$ERROR()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="INFO"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-INFO'><code>ows4R::OGCAbstractObject$INFO()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="WARN"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-WARN'><code>ows4R::OGCAbstractObject$WARN()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="encode"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-encode'><code>ows4R::OGCAbstractObject$encode()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getClass"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getClass'><code>ows4R::OGCAbstractObject$getClass()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getClassName"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getClassName'><code>ows4R::OGCAbstractObject$getClassName()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getNamespaceDefinition"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getNamespaceDefinition'><code>ows4R::OGCAbstractObject$getNamespaceDefinition()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="isFieldInheritedFrom"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-isFieldInheritedFrom'><code>ows4R::OGCAbstractObject$isFieldInheritedFrom()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="logger"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-logger'><code>ows4R::OGCAbstractObject$logger()</code></a></li>
+</ul>
+</details>
+}}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OWSBoundingBox-new"></a>}}
+\if{latex}{\out{\hypertarget{method-OWSBoundingBox-new}{}}}
+\subsection{Method \code{new()}}{
+Initializes an object of class \link{OWSBoundingBox}
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OWSBoundingBox$new(
+  xml = NULL,
+  element = NULL,
+  namespacePrefix = NULL,
+  owsVersion,
+  serviceVersion,
+  logger = NULL
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{xml}}{an object of class \link{XMLInternalNode-class} to initialize from XML}
+
+\item{\code{element}}{element name}
+
+\item{\code{namespacePrefix}}{namespace prefix}
+
+\item{\code{owsVersion}}{OWS version}
+
+\item{\code{serviceVersion}}{service version}
+
+\item{\code{logger}}{logger}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OWSBoundingBox-decode"></a>}}
+\if{latex}{\out{\hypertarget{method-OWSBoundingBox-decode}{}}}
+\subsection{Method \code{decode()}}{
+Decodes an object of class \link{OWSBoundingBox} from XML
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OWSBoundingBox$decode(xml)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{xml}}{object of class \link{XMLInternalNode-class} from \pkg{XML}}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OWSBoundingBox-getBBOX"></a>}}
+\if{latex}{\out{\hypertarget{method-OWSBoundingBox-getBBOX}{}}}
+\subsection{Method \code{getBBOX()}}{
+Get BBOX as object of class \code{bbox} from \pkg{sf} package
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OWSBoundingBox$getBBOX()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+a numeric vector of length four, with xmin, ymin, xmax and ymax values
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OWSBoundingBox-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-OWSBoundingBox-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OWSBoundingBox$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}

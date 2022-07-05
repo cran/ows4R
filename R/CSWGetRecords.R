@@ -5,13 +5,6 @@
 #' @keywords OGC CSW GetRecords
 #' @return Object of \code{\link{R6Class}} for modelling a CSW GetRecords request
 #' @format \code{\link{R6Class}} object.
-#'
-#' @section Methods:
-#' \describe{
-#'  \item{\code{new(capabilities, op, url, serviceVersion, user, pwd, token, headers, query, logger, ...)}}{
-#'    This method is used to instantiate a CSWGetRecords object
-#'  }
-#' }
 #' 
 #' @note Class used internally by \pkg{ows4R} to trigger a CSW GetRecords request
 #' 
@@ -34,15 +27,31 @@ CSWGetRecords <- R6Class("CSWGetRecords",
     )
   ),
   public = list(
+    #'@field Query query property for request XML encoding
     Query = NULL,
+    
+    #'@description Initializes a \link{CSWGetRecordById} service request
+    #'@param capabilities an object of class \link{CSWCapabilities}
+    #'@param op object of class \link{OWSOperation} as retrieved from capabilities
+    #'@param url url
+    #'@param serviceVersion serviceVersion. Default is "2.0.2
+    #'@param user user
+    #'@param pwd password
+    #'@param token token
+    #'@param headers headers
+    #'@param config config
+    #'@param query object of class \link{CSWQuery}
+    #'@param logger logger
+    #'@param ... any parameter to pass to the service request, such as \code{resultType}, \code{startPosition},
+    #' \code{maxRecords}, \code{outputFormat}, or \code{outputSchema}
     initialize = function(capabilities, op, url, serviceVersion = "2.0.2", 
-                          user = NULL, pwd = NULL, token = NULL, headers = list(),
+                          user = NULL, pwd = NULL, token = NULL, headers = list(), config = httr::config(),
                           query = NULL, logger = NULL, ...) {
       nsVersion <- ifelse(serviceVersion=="3.0.0", "3.0", serviceVersion)
       private$xmlNamespacePrefix = paste(private$xmlNamespacePrefix, gsub("\\.", "_", nsVersion), sep="_")
       super$initialize(element = private$xmlElement, namespacePrefix = private$xmlNamespacePrefix,
                        capabilities, op, "POST", url, request = private$xmlElement,
-                       user = user, pwd = pwd, token = token, headers = headers,
+                       user = user, pwd = pwd, token = token, headers = headers, config = config,
                        contentType = "text/xml", mimeType = "text/xml",
                        logger = logger, ...)
       

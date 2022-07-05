@@ -12,16 +12,9 @@ Object of \code{\link{R6Class}} for modelling an OGC WPS BoundingBox data
 }
 \description{
 WPSBoundingBoxData
-}
-\section{Methods}{
 
-\describe{
- \item{\code{new(xml, owsVersion, serviceVersion, logger)}}{
-   This method is used to instantiate an \code{WPSBoundingBoxData} object
- }
+WPSBoundingBoxData
 }
-}
-
 \author{
 Emmanuel Blondel <emmanuel.blondel1@gmail.com>
 }
@@ -30,3 +23,79 @@ Emmanuel Blondel <emmanuel.blondel1@gmail.com>
 \keyword{OGC}
 \keyword{WPS}
 \keyword{data}
+\section{Super classes}{
+\code{\link[ows4R:OGCAbstractObject]{ows4R::OGCAbstractObject}} -> \code{\link[ows4R:OWSBoundingBox]{ows4R::OWSBoundingBox}} -> \code{WPSBoundingBoxData}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-WPSBoundingBoxData-new}{\code{WPSBoundingBoxData$new()}}
+\item \href{#method-WPSBoundingBoxData-clone}{\code{WPSBoundingBoxData$clone()}}
+}
+}
+\if{html}{\out{
+<details><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="ERROR"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-ERROR'><code>ows4R::OGCAbstractObject$ERROR()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="INFO"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-INFO'><code>ows4R::OGCAbstractObject$INFO()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="WARN"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-WARN'><code>ows4R::OGCAbstractObject$WARN()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="encode"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-encode'><code>ows4R::OGCAbstractObject$encode()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getClass"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getClass'><code>ows4R::OGCAbstractObject$getClass()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getClassName"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getClassName'><code>ows4R::OGCAbstractObject$getClassName()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getNamespaceDefinition"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getNamespaceDefinition'><code>ows4R::OGCAbstractObject$getNamespaceDefinition()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="isFieldInheritedFrom"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-isFieldInheritedFrom'><code>ows4R::OGCAbstractObject$isFieldInheritedFrom()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="logger"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-logger'><code>ows4R::OGCAbstractObject$logger()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSBoundingBox" data-id="decode"><a href='../../ows4R/html/OWSBoundingBox.html#method-OWSBoundingBox-decode'><code>ows4R::OWSBoundingBox$decode()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSBoundingBox" data-id="getBBOX"><a href='../../ows4R/html/OWSBoundingBox.html#method-OWSBoundingBox-getBBOX'><code>ows4R::OWSBoundingBox$getBBOX()</code></a></li>
+</ul>
+</details>
+}}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WPSBoundingBoxData-new"></a>}}
+\if{latex}{\out{\hypertarget{method-WPSBoundingBoxData-new}{}}}
+\subsection{Method \code{new()}}{
+Initializes an object of class \link{WPSBoundingBoxData}
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WPSBoundingBoxData$new(
+  xml = NULL,
+  owsVersion,
+  serviceVersion = "1.0.0",
+  logger = NULL,
+  ...
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{xml}}{an object of class \link{XMLInternalNode-class} to initialize from XML}
+
+\item{\code{owsVersion}}{OWS version}
+
+\item{\code{serviceVersion}}{WPS service version}
+
+\item{\code{logger}}{logger}
+
+\item{\code{...}}{any other parameter}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WPSBoundingBoxData-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-WPSBoundingBoxData-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WPSBoundingBoxData$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}

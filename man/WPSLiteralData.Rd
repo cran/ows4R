@@ -12,27 +12,123 @@ Object of \code{\link{R6Class}} for modelling a WPS Literal Data
 }
 \description{
 WPSLiteralData
-}
-\section{Methods}{
 
-\describe{
- \item{\code{new(xml, value, serviceVersion)}}{
-   This method is used to instantiate a \code{WPSLiteralData} object
- }
- \item{\code{decode(xml)}}{
-   Decodes WPS input from XML
- }
- \item{\code{checkValidity(parameterDescription)}}{
-   Check the object against a parameter description inherited from a WPS process description,
-   object of class \code{WPSLiteralInputDescription}. If not valid, the function will raise 
-   an error.
- }
+WPSLiteralData
 }
-}
-
 \author{
 Emmanuel Blondel <emmanuel.blondel1@gmail.com>
 }
 \keyword{LiteralData}
 \keyword{OGC}
 \keyword{WPS}
+\section{Super class}{
+\code{\link[ows4R:OGCAbstractObject]{ows4R::OGCAbstractObject}} -> \code{WPSLiteralData}
+}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{value}}{value}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-WPSLiteralData-new}{\code{WPSLiteralData$new()}}
+\item \href{#method-WPSLiteralData-decode}{\code{WPSLiteralData$decode()}}
+\item \href{#method-WPSLiteralData-checkValidity}{\code{WPSLiteralData$checkValidity()}}
+\item \href{#method-WPSLiteralData-clone}{\code{WPSLiteralData$clone()}}
+}
+}
+\if{html}{\out{
+<details><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="ERROR"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-ERROR'><code>ows4R::OGCAbstractObject$ERROR()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="INFO"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-INFO'><code>ows4R::OGCAbstractObject$INFO()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="WARN"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-WARN'><code>ows4R::OGCAbstractObject$WARN()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="encode"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-encode'><code>ows4R::OGCAbstractObject$encode()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getClass"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getClass'><code>ows4R::OGCAbstractObject$getClass()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getClassName"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getClassName'><code>ows4R::OGCAbstractObject$getClassName()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getNamespaceDefinition"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getNamespaceDefinition'><code>ows4R::OGCAbstractObject$getNamespaceDefinition()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="isFieldInheritedFrom"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-isFieldInheritedFrom'><code>ows4R::OGCAbstractObject$isFieldInheritedFrom()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="logger"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-logger'><code>ows4R::OGCAbstractObject$logger()</code></a></li>
+</ul>
+</details>
+}}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WPSLiteralData-new"></a>}}
+\if{latex}{\out{\hypertarget{method-WPSLiteralData-new}{}}}
+\subsection{Method \code{new()}}{
+Initializes an object of class \link{WPSLiteralData}
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WPSLiteralData$new(xml = NULL, value = NULL, serviceVersion = "1.0.0")}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{xml}}{an object of class \link{XMLInternalNode-class} to initialize from XML}
+
+\item{\code{value}}{value}
+
+\item{\code{serviceVersion}}{WPS service version}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WPSLiteralData-decode"></a>}}
+\if{latex}{\out{\hypertarget{method-WPSLiteralData-decode}{}}}
+\subsection{Method \code{decode()}}{
+Decodes an object of class \link{WPSLiteralData} from XML
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WPSLiteralData$decode(xml)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{xml}}{an object of class \link{XMLInternalNode-class} to initialize from XML}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WPSLiteralData-checkValidity"></a>}}
+\if{latex}{\out{\hypertarget{method-WPSLiteralData-checkValidity}{}}}
+\subsection{Method \code{checkValidity()}}{
+Check the object against a parameter description inherited from a WPS process description,
+   object of class \code{WPSLiteralInputDescription}. If not valid, the function will raise an error.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WPSLiteralData$checkValidity(parameterDescription)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{parameterDescription}}{object of class \link{WPSLiteralInputDescription}}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+an error if not valid
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WPSLiteralData-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-WPSLiteralData-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WPSLiteralData$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}

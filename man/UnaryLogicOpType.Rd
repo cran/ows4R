@@ -12,19 +12,105 @@ Object of \code{\link{R6Class}} for modelling an UnaryLogicOpType
 }
 \description{
 UnaryLogicOpType
+
+UnaryLogicOpType
 }
 \note{
 abstract super class of all the unary logical operation classes
 }
-\section{Methods}{
-
-\describe{
- \item{\code{new(...)}}{
-   This method is used to instantiate an UnaryLogicOpType
- }
-}
-}
-
 \keyword{Expression}
 \keyword{OGC}
 \keyword{UnaryLogicOpType}
+\section{Super classes}{
+\code{\link[ows4R:OGCAbstractObject]{ows4R::OGCAbstractObject}} -> \code{\link[ows4R:OGCExpression]{ows4R::OGCExpression}} -> \code{UnaryLogicOpType}
+}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{operations}}{a list OGC expressions}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-UnaryLogicOpType-new}{\code{UnaryLogicOpType$new()}}
+\item \href{#method-UnaryLogicOpType-setExprVersion}{\code{UnaryLogicOpType$setExprVersion()}}
+\item \href{#method-UnaryLogicOpType-clone}{\code{UnaryLogicOpType$clone()}}
+}
+}
+\if{html}{\out{
+<details><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="ERROR"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-ERROR'><code>ows4R::OGCAbstractObject$ERROR()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="INFO"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-INFO'><code>ows4R::OGCAbstractObject$INFO()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="WARN"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-WARN'><code>ows4R::OGCAbstractObject$WARN()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="encode"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-encode'><code>ows4R::OGCAbstractObject$encode()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getClass"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getClass'><code>ows4R::OGCAbstractObject$getClass()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getClassName"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getClassName'><code>ows4R::OGCAbstractObject$getClassName()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getNamespaceDefinition"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getNamespaceDefinition'><code>ows4R::OGCAbstractObject$getNamespaceDefinition()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="isFieldInheritedFrom"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-isFieldInheritedFrom'><code>ows4R::OGCAbstractObject$isFieldInheritedFrom()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="logger"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-logger'><code>ows4R::OGCAbstractObject$logger()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCExpression" data-id="getExprVersion"><a href='../../ows4R/html/OGCExpression.html#method-OGCExpression-getExprVersion'><code>ows4R::OGCExpression$getExprVersion()</code></a></li>
+</ul>
+</details>
+}}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-UnaryLogicOpType-new"></a>}}
+\if{latex}{\out{\hypertarget{method-UnaryLogicOpType-new}{}}}
+\subsection{Method \code{new()}}{
+Initializes a \link{UnaryLogicOpType} expression
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{UnaryLogicOpType$new(..., element, namespacePrefix, exprVersion = "1.1.0")}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{...}}{list of objects of class \link{OGCExpression}}
+
+\item{\code{element}}{element}
+
+\item{\code{namespacePrefix}}{namespacePrefix}
+
+\item{\code{exprVersion}}{OGC expression version. Default is "1.1.0"}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-UnaryLogicOpType-setExprVersion"></a>}}
+\if{latex}{\out{\hypertarget{method-UnaryLogicOpType-setExprVersion}{}}}
+\subsection{Method \code{setExprVersion()}}{
+Sets expression version. The methods will control that expression versions are set
+for each of the operations specified in the expression.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{UnaryLogicOpType$setExprVersion(exprVersion)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{exprVersion}}{OGC expression version}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-UnaryLogicOpType-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-UnaryLogicOpType-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{UnaryLogicOpType$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}

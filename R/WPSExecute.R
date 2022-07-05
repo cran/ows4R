@@ -5,16 +5,6 @@
 #' @keywords OGC WPS Execute
 #' @return Object of \code{\link{R6Class}} for modelling a WPS Execute request
 #' @format \code{\link{R6Class}} object.
-#'
-#' @section Methods:
-#' \describe{
-#'  \item{\code{new(capabilities, op, url, serviceVersion, identifier, logger, ...)}}{
-#'    This method is used to instantiate a WPSExecute object
-#'  }
-#'  \item{\code{getProcessDescription()}}{
-#'    Get process description
-#'  }
-#' }
 #' 
 #' @note Abstract class used by \pkg{ows4R} to trigger a WPS Execute request
 #' 
@@ -28,17 +18,41 @@ WPSExecute <- R6Class("WPSExecute",
     processDescription = NULL
   ),
   public = list(
+    #'@field Identifier process identifier
     Identifier = "",
+    #'@field DataInputs list of \link{WPSInput}
     DataInputs = list(),
+    #'@field ResponseForm response form
     ResponseForm = NULL,
+    
+    #'@description  Initializes a \link{WPSExecute} service request
+    #'@param capabilities object of class \link{WPSCapabilities}
+    #'@param op object of class \link{OWSOperation}
+    #'@param url url
+    #'@param serviceVersion WPS service version
+    #'@param identifier process identifier
+    #'@param dataInputs a named list of data inputs, objects of class \link{WPSLiteralData}, \link{WPSComplexData} or \link{WPSBoundingBoxData}
+    #'@param responseForm response form, object of class \link{WPSResponseDocument}
+    #'@param storeExecuteResponse store execute response? object of class \code{logical}. \code{FALSE} by default
+    #'@param lineage lineage, object of class \code{logical}
+    #'@param status status, object of class \code{logical}
+    #'@param user user
+    #'@param pwd password
+    #'@param token token
+    #'@param headers headers
+    #'@param config config
+    #'@param logger logger
+    #'@param ... any other parameter to pass to the request
     initialize = function(capabilities, op, url, serviceVersion, identifier, 
                           dataInputs = list(), responseForm = NULL,
                           storeExecuteResponse = FALSE, lineage = NULL, status = NULL,
+                          user = NULL, pwd = NULL, token = NULL, headers = c(), config = httr::config(),
                           logger = NULL, ...) {
       private$xmlNamespacePrefix = paste(private$xmlNamespacePrefix, gsub("\\.", "_", serviceVersion), sep="_")
       namedParams <- list(service = "WPS", version = serviceVersion)
       super$initialize(element = private$xmlElement, namespacePrefix = private$namespacePrefix,
                        capabilities, op, "POST", sprintf("%s?service=WPS", url), request = "Execute",
+                       user = user, pwd = pwd, token = token, headers = headers, config = config,
                        namedParams = namedParams, mimeType = "text/xml", logger = logger,
                        ...)
       self$wrap <- TRUE
@@ -91,7 +105,8 @@ WPSExecute <- R6Class("WPSExecute",
       self$execute()
     },
     
-    #getProcessDescription
+    #'@description Get process description
+    #'@return an object of class \link{WPSProcessDescription}
     getProcessDescription = function(){
       return(private$processDescription)
     }

@@ -12,29 +12,146 @@ Object of \code{\link{R6Class}} for modelling a WPS Input
 }
 \description{
 WPSOutput
-}
-\section{Methods}{
 
-\describe{
- \item{\code{new(xml, identifier, title, data, dataType)}}{
-   This method is used to instantiate a \code{WPSOutput} object
- }
- \item{\code{decode(xml)}}{
-   Decodes WPS output from XML
- }
- \item{\code{getData()}}{
-   Get data, as object of class \code{WPSLiteralData} or \code{WPSComplexData}
- }
- \item{\code{getDataValue()}}{
-   Get data value, as shortcut method to get value associated to \code{WPSLiteralData} 
-   or \code{WPSComplexData}
- }
+WPSOutput
 }
-}
-
 \author{
 Emmanuel Blondel <emmanuel.blondel1@gmail.com>
 }
 \keyword{Input}
 \keyword{OGC}
 \keyword{WPS}
+\section{Super class}{
+\code{\link[ows4R:OGCAbstractObject]{ows4R::OGCAbstractObject}} -> \code{WPSOutput}
+}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{Identifier}}{identifier}
+
+\item{\code{Title}}{tile}
+
+\item{\code{Data}}{data}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-WPSOutput-new}{\code{WPSOutput$new()}}
+\item \href{#method-WPSOutput-decode}{\code{WPSOutput$decode()}}
+\item \href{#method-WPSOutput-getData}{\code{WPSOutput$getData()}}
+\item \href{#method-WPSOutput-getDataValue}{\code{WPSOutput$getDataValue()}}
+\item \href{#method-WPSOutput-clone}{\code{WPSOutput$clone()}}
+}
+}
+\if{html}{\out{
+<details><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="ERROR"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-ERROR'><code>ows4R::OGCAbstractObject$ERROR()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="INFO"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-INFO'><code>ows4R::OGCAbstractObject$INFO()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="WARN"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-WARN'><code>ows4R::OGCAbstractObject$WARN()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="encode"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-encode'><code>ows4R::OGCAbstractObject$encode()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getClass"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getClass'><code>ows4R::OGCAbstractObject$getClass()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getClassName"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getClassName'><code>ows4R::OGCAbstractObject$getClassName()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getNamespaceDefinition"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getNamespaceDefinition'><code>ows4R::OGCAbstractObject$getNamespaceDefinition()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="isFieldInheritedFrom"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-isFieldInheritedFrom'><code>ows4R::OGCAbstractObject$isFieldInheritedFrom()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="logger"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-logger'><code>ows4R::OGCAbstractObject$logger()</code></a></li>
+</ul>
+</details>
+}}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WPSOutput-new"></a>}}
+\if{latex}{\out{\hypertarget{method-WPSOutput-new}{}}}
+\subsection{Method \code{new()}}{
+Initializes a \link{WPSOutput}
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WPSOutput$new(
+  xml = NULL,
+  identifier = NULL,
+  title = NULL,
+  data = NULL,
+  dataType = NULL,
+  serviceVersion = "1.0.0"
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{xml}}{object of class \link{XMLInternalNode-class} from \pkg{XML}}
+
+\item{\code{identifier}}{identifier}
+
+\item{\code{title}}{title}
+
+\item{\code{data}}{data}
+
+\item{\code{dataType}}{data type}
+
+\item{\code{serviceVersion}}{WPS service version}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WPSOutput-decode"></a>}}
+\if{latex}{\out{\hypertarget{method-WPSOutput-decode}{}}}
+\subsection{Method \code{decode()}}{
+Decodes an object of class \link{WPSOutput} from \pkg{XML}
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WPSOutput$decode(xml)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{xml}}{object of class \link{XMLInternalNode-class} from \pkg{XML}}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WPSOutput-getData"></a>}}
+\if{latex}{\out{\hypertarget{method-WPSOutput-getData}{}}}
+\subsection{Method \code{getData()}}{
+Get data
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WPSOutput$getData()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+data
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WPSOutput-getDataValue"></a>}}
+\if{latex}{\out{\hypertarget{method-WPSOutput-getDataValue}{}}}
+\subsection{Method \code{getDataValue()}}{
+Get data value
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WPSOutput$getDataValue()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+data value
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WPSOutput-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-WPSOutput-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WPSOutput$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}

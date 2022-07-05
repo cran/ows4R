@@ -5,13 +5,6 @@
 #' @keywords OGC CSW DescribeRecord
 #' @return Object of \code{\link{R6Class}} for modelling a CSW DescribeRecord request
 #' @format \code{\link{R6Class}} object.
-#'
-#' @section Methods:
-#' \describe{
-#'  \item{\code{new(capabilities, op, url, version, namespace, logger, ...)}}{
-#'    This method is used to instantiate a CSWDescribeRecord object
-#'  }
-#' }
 #' 
 #' @note Class used internally by \pkg{ows4R} to trigger a CSW DescribeRecord request
 #' 
@@ -25,7 +18,23 @@ CSWDescribeRecord <- R6Class("CSWDescribeRecord",
      defaultNamespace = "csw:http://www.opengis.net/cat/csw/2.0.2"
    ),
    public = list(
-     initialize = function(capabilities, op, url, version, namespace = NULL, logger = NULL, ...) {
+      
+     #'@description Initializes a \link{CSWDescribeRecord} service request
+     #'@param capabilities an object of class \link{CSWCapabilities}
+     #'@param op object of class \link{OWSOperation} as retrieved from capabilities
+     #'@param url url
+     #'@param version version
+     #'@param namespace namespace
+     #'@param user user
+     #'@param pwd password
+     #'@param token token
+     #'@param headers headers
+     #'@param config config
+     #'@param logger logger
+     #'@param ... any parameter to pass to the service request
+     initialize = function(capabilities, op, url, version, namespace = NULL, 
+                           user = NULL, pwd = NULL, token = NULL, headers = c(), config = httr::config(),
+                           logger = NULL, ...) {
        namedParams <- list(service = "CSW", version = version)
        
        #default output schema
@@ -45,6 +54,7 @@ CSWDescribeRecord <- R6Class("CSWDescribeRecord",
        
        super$initialize(element = private$xmlElement, namespacePrefix = private$xmlNamespacePrefix,
                         capabilities, op, "GET", url, request = private$name,
+                        user = user, pwd = pwd, token = token, headers = headers, config = config,
                         namedParams = namedParams,
                         mimeType = "text/xml", logger = logger, ...)
        self$execute()

@@ -5,19 +5,6 @@
 #' @keywords OGC WPS Process input description parameter
 #' @return Object of \code{\link{R6Class}} modelling a WPS process input description parameter
 #' @format \code{\link{R6Class}} object.
-#'
-#' @section Methods:
-#' \describe{
-#'  \item{\code{new(xml, version, logger)}}{
-#'    This method is used to instantiate a \code{WPSDescriptionParameter} object
-#'  }
-#'  \item{\code{getDataType()}}{
-#'    Get data type
-#'  }
-#'  \item{\code{getFormats()}}{
-#'    Get formats
-#'  }
-#' }
 #' 
 #' @note Class used internally by \pkg{ows4R}
 #' 
@@ -69,6 +56,11 @@ WPSDescriptionParameter <- R6Class("WPSDescriptionParameter",
      
    ),
    public = list(
+      #'@description Initializes a \link{WPSDescriptionParameter}
+      #'@param xml object of class \link{XMLInternalNode-class} from \pkg{XML}
+      #'@param version WPS service version
+      #'@param logger logger
+      #'@param ... any other parameter
      initialize = function(xml = NULL, version, logger = NULL, ...){
        super$initialize(xml = xml, version = version, logger = logger, ...)
        private$version = version
@@ -77,12 +69,14 @@ WPSDescriptionParameter <- R6Class("WPSDescriptionParameter",
        }
      },
      
-     #getDataType
+     #'@description Get data type
+     #'@return object of class \code{character}
      getDataType = function(){
         return(private$dataType)
      },
      
-     #getFormats
+     #'@description get formats
+     #'@return the formats
      getFormats = function(){
        return(private$formats)
      }

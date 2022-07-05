@@ -5,13 +5,6 @@
 #' @keywords OGC WPS DescribeProcess
 #' @return Object of \code{\link{R6Class}} for modelling a WPS DescribeProcess request
 #' @format \code{\link{R6Class}} object.
-#'
-#' @section Methods:
-#' \describe{
-#'  \item{\code{new(capabilities, op, url, serviceVersion, identifier, logger, ...)}}{
-#'    This method is used to instantiate a \code{WPSDescribeProcess} object
-#'  }
-#' }
 #' 
 #' @note Abstract class used by \pkg{ows4R} to trigger a WPS DescribeProcess request
 #' 
@@ -24,11 +17,28 @@ WPSDescribeProcess <- R6Class("WPSDescribeProcess",
     xmlNamespacePrefix = "WPS"
   ),
   public = list(
-    initialize = function(capabilities, op, url, serviceVersion, identifier, logger = NULL, ...) {
+    
+    #'@description  Initializes a \link{WPSDescribeProcess} service request
+    #'@param capabilities object of class \link{WPSCapabilities}
+    #'@param op object of class \link{OWSOperation}
+    #'@param url url
+    #'@param serviceVersion WPS service version
+    #'@param identifier process identifier
+    #'@param user user
+    #'@param pwd password
+    #'@param token token
+    #'@param headers headers
+    #'@param config config
+    #'@param logger logger
+    #'@param ... any other parameter to pass to the request
+    initialize = function(capabilities, op, url, serviceVersion, identifier, 
+                          user = NULL, pwd = NULL, token = NULL, headers = c(), config = httr::config(),
+                          logger = NULL, ...) {
       namedParams <- list(service = "WPS", version = serviceVersion, identifier = identifier)
       private$xmlNamespacePrefix = paste(private$xmlNamespacePrefix, gsub("\\.", "_", serviceVersion), sep="_")
       super$initialize(element = private$xmlElement, namespacePrefix = private$namespacePrefix,
                        capabilities, op, "GET", url, request = "DescribeProcess",
+                       user = user, pwd = pwd, token = token, headers = headers, config = config,
                        namedParams = namedParams, mimeType = "text/xml", logger = logger,
                        ...)
       self$execute()

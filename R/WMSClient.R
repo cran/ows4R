@@ -19,23 +19,6 @@
 #'    
 #'    #Advanced examples at https://github.com/eblondel/ows4R/wiki#wms
 #' }
-#'
-#' @section Methods:
-#' \describe{
-#'  \item{\code{new(url, serviceVersion, user, pwd, logger)}}{
-#'    This method is used to instantiate a WMSClient with the \code{url} of the
-#'    OGC service. Authentication is supported using basic auth (using \code{user}/\code{pwd} arguments), 
-#'    bearer token (using \code{token} argument), or custom (using \code{headers} argument). By default, the \code{logger}
-#'    argument will be set to \code{NULL} (no logger). This argument accepts two possible 
-#'    values: \code{INFO}: to print only \pkg{ows4R} logs, \code{DEBUG}: to print more verbose logs
-#'  }
-#'  \item{\code{getCapabilities()}}{
-#'    Get service capabilities. Inherited from OWS Client
-#'  }
-#'  \item{\code{reloadCapabilities()}}{
-#'    Reload service capabilities
-#'  }
-#' }
 #' 
 #' @author Emmanuel Blondel <emmanuel.blondel1@@gmail.com>
 #'
@@ -45,41 +28,74 @@ WMSClient <- R6Class("WMSClient",
      serviceName = "WMS"
    ),
    public = list(
-     #initialize
+      
+      #'@description This method is used to instantiate a \link{WMSClient} with the \code{url} of the
+      #'    OGC service. Authentication is supported using basic auth (using \code{user}/\code{pwd} arguments), 
+      #'    bearer token (using \code{token} argument), or custom (using \code{headers} argument). By default, the \code{logger}
+      #'    argument will be set to \code{NULL} (no logger). This argument accepts two possible 
+      #'    values: \code{INFO}: to print only \pkg{ows4R} logs, \code{DEBUG}: to print more verbose logs
+      #'@param url url
+      #'@param serviceVersion WFS service version
+      #'@param user user
+      #'@param pwd password
+      #'@param token token
+      #'@param headers headers
+      #'@param config config
+      #'@param cas_url Central Authentication Service (CAS) URL
+      #'@param logger logger
      initialize = function(url, serviceVersion = NULL, 
-                           user = NULL, pwd = NULL, token = NULL, headers = c(),
+                           user = NULL, pwd = NULL, token = NULL, headers = c(), config = httr::config(), cas_url = NULL,
                            logger = NULL) {
-       super$initialize(url, service = private$serviceName, serviceVersion, user, pwd, token, headers, logger)
+       super$initialize(url, service = private$serviceName, serviceVersion = serviceVersion, 
+                        user = user, pwd = pwd, token = token, headers = headers, config = config, cas_url = cas_url, 
+                        logger = logger)
        self$capabilities = WMSCapabilities$new(self$url, self$version, 
-                                               user = user, pwd = pwd, token = token, headers = headers,
+                                               user = user, pwd = pwd, token = token, headers = headers, config = config,
                                                logger = logger)
        self$capabilities$setClient(self)
      },
      
-     #getCapabilities
+     #'@description Get WMS capabilities
+     #'@return an object of class \link{WMSCapabilities}
      getCapabilities = function(){
        return(self$capabilities)
      },
      
-     #reloadCapabilities
+     #'@description Reloads WFS capabilities
      reloadCapabilities = function(){
        self$capabilities = WMSCapabilities$new(self$url, self$version, 
-                                               user = self$getUser(), pwd = self$getPwd(), token = self$getToken(), headers = self$getHeaders(),
+                                               user = self$getUser(), pwd = self$getPwd(), token = self$getToken(), 
+                                               headers = self$getHeaders(), config = self$getConfig(),
                                                logger = self$loggerType)
        self$capabilities$setClient(self)
      },
      
-     #getLayers
+     #'@description List the layers available. If \code{pretty} is TRUE,
+     #'    the output will be an object of class \code{data.frame}
+     #'@param pretty pretty
+     #'@return a \code{list} of \link{WMSLayer} available, or a \code{data.frame}
      getLayers = function(pretty = FALSE){
        return(self$capabilities$getLayers(pretty = pretty))
      },
      
-     #getMap
+     #'@description Get map. NOT YET IMPLEMENTED
      getMap = function(){
        stop("Not yet supported")
      },
      
-     #getFeatureInfo
+     #'@description Get feature info
+     #'@param layer layer name
+     #'@param srs srs
+     #'@param styles styles
+     #'@param feature_count feature count. Default is 1
+     #'@param x x
+     #'@param y y
+     #'@param width width
+     #'@param height height
+     #'@param bbox bbox
+     #'@param info_format info format. Default is "application/vnd.ogc.gml"
+     #'@param ... any other parameter to pass to a \link{WMSGetFeatureInfo} request
+     #'@return an object of class \code{sf} given the feature(s)
      getFeatureInfo = function(layer, srs = NULL,
                                styles = NULL, feature_count = 1,
                                x, y, width, height, bbox, 
@@ -95,17 +111,15 @@ WMSClient <- R6Class("WMSClient",
              ...
           )
        }else if(is(wmsLayer, "list")){
-          features <- wmsLayer[[1]]$getFeatureInfo(
-             srs = srs, styles = styles, feature_count = feature_count,
-             x = x, y = y, width = width, height = height, bbox = bbox,
-             info_format = info_format,
-             ...
-          )
+          if(length(wmsLayer)==0){
+             self$WARN(sprintf("No layer for layer name = '%s'", layer))
+             return(NULL)
+          }
        }
        return(features)
      },
      
-     #getLegendGraphic
+     #'@description Get legend graphic. NOT YET IMPLEMENTED
      getLegendGraphic = function(){
        stop("Not yet supported")
      }

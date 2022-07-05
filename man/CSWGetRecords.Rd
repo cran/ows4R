@@ -12,22 +12,127 @@ Object of \code{\link{R6Class}} for modelling a CSW GetRecords request
 }
 \description{
 CSWGetRecords
+
+CSWGetRecords
 }
 \note{
 Class used internally by \pkg{ows4R} to trigger a CSW GetRecords request
 }
-\section{Methods}{
-
-\describe{
- \item{\code{new(capabilities, op, url, serviceVersion, user, pwd, token, headers, query, logger, ...)}}{
-   This method is used to instantiate a CSWGetRecords object
- }
-}
-}
-
 \author{
 Emmanuel Blondel <emmanuel.blondel1@gmail.com>
 }
 \keyword{CSW}
 \keyword{GetRecords}
 \keyword{OGC}
+\section{Super classes}{
+\code{\link[ows4R:OGCAbstractObject]{ows4R::OGCAbstractObject}} -> \code{\link[ows4R:OWSHttpRequest]{ows4R::OWSHttpRequest}} -> \code{CSWGetRecords}
+}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{Query}}{query property for request XML encoding}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-CSWGetRecords-new}{\code{CSWGetRecords$new()}}
+\item \href{#method-CSWGetRecords-clone}{\code{CSWGetRecords$clone()}}
+}
+}
+\if{html}{\out{
+<details><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="ERROR"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-ERROR'><code>ows4R::OGCAbstractObject$ERROR()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="INFO"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-INFO'><code>ows4R::OGCAbstractObject$INFO()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="WARN"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-WARN'><code>ows4R::OGCAbstractObject$WARN()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="encode"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-encode'><code>ows4R::OGCAbstractObject$encode()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getClass"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getClass'><code>ows4R::OGCAbstractObject$getClass()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getClassName"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getClassName'><code>ows4R::OGCAbstractObject$getClassName()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getNamespaceDefinition"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getNamespaceDefinition'><code>ows4R::OGCAbstractObject$getNamespaceDefinition()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="isFieldInheritedFrom"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-isFieldInheritedFrom'><code>ows4R::OGCAbstractObject$isFieldInheritedFrom()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="logger"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-logger'><code>ows4R::OGCAbstractObject$logger()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSHttpRequest" data-id="execute"><a href='../../ows4R/html/OWSHttpRequest.html#method-OWSHttpRequest-execute'><code>ows4R::OWSHttpRequest$execute()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSHttpRequest" data-id="getCapabilities"><a href='../../ows4R/html/OWSHttpRequest.html#method-OWSHttpRequest-getCapabilities'><code>ows4R::OWSHttpRequest$getCapabilities()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSHttpRequest" data-id="getException"><a href='../../ows4R/html/OWSHttpRequest.html#method-OWSHttpRequest-getException'><code>ows4R::OWSHttpRequest$getException()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSHttpRequest" data-id="getRequest"><a href='../../ows4R/html/OWSHttpRequest.html#method-OWSHttpRequest-getRequest'><code>ows4R::OWSHttpRequest$getRequest()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSHttpRequest" data-id="getRequestHeaders"><a href='../../ows4R/html/OWSHttpRequest.html#method-OWSHttpRequest-getRequestHeaders'><code>ows4R::OWSHttpRequest$getRequestHeaders()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSHttpRequest" data-id="getResponse"><a href='../../ows4R/html/OWSHttpRequest.html#method-OWSHttpRequest-getResponse'><code>ows4R::OWSHttpRequest$getResponse()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSHttpRequest" data-id="getResult"><a href='../../ows4R/html/OWSHttpRequest.html#method-OWSHttpRequest-getResult'><code>ows4R::OWSHttpRequest$getResult()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSHttpRequest" data-id="getStatus"><a href='../../ows4R/html/OWSHttpRequest.html#method-OWSHttpRequest-getStatus'><code>ows4R::OWSHttpRequest$getStatus()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSHttpRequest" data-id="setResult"><a href='../../ows4R/html/OWSHttpRequest.html#method-OWSHttpRequest-setResult'><code>ows4R::OWSHttpRequest$setResult()</code></a></li>
+</ul>
+</details>
+}}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CSWGetRecords-new"></a>}}
+\if{latex}{\out{\hypertarget{method-CSWGetRecords-new}{}}}
+\subsection{Method \code{new()}}{
+Initializes a \link{CSWGetRecordById} service request
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CSWGetRecords$new(
+  capabilities,
+  op,
+  url,
+  serviceVersion = "2.0.2",
+  user = NULL,
+  pwd = NULL,
+  token = NULL,
+  headers = list(),
+  config = httr::config(),
+  query = NULL,
+  logger = NULL,
+  ...
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{capabilities}}{an object of class \link{CSWCapabilities}}
+
+\item{\code{op}}{object of class \link{OWSOperation} as retrieved from capabilities}
+
+\item{\code{url}}{url}
+
+\item{\code{serviceVersion}}{serviceVersion. Default is "2.0.2}
+
+\item{\code{user}}{user}
+
+\item{\code{pwd}}{password}
+
+\item{\code{token}}{token}
+
+\item{\code{headers}}{headers}
+
+\item{\code{config}}{config}
+
+\item{\code{query}}{object of class \link{CSWQuery}}
+
+\item{\code{logger}}{logger}
+
+\item{\code{...}}{any parameter to pass to the service request, such as \code{resultType}, \code{startPosition},
+\code{maxRecords}, \code{outputFormat}, or \code{outputSchema}}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CSWGetRecords-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-CSWGetRecords-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CSWGetRecords$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}

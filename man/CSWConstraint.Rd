@@ -12,16 +12,9 @@ Object of \code{\link{R6Class}} for modelling an CSW Constraint
 }
 \description{
 CSWConstraint
-}
-\section{Methods}{
 
-\describe{
- \item{\code{new(cqlText, filter, serviceVersion)}}{
-   This method is used to instantiate an CSWConstraint object.
- }
+CSWConstraint
 }
-}
-
 \examples{
   filter <- OGCFilter$new( PropertyIsEqualTo$new("apiso:Identifier", "12345") )
   cons <- CSWConstraint$new(filter = filter)
@@ -33,3 +26,97 @@ Emmanuel Blondel <emmanuel.blondel1@gmail.com>
 }
 \keyword{Filter}
 \keyword{OGC}
+\section{Super class}{
+\code{\link[ows4R:OGCAbstractObject]{ows4R::OGCAbstractObject}} -> \code{CSWConstraint}
+}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{wrap}}{internal property for object XML encoding}
+
+\item{\code{CqlText}}{text to use as CQL filter}
+
+\item{\code{filter}}{}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-CSWConstraint-new}{\code{CSWConstraint$new()}}
+\item \href{#method-CSWConstraint-setServiceVersion}{\code{CSWConstraint$setServiceVersion()}}
+\item \href{#method-CSWConstraint-clone}{\code{CSWConstraint$clone()}}
+}
+}
+\if{html}{\out{
+<details><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="ERROR"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-ERROR'><code>ows4R::OGCAbstractObject$ERROR()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="INFO"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-INFO'><code>ows4R::OGCAbstractObject$INFO()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="WARN"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-WARN'><code>ows4R::OGCAbstractObject$WARN()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="encode"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-encode'><code>ows4R::OGCAbstractObject$encode()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getClass"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getClass'><code>ows4R::OGCAbstractObject$getClass()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getClassName"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getClassName'><code>ows4R::OGCAbstractObject$getClassName()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getNamespaceDefinition"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getNamespaceDefinition'><code>ows4R::OGCAbstractObject$getNamespaceDefinition()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="isFieldInheritedFrom"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-isFieldInheritedFrom'><code>ows4R::OGCAbstractObject$isFieldInheritedFrom()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="logger"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-logger'><code>ows4R::OGCAbstractObject$logger()</code></a></li>
+</ul>
+</details>
+}}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CSWConstraint-new"></a>}}
+\if{latex}{\out{\hypertarget{method-CSWConstraint-new}{}}}
+\subsection{Method \code{new()}}{
+Initializes a \link{CSWConstraint} object to be used to constrain CSW operations.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CSWConstraint$new(cqlText = NULL, filter = NULL, serviceVersion = "2.0.2")}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{cqlText}}{cqlText, object of class \code{character}}
+
+\item{\code{filter}}{filter, object extending \link{OGCFilter}}
+
+\item{\code{serviceVersion}}{CSW service version. Default is "2.0.2"}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CSWConstraint-setServiceVersion"></a>}}
+\if{latex}{\out{\hypertarget{method-CSWConstraint-setServiceVersion}{}}}
+\subsection{Method \code{setServiceVersion()}}{
+Set service version. This methods ensures that underlying filter property
+is properly set with the right OGC filter version.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CSWConstraint$setServiceVersion(serviceVersion)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{serviceVersion}}{service version}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CSWConstraint-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-CSWConstraint-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CSWConstraint$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}

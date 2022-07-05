@@ -13,23 +13,94 @@ Catalogue Service for the Web (CSW) Get Capabilities document.
 }
 \description{
 CSWCapabilities
+
+CSWCapabilities
 }
 \note{
 Class used to read a \code{CSWCapabilities} document. The use of \code{CSWClient} is
 recommended instead to benefit from the full set of capabilities associated to a CSW server.
 }
-\section{Methods}{
-
-\describe{
- \item{\code{new(url, version, client logger)}}{
-   This method is used to instantiate a \code{CSWCapabilities} object
- }
-}
-}
-
 \author{
 Emmanuel Blondel <emmanuel.blondel1@gmail.com>
 }
 \keyword{CSW}
 \keyword{Capabilities}
 \keyword{OGC}
+\section{Super classes}{
+\code{\link[ows4R:OGCAbstractObject]{ows4R::OGCAbstractObject}} -> \code{\link[ows4R:OWSCapabilities]{ows4R::OWSCapabilities}} -> \code{CSWCapabilities}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-CSWCapabilities-new}{\code{CSWCapabilities$new()}}
+\item \href{#method-CSWCapabilities-clone}{\code{CSWCapabilities$clone()}}
+}
+}
+\if{html}{\out{
+<details><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="ERROR"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-ERROR'><code>ows4R::OGCAbstractObject$ERROR()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="INFO"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-INFO'><code>ows4R::OGCAbstractObject$INFO()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="WARN"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-WARN'><code>ows4R::OGCAbstractObject$WARN()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="encode"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-encode'><code>ows4R::OGCAbstractObject$encode()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getClass"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getClass'><code>ows4R::OGCAbstractObject$getClass()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getClassName"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getClassName'><code>ows4R::OGCAbstractObject$getClassName()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getNamespaceDefinition"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getNamespaceDefinition'><code>ows4R::OGCAbstractObject$getNamespaceDefinition()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="isFieldInheritedFrom"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-isFieldInheritedFrom'><code>ows4R::OGCAbstractObject$isFieldInheritedFrom()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="logger"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-logger'><code>ows4R::OGCAbstractObject$logger()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSCapabilities" data-id="getClient"><a href='../../ows4R/html/OWSCapabilities.html#method-OWSCapabilities-getClient'><code>ows4R::OWSCapabilities$getClient()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSCapabilities" data-id="getOWSVersion"><a href='../../ows4R/html/OWSCapabilities.html#method-OWSCapabilities-getOWSVersion'><code>ows4R::OWSCapabilities$getOWSVersion()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSCapabilities" data-id="getOperationsMetadata"><a href='../../ows4R/html/OWSCapabilities.html#method-OWSCapabilities-getOperationsMetadata'><code>ows4R::OWSCapabilities$getOperationsMetadata()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSCapabilities" data-id="getRequest"><a href='../../ows4R/html/OWSCapabilities.html#method-OWSCapabilities-getRequest'><code>ows4R::OWSCapabilities$getRequest()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSCapabilities" data-id="getService"><a href='../../ows4R/html/OWSCapabilities.html#method-OWSCapabilities-getService'><code>ows4R::OWSCapabilities$getService()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSCapabilities" data-id="getServiceIdentification"><a href='../../ows4R/html/OWSCapabilities.html#method-OWSCapabilities-getServiceIdentification'><code>ows4R::OWSCapabilities$getServiceIdentification()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSCapabilities" data-id="getServiceProvider"><a href='../../ows4R/html/OWSCapabilities.html#method-OWSCapabilities-getServiceProvider'><code>ows4R::OWSCapabilities$getServiceProvider()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSCapabilities" data-id="getServiceVersion"><a href='../../ows4R/html/OWSCapabilities.html#method-OWSCapabilities-getServiceVersion'><code>ows4R::OWSCapabilities$getServiceVersion()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSCapabilities" data-id="getUrl"><a href='../../ows4R/html/OWSCapabilities.html#method-OWSCapabilities-getUrl'><code>ows4R::OWSCapabilities$getUrl()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSCapabilities" data-id="setClient"><a href='../../ows4R/html/OWSCapabilities.html#method-OWSCapabilities-setClient'><code>ows4R::OWSCapabilities$setClient()</code></a></li>
+</ul>
+</details>
+}}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CSWCapabilities-new"></a>}}
+\if{latex}{\out{\hypertarget{method-CSWCapabilities-new}{}}}
+\subsection{Method \code{new()}}{
+Initializes a \link{CSWCapabilities} object
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CSWCapabilities$new(url, version, client = NULL, logger = NULL, ...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{url}}{url}
+
+\item{\code{version}}{version}
+
+\item{\code{client}}{object of class \link{CSWClient}}
+
+\item{\code{logger}}{logger type \code{NULL}, "INFO" or "DEBUG"}
+
+\item{\code{...}}{any other parameter to pass to \link{OWSGetCapabilities} service request}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CSWCapabilities-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-CSWCapabilities-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CSWCapabilities$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}

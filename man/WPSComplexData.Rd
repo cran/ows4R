@@ -12,30 +12,150 @@ Object of \code{\link{R6Class}} for modelling a WPS Complex Data
 }
 \description{
 WPSComplexData
-}
-\section{Methods}{
 
-\describe{
- \item{\code{new(xml, value, schema, mimeType)}}{
-   This method is used to instantiate a \code{WPSComplexData} object
- }
- \item{\code{decode(xml)}}{
-   Decodes from XML
- }
- \item{\code{checkValidity(parameterDescription)}}{
-   Check the object against a parameter description inherited from a WPS process description,
-   object of class \code{WPSComplexInputDescription}. If not valid, the function will raise an
-   error.
- }
- \item{\code{getFeatures()}}{
-   Returns features associates with output, if the output si made of a GML feature collection
- }
+WPSComplexData
 }
-}
-
 \author{
 Emmanuel Blondel <emmanuel.blondel1@gmail.com>
 }
 \keyword{ComplexData}
 \keyword{OGC}
 \keyword{WPS}
+\section{Super class}{
+\code{\link[ows4R:OGCAbstractObject]{ows4R::OGCAbstractObject}} -> \code{WPSComplexData}
+}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{value}}{value}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-WPSComplexData-new}{\code{WPSComplexData$new()}}
+\item \href{#method-WPSComplexData-decode}{\code{WPSComplexData$decode()}}
+\item \href{#method-WPSComplexData-checkValidity}{\code{WPSComplexData$checkValidity()}}
+\item \href{#method-WPSComplexData-getFeatures}{\code{WPSComplexData$getFeatures()}}
+\item \href{#method-WPSComplexData-clone}{\code{WPSComplexData$clone()}}
+}
+}
+\if{html}{\out{
+<details><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="ERROR"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-ERROR'><code>ows4R::OGCAbstractObject$ERROR()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="INFO"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-INFO'><code>ows4R::OGCAbstractObject$INFO()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="WARN"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-WARN'><code>ows4R::OGCAbstractObject$WARN()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="encode"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-encode'><code>ows4R::OGCAbstractObject$encode()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getClass"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getClass'><code>ows4R::OGCAbstractObject$getClass()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getClassName"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getClassName'><code>ows4R::OGCAbstractObject$getClassName()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getNamespaceDefinition"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getNamespaceDefinition'><code>ows4R::OGCAbstractObject$getNamespaceDefinition()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="isFieldInheritedFrom"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-isFieldInheritedFrom'><code>ows4R::OGCAbstractObject$isFieldInheritedFrom()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="logger"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-logger'><code>ows4R::OGCAbstractObject$logger()</code></a></li>
+</ul>
+</details>
+}}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WPSComplexData-new"></a>}}
+\if{latex}{\out{\hypertarget{method-WPSComplexData-new}{}}}
+\subsection{Method \code{new()}}{
+Initializes an object of class \link{WPSComplexData}
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WPSComplexData$new(
+  xml = NULL,
+  value = NULL,
+  schema = NULL,
+  mimeType = NULL,
+  serviceVersion = "1.0.0",
+  cdata = TRUE
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{xml}}{an object of class \link{XMLInternalNode-class} to initialize from XML}
+
+\item{\code{value}}{value}
+
+\item{\code{schema}}{schema}
+
+\item{\code{mimeType}}{mime type}
+
+\item{\code{serviceVersion}}{WPS service version}
+
+\item{\code{cdata}}{whether value has to be wrapped in a XML CDATA. Default is \code{TRUE}}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WPSComplexData-decode"></a>}}
+\if{latex}{\out{\hypertarget{method-WPSComplexData-decode}{}}}
+\subsection{Method \code{decode()}}{
+Decodes an object of class \link{WPSComplexData} from XML
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WPSComplexData$decode(xml)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{xml}}{an object of class \link{XMLInternalNode-class} to initialize from XML}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WPSComplexData-checkValidity"></a>}}
+\if{latex}{\out{\hypertarget{method-WPSComplexData-checkValidity}{}}}
+\subsection{Method \code{checkValidity()}}{
+Check the object against a parameter description inherited from a WPS process description,
+   object of class \code{WPSComplexInputDescription}. If not valid, the function will raise an error.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WPSComplexData$checkValidity(parameterDescription)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{parameterDescription}}{object of class \link{WPSComplexInputDescription}}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+an error if not valid
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WPSComplexData-getFeatures"></a>}}
+\if{latex}{\out{\hypertarget{method-WPSComplexData-getFeatures}{}}}
+\subsection{Method \code{getFeatures()}}{
+Get features
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WPSComplexData$getFeatures()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+object of class \code{sf}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WPSComplexData-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-WPSComplexData-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WPSComplexData$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}

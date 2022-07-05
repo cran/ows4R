@@ -12,33 +12,145 @@ Object of \code{\link{R6Class}} for modelling a WPS Status
 }
 \description{
 WPSStatus
-}
-\section{Methods}{
 
-\describe{
- \item{\code{new(xml, serviceVersion)}}{
-   This method is used to instantiate a \code{WPSStatus} object
- }
- \item{\code{decode(xml)}}{
-   Decodes WPS status from XML
- }
- \item{\code{getValue()}}{
-   Get status value, among accepted WPS status values defined in the WPS standard:
-   \code{ProcessAccepted}, \code{ProcessStarted}, \code{ProcessPaused}, \code{ProcessSucceeded},
-   \code{ProcessFailed}.
- }
- \item{\code{getPercentCompleted()}}{
-   Get percent completed
- }
- \item{\code{getCreationTime()}}{
-   Get creation time
- }
+WPSStatus
 }
-}
-
 \author{
 Emmanuel Blondel <emmanuel.blondel1@gmail.com>
 }
 \keyword{OGC}
 \keyword{Status}
 \keyword{WPS}
+\section{Super class}{
+\code{\link[ows4R:OGCAbstractObject]{ows4R::OGCAbstractObject}} -> \code{WPSStatus}
+}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{value}}{status value}
+
+\item{\code{percentCompleted}}{status percentage of completion}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-WPSStatus-new}{\code{WPSStatus$new()}}
+\item \href{#method-WPSStatus-decode}{\code{WPSStatus$decode()}}
+\item \href{#method-WPSStatus-getValue}{\code{WPSStatus$getValue()}}
+\item \href{#method-WPSStatus-getPercentCompleted}{\code{WPSStatus$getPercentCompleted()}}
+\item \href{#method-WPSStatus-getCreationTime}{\code{WPSStatus$getCreationTime()}}
+\item \href{#method-WPSStatus-clone}{\code{WPSStatus$clone()}}
+}
+}
+\if{html}{\out{
+<details><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="ERROR"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-ERROR'><code>ows4R::OGCAbstractObject$ERROR()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="INFO"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-INFO'><code>ows4R::OGCAbstractObject$INFO()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="WARN"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-WARN'><code>ows4R::OGCAbstractObject$WARN()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="encode"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-encode'><code>ows4R::OGCAbstractObject$encode()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getClass"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getClass'><code>ows4R::OGCAbstractObject$getClass()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getClassName"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getClassName'><code>ows4R::OGCAbstractObject$getClassName()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getNamespaceDefinition"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getNamespaceDefinition'><code>ows4R::OGCAbstractObject$getNamespaceDefinition()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="isFieldInheritedFrom"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-isFieldInheritedFrom'><code>ows4R::OGCAbstractObject$isFieldInheritedFrom()</code></a></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="logger"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-logger'><code>ows4R::OGCAbstractObject$logger()</code></a></li>
+</ul>
+</details>
+}}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WPSStatus-new"></a>}}
+\if{latex}{\out{\hypertarget{method-WPSStatus-new}{}}}
+\subsection{Method \code{new()}}{
+Initalizes a \link{WPSStatus} object
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WPSStatus$new(xml = NULL, serviceVersion = "1.0.0")}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{xml}}{an object of class \link{XMLInternalNode-class} from \pkg{XML}}
+
+\item{\code{serviceVersion}}{WPS service version. Default is "1.0.0"}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WPSStatus-decode"></a>}}
+\if{latex}{\out{\hypertarget{method-WPSStatus-decode}{}}}
+\subsection{Method \code{decode()}}{
+Decodes WPS status from XML
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WPSStatus$decode(xml)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{xml}}{an object of class \link{XMLInternalNode-class} from \pkg{XML}}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WPSStatus-getValue"></a>}}
+\if{latex}{\out{\hypertarget{method-WPSStatus-getValue}{}}}
+\subsection{Method \code{getValue()}}{
+Get status value, among accepted WPS status values defined in the WPS standard:
+   \code{ProcessAccepted}, \code{ProcessStarted}, \code{ProcessPaused}, \code{ProcessSucceeded},
+   \code{ProcessFailed}.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WPSStatus$getValue()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+value, object of class \code{character}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WPSStatus-getPercentCompleted"></a>}}
+\if{latex}{\out{\hypertarget{method-WPSStatus-getPercentCompleted}{}}}
+\subsection{Method \code{getPercentCompleted()}}{
+Get percentage of completion
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WPSStatus$getPercentCompleted()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+the percentage of completion, object of class \code{integer}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WPSStatus-getCreationTime"></a>}}
+\if{latex}{\out{\hypertarget{method-WPSStatus-getCreationTime}{}}}
+\subsection{Method \code{getCreationTime()}}{
+Get creation time
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WPSStatus$getCreationTime()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+the creation time, object of class \code{POSIXct}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WPSStatus-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-WPSStatus-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WPSStatus$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
