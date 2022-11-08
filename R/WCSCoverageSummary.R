@@ -308,12 +308,13 @@ WCSCoverageSummary <- R6Class("WCSCoverageSummary",
                 
                 if(dimension$type == "temporal"){
                   timeDomain <- des$metadata$TimeDomain
-                  if(!is.null(timeDomain) & is(timeDomain, "WCSGSTimeDomain")){
-                    dimension$coefficients <- as.matrix(des$metadata$TimeDomain$TimeInstant)   
+                  if(!is.null(timeDomain) & is(timeDomain, "ISOElementSequence")){
+                   dimension$coefficients <- as.matrix(lapply(timeDomain[["_internal_"]], function(x){x$toISOFormat()}))
                   }
                 }
                 if(dimension$type == "vertical"){
                   elevationDomain <- des$metadata$ElevationDomain
+                  #TODO test
                   if(!is.null(elevationDomain) & is(elevationDomain, "WCSGSElevationDomain")){
                     dimension$coefficients <- as.matrix(des$metadata$ElevationDomain$SingleValue)
                   }
@@ -331,19 +332,19 @@ WCSCoverageSummary <- R6Class("WCSCoverageSummary",
     },
     
     #'@description Get coverage data
-    #'@param bbox bbox. Default is \code{NULL}
-    #'@param crs crs. Default is \code{NULL}
-    #'@param time time. Default is \code{NULL}
-    #'@param elevation elevation. Default is \code{NULL}
-    #'@param format format. Default will be GeoTIFF, coded differently depending on the WCS version.
+    #'@param bbox bbox. Object of class \code{matrix}. Default is \code{NULL}. eg. \code{OWSUtils$toBBOX(-180,180,-90,90)}
+    #'@param crs crs. Object of class \code{character} giving the CRS identifier (EPSG prefixed code, or URI/URN). Default is \code{NULL}.
+    #'@param time time. Object of class \code{character} representing time instant/period. Default is \code{NULL}
+    #'@param elevation elevation. Object of class \code{character} or \code{numeric}. Default is \code{NULL}
+    #'@param format format. Object of class \code{character} Default will be GeoTIFF, coded differently depending on the WCS version.
     #'@param rangesubset rangesubset. Default is \code{NULL}
     #'@param gridbaseCRS grid base CRS. Default is \code{NULL}
     #'@param gridtype grid type. Default is \code{NULL}
     #'@param gridCS grid CS. Default is \code{NULL}
     #'@param gridorigin grid origin. Default is \code{NULL}
     #'@param gridoffsets grid offsets. Default is \code{NULL}
-    #'@param method method to get coverage, either 'GET' or 'POST' (experimental - under development)
-    #'@param filename filename. Optional filename to download the coverage
+    #'@param method method to get coverage, either 'GET' or 'POST' (experimental - under development). Object of class \code{character}.
+    #'@param filename filename. Object of class \code{character}. Optional filename to download the coverage
     #'@param ... any other argument to \link{WCSGetCoverage}
     #'@return an object of class \code{SpatRaster} from \pkg{terra}
     getCoverage = function(bbox = NULL, crs = NULL, 
@@ -441,8 +442,8 @@ WCSCoverageSummary <- R6Class("WCSCoverageSummary",
                beginPosition <- env$beginPosition
                endPosition <- env$endPosition
                bbox <- matrix(c(
-                 env$lowerCorner, format(env$beginPosition$value,"%Y-%m-%dT%H:%M:%S"), 
-                 env$upperCorner, format(env$endPosition$value,"%Y-%m-%dT%H:%M:%S")
+                 env$lowerCorner, base::format(env$beginPosition$value,"%Y-%m-%dT%H:%M:%S"), 
+                 env$upperCorner, base::format(env$endPosition$value,"%Y-%m-%dT%H:%M:%S")
                ),length(env$lowerCorner)+1,2)
                env <- GMLEnvelope$new(bbox = bbox)
                env$attrs <- envattrs
@@ -458,8 +459,8 @@ WCSCoverageSummary <- R6Class("WCSCoverageSummary",
                beginPosition <- env$beginPosition
                endPosition <- env$endPosition
                bbox <- matrix(c(
-                 env$lowerCorner, format(env$beginPosition$value,"%Y-%m-%dT%H:%M:%S"), 
-                 env$upperCorner, format(env$endPosition$value,"%Y-%m-%dT%H:%M:%S")
+                 env$lowerCorner, base::format(env$beginPosition$value,"%Y-%m-%dT%H:%M:%S"), 
+                 env$upperCorner, base::format(env$endPosition$value,"%Y-%m-%dT%H:%M:%S")
                ),length(env$lowerCorner)+1,2)
                env <- GMLEnvelope$new(bbox = bbox)
                env$attrs <- envattrs
@@ -487,8 +488,8 @@ WCSCoverageSummary <- R6Class("WCSCoverageSummary",
             upperCorner <- NULL
             
             if(is(refEnvelope, "GMLEnvelopeWithTimePeriod")){
-              lowerCorner <- cbind(envelope$lowerCorner, format(refEnvelope$beginPosition$value, "%Y-%m-%dT%H:%M:%S"))
-              upperCorner <- cbind(envelope$upperCorner, format(refEnvelope$endPosition$value, "%Y-%m-%dT%H:%M:%S"))
+              lowerCorner <- cbind(envelope$lowerCorner, base::format(refEnvelope$beginPosition$value, "%Y-%m-%dT%H:%M:%S"))
+              upperCorner <- cbind(envelope$upperCorner, base::format(refEnvelope$endPosition$value, "%Y-%m-%dT%H:%M:%S"))
             }else{
               if(axisLatIdx == 1 || axisLonIdx == 1){
                 lowerCorner <- cbind(envelope$lowerCorner, refEnvelope$lowerCorner[,3:length(refEnvelope$lowerCorner)])
@@ -529,9 +530,9 @@ WCSCoverageSummary <- R6Class("WCSCoverageSummary",
             time <- defaultTime
           }else{
             if(!(time %in% timeDim$coefficients)){
-              error <- sprintf("The 'time' specified value is not valid. Allowed values for this coverage are [%s]",
+              errorMsg <- sprintf("The 'time' specified value is not valid. Allowed values for this coverage are [%s]",
                                paste(timeDim$coefficients, collapse=","))
-              self$ERROR(error)
+              self$ERROR(errorMsg)
               stop(errorMsg)
             }
           }
@@ -603,7 +604,10 @@ WCSCoverageSummary <- R6Class("WCSCoverageSummary",
         #for WCS 1.0.x / 2.x take directly the data
         covfile <- NULL
         if(!is.null(filename)){ covfile <- filename }else{ 
-          covfile <- WCSCoverageFilenameHandler(identifier = self$CoverageId, time = time, elevation = elevation, format = format, bbox = bbox)
+          covfile <- file.path(
+            tempdir(),
+            WCSCoverageFilenameHandler(identifier = self$CoverageId, time = time, elevation = elevation, format = format, bbox = bbox)
+          )
         }
         writeBin(resp, covfile)
         coverage_data <- terra::rast(covfile)

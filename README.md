@@ -1,12 +1,14 @@
 [![Build Status](https://github.com/eblondel/ows4R/actions/workflows/r-cmd-check.yml/badge.svg?branch=master)](https://github.com/eblondel/ows4R/actions/workflows/r-cmd-check.yml)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/ows4R)](https://cran.r-project.org/package=ows4R)
 [![cran checks](https://cranchecks.info/badges/worst/ows4R)](https://cran.r-project.org/web/checks/check_results_ows4R.html)
-[![Github_Status_Badge](https://img.shields.io/badge/Github-0.3--1-blue.svg)](https://github.com/eblondel/ows4R)
+[![Github_Status_Badge](https://img.shields.io/badge/Github-0.3--2-blue.svg)](https://github.com/eblondel/ows4R)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1345111.svg)](https://doi.org/10.5281/zenodo.1345111)
 
 **ows4R – R Interface to OGC Web-Services (OWS)**
 
-``ows4R`` aims to set-up a pure R interface to OGC Web-Services. It currently targets:
+[ows4R](https://doi.org/10.5281/zenodo.1345111) provides an Interface to Web-Services defined as open standards by the [Open Geospatial Consortium (OGC)](https://www.ogc.org/standards), including Web Feature Service (WFS) for vector data, Web Coverage Service (WCS), Catalogue Service (CSW) for ISO/OGC metadata, Web Processing Service (WPS) for data processes, and associated standards such as the common web-service specification (OWS) and OGC Filter Encoding. Partial support is provided for the Web Map Service (WMS). The purpose is to add support for additional OGC service standards such as Web Coverage Processing Service (WCPS), the Sensor Observation Service (SOS), or even new standard services emerging such OGC API or SensorThings. 
+
+It currently targets:
 
 * the Common OGC Web-Services specifications, versions ``1.1`` and ``2.0``
 * the Catalogue Service for the Web (CSW), version ``2.0.2`` (including ``Transaction`` and ``Harvest`` operations)
@@ -45,11 +47,12 @@ Standard  |Description|Supported versions|Unsupported versions|Supported R bindi
 ----------|-----------|------------------|-----------------|--------------------|------|
 OGC Filter|[Filter Encoding](https://www.ogc.org/standards/filter)|``1.1.0``|``2.0``||ongoing
 OGC Common|[Web Service Common](https://www.ogc.org/standards/common)|``1.1``,``2.0``|||ongoing
-OGC CSW   |[Catalogue Service](https://www.ogc.org/standards/cat)|``2.0.2``|``3.0.0``|[geometa](https://github.com/eblondel/geometa) (ISO 19115 / 19119 / 19110 / 19139 XML)|ongoing / seeking sponsors
+OGC CSW   |[Catalogue Service](https://www.ogc.org/standards/cat)|``2.0.2``|``3.0.0``|[geometa](https://github.com/eblondel/geometa) (ISO 19115 / 19119 / 19110 / 19139 XML)|ongoing - **seeking sponsors**
 OGC WFS   |[Web Feature Service](https://www.ogc.org/standards/wfs)|``1.0.0``,``1.1.0``,``2.0.0``||[sf](https://github.com/r-spatial/sf) (OGC Simple Feature)|ongoing
 OGC WMS   |[Web Map Service](https://www.ogc.org/standards/wms)|``1.1.0``,``1.1.1``,``1.3.0``||[sf](https://github.com/r-spatial/sf) (OGC Simple Feature - for `GetFeatureInfo` operation)|ongoing
 OGC WCS |[Web Coverage Service](https://www.ogc.org/standards/wcs)|``1.0.0``, ``1.1.0``, ``1.1.1``, ``2.0.1``, ``2.1.0``||[terra](https://cran.r-project.org/package=terra)|ongoing
 OGC WPS |[Web Processing Service](https://www.ogc.org/standards/wps)|`1.0.0`|`2.0`||under development (contribs welcome)
+OGC SOS |[Sensor Observation Service](https://www.ogc.org/standards/sos)|`1.0`,`2.0`|||under investigation - **seeking sponsors**
 
 In case of a missing feature, [create a ticket](https://github.com/eblondel/ows4R/issues/new).
 
