@@ -1,271 +1,165 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<title>Create CSW Client</title>
+<title>Use ows4R with OGC CSW (Catalogue Service for the Web)</title>
 
-<script type="text/javascript">
-window.onload = function() {
-  var imgs = document.getElementsByTagName('img'), i, img;
-  for (i = 0; i < imgs.length; i++) {
-    img = imgs[i];
-    // center an image if it is the only element of its parent
-    if (img.parentElement.childElementCount === 1)
-      img.parentElement.style.textAlign = 'center';
-  }
-};
-</script>
-
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.6.0/build/styles/github.min.css">
+<script src="https://cdn.jsdelivr.net/combine/gh/highlightjs/cdn-release@11.6.0/build/highlight.min.js,npm/@xiee/utils/js/load-highlight.js" async></script>
 
 
 
 <style type="text/css">
 body, td {
-   font-family: sans-serif;
-   background-color: white;
-   font-size: 13px;
+  font-family: sans-serif;
+  background-color: white;
+  font-size: 13px;
 }
-
 body {
   max-width: 800px;
   margin: auto;
   padding: 1em;
-  line-height: 20px;
+  line-height: 1.5;
+  box-sizing: border-box;
 }
-
+*, *:before, *:after {
+  box-sizing: inherit;
+}
 tt, code, pre {
-   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+  font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
 }
-
-h1 {
-   font-size:2.2em;
-}
-
-h2 {
-   font-size:1.8em;
-}
-
-h3 {
-   font-size:1.4em;
-}
-
-h4 {
-   font-size:1.0em;
-}
-
-h5 {
-   font-size:0.9em;
-}
-
-h6 {
-   font-size:0.8em;
-}
-
-a:visited {
-   color: rgb(50%, 0%, 50%);
-}
-
-pre, img {
-  max-width: 100%;
-}
-pre {
-  overflow-x: auto;
-}
-pre code {
-   display: block; padding: 0.5em;
-}
-
+a:visited { color: #80007f; }
+pre, img { max-width: 100%; }
 code {
   font-size: 92%;
   border: 1px solid #ccc;
 }
-
-code[class] {
-  background-color: #F8F8F8;
+code[class] { background-color: #F8F8F8; }
+code.language-undefined { background-color: inherit; }
+table {
+  margin: auto;
+  border-top: 1px solid #666;
+  border-bottom: 1px solid #666;
 }
-
-table, td, th {
-  border: none;
-}
-
+table thead th { border-bottom: 1px solid #ddd; }
+th, td { padding: 5px; }
+thead, tfoot, tr:nth-child(even) { background: #eee; }
 blockquote {
-   color:#666666;
-   margin:0;
-   padding-left: 1em;
-   border-left: 0.5em #EEE solid;
+  color:#666;
+  margin:0;
+  padding-left: 1em;
+  border-left: 0.5em #eee solid;
 }
-
-hr {
-   height: 0px;
-   border-bottom: none;
-   border-top-width: thin;
-   border-top-style: dotted;
-   border-top-color: #999999;
-}
+hr { border: 1px #ddd dashed; }
+.frontmatter { text-align: center; }
 
 @media print {
-   * {
-      background: transparent !important;
-      color: black !important;
-      filter:none !important;
-      -ms-filter: none !important;
-   }
-
-   body {
-      font-size:12pt;
-      max-width:100%;
-   }
-
-   a, a:visited {
-      text-decoration: underline;
-   }
-
-   hr {
-      visibility: hidden;
-      page-break-before: always;
-   }
-
-   pre, blockquote {
-      padding-right: 1em;
-      page-break-inside: avoid;
-   }
-
-   tr, img {
-      page-break-inside: avoid;
-   }
-
-   img {
-      max-width: 100% !important;
-   }
-
-   @page :left {
-      margin: 15mm 20mm 15mm 10mm;
-   }
-
-   @page :right {
-      margin: 15mm 10mm 15mm 20mm;
-   }
-
-   p, h2, h3 {
-      orphans: 3; widows: 3;
-   }
-
-   h2, h3 {
-      page-break-after: avoid;
-   }
+  * {
+    background: transparent !important;
+    color: black !important;
+    filter:none !important;
+  }
+  body {
+    font-size: 12pt;
+    max-width: 100%;
+  }
+  a, a:visited { text-decoration: underline; }
+  hr {
+    visibility: hidden;
+    page-break-before: always;
+  }
+  pre, blockquote {
+    padding-right: 1em;
+    page-break-inside: avoid;
+  }
+  tr, img { page-break-inside: avoid; }
+  img { max-width: 100% !important; }
+  @page :left { margin: 15mm 20mm 15mm 10mm; }
+  @page :right { margin: 15mm 10mm 15mm 20mm; }
+  p, h2, h3 { orphans: 3; widows: 3; }
+  h2, h3 { page-break-after: avoid; }
 }
 </style>
-
 
 
 </head>
 
 <body>
+<div class="include-before">
+
+</div>
+
+<div class="frontmatter">
+<div class="title"><h1>Use ows4R with OGC CSW (Catalogue Service for the Web)</h1></div>
+<div class="author"><h2></h2></div>
+<div class="date"><h3></h3></div>
+</div>
+
+<div class="body">
 <p>This vignette shows how to use <a href="https://github.com/eblondel/ows4R">ows4R</a> with a Catalogue Service for the Web (OGC CSW).</p>
-
 <p>An overview of the Catalogue Service (CSW) can be found on the official OGC webpage: <a href="https://www.ogc.org/standard/cat/">https://www.ogc.org/standard/cat/</a></p>
-
-<p><a name="csw-client"/></p>
-
+<a name="csw-client"/>
 <h3>Create CSW Client</h3>
-
 <p>In order to operate on a Catalogue Service, you need to create an interface in R to this CSW. This is done with the class <code>CSWClient</code>, as follows:</p>
-
-<pre><code class="R">CSW &lt;- CSWClient$new(&quot;http://localhost:8080/csw&quot;, &quot;2.0.2&quot;, logger = &quot;INFO&quot;)
+<pre><code class="language-R">CSW &lt;- CSWClient$new(&quot;http://localhost:8080/csw&quot;, &quot;2.0.2&quot;, logger = &quot;INFO&quot;)
 </code></pre>
-
-<p>You can define the level of logger: &ldquo;INFO&rdquo; to get ows4R logs, &ldquo;DEBUG&rdquo; for all internal logs (such as as Curl details).
+<p>You can define the level of logger: “INFO” to get ows4R logs, “DEBUG” for all internal logs (such as as Curl details).
 It is also possible to define a username and credentials in case operations would require an authentication to use the Catalogue Service.</p>
-
 <p>For operations that require authentication (e.g. CSW Transaction operations on GeoNetwork), you may need to specify the <code>user</code> and <code>pwd</code> parameters.</p>
-
 <h3>Get Capabilities (<code>GetCapabilities</code>)</h3>
-
 <p>When create the <code>CSWClient</code>, <code>ows4R</code> will run a <code>GetCapabilities</code> request. To access the CSW Capabilities and its sections, you can use the following code:</p>
-
-<pre><code class="R">caps &lt;- CSW$getCapabilities()
+<pre><code class="language-R">caps &lt;- CSW$getCapabilities()
 </code></pre>
-
 <h3>Describe a record (<code>DescribeRecord</code>)</h3>
-
 <p>NOT YET SUPPORTED</p>
-
 <h3>Get a record (<code>GetRecordById</code>)</h3>
-
 <p>The below example shows how to get a metadata record by ID, and bind it with <a href="https://github.com/eblondel/geometa">geometa</a> ISO/OGC metadata classes.</p>
-
-<pre><code class="R">#supposing a metadata identified as &quot;my-metadata-identifier&quot;
+<pre><code class="language-R">#supposing a metadata identified as &quot;my-metadata-identifier&quot;
 md &lt;- CSW$getRecordById(&quot;my-metadata-identifier&quot;, outputSchema = &quot;http://www.isotc211.org/2005/gmd&quot;)
 </code></pre>
-
 <h3>Get records (<code>GetRecords</code>)</h3>
-
 <p>This section gives several examples how to get records with the <code>ows4R</code> CSW client.</p>
-
 <h4>Basic query</h4>
-
 <p>A basic <code>GetRecords</code> request can be done with the following code:</p>
-
-<pre><code class="R">records &lt;- CSW$getRecords()
+<pre><code class="language-R">records &lt;- CSW$getRecords()
 </code></pre>
-
 <p>By default, this request will return the 5 first metadata records. These records are returned in the <a href="http://dublincore.org/">Dublin Core</a> metadata format, handled as <code>list</code> in R.</p>
-
 <h4>Query with <code>maxRecords</code> parameter</h4>
-
 <p>To change the maximum number of records to be returned, use the <code>maxRecords</code> parameter</p>
-
-<pre><code class="R">records &lt;- CSW$getRecords(maxRecords = 20L)
+<pre><code class="language-R">records &lt;- CSW$getRecords(maxRecords = 20L)
 </code></pre>
-
 <h4>Query with CQL filters</h4>
-
 <p>To query records based on a filter, we introduce 2 notions inherited from the CSW specification: a <code>query</code> handled in <code>ows4R</code> that will accept as parameter a <code>constraint</code> (corresponding to a given filter).</p>
-
 <p><strong>Query with CQL Filter on metadata title</strong></p>
-
 <p>The example below shows you:</p>
-
 <ul>
 <li>how to create a <code>CSWConstraint</code> specifying a CQL text filter on metadata title. Here the properties refer to the <a href="http://dublincore.org/">Dublin Core</a> metadata format, hence the notation <code>dc:title</code>.</li>
 <li>how to set a <code>CSWQuery</code> based on this constraint/filter</li>
 <li>how to get get metadata records based on the query</li>
 </ul>
-
-<pre><code class="R">cons &lt;- CSWConstraint$new(cqlText = &quot;dc:title like &#39;%ips%&#39;&quot;)
+<pre><code class="language-R">cons &lt;- CSWConstraint$new(cqlText = &quot;dc:title like '%ips%'&quot;)
 query &lt;- CSWQuery$new(constraint = cons)
 records &lt;- CSW$getRecords(query = query)
 </code></pre>
-
 <p><strong>Query with CQL Filter on metadata title and abstract</strong></p>
-
 <p>Another example of <code>GetRecords</code> query with a CQL filter based on two properties (title, abstract):</p>
-
-<pre><code class="R">cons &lt;- CSWConstraint$new(cqlText = &quot;dc:title like &#39;%ips%&#39; and dct:abstract like &#39;%pharetra%&#39;&quot;)
+<pre><code class="language-R">cons &lt;- CSWConstraint$new(cqlText = &quot;dc:title like '%ips%' and dct:abstract like '%pharetra%'&quot;)
 query &lt;- CSWQuery$new(constraint = cons)
 records &lt;- CSW$getRecords(query = query)
 </code></pre>
-
 <p><strong>Query with CQL Filter on metadata identifier</strong></p>
-
-<p>We may also try to perform a <code>GetRecords</code> based on a metadata identifier. In case there is an existing metadata record with such identifier, we expect to get a list of length 1.</p>
-
-<pre><code class="R">cons &lt;- CSWConstraint$new(cqlText = &quot;dc:identifier = &#39;my-metadata-identifier&#39;&quot;)
+<p>We may also try to perform a ``GetRecords``` based on a metadata identifier. In case there is an existing metadata record with such identifier, we expect to get a list of length 1.</p>
+<pre><code class="language-R">cons &lt;- CSWConstraint$new(cqlText = &quot;dc:identifier = 'my-metadata-identifier'&quot;)
 query &lt;- CSWQuery$new(constraint = cons)
 records &lt;- CSW$getRecords(query = query)
 </code></pre>
-
-<p><a name="csw-getrecords-ogcfilters"/></p>
-
+<a name="csw-getrecords-ogcfilters"/>
 <h4>Query with OGC filters</h4>
-
 <p>Instead of using a CQL text filter, <code>ows4R</code> allows to specify an OGC Filter as basis to build the <code>CSWConstraint</code>. OGC Filters can be created with the class/function <code>OGCFilter</code> specifying an expression, among the following:</p>
-
 <ul>
 <li>Simple OGC expressions
-
 <ul>
 <li><code>PropertyIsEqualTo</code> / <code>PropertyIsNotEqualTo</code></li>
 <li><code>PropertyIsLessThan</code> / <code>PropertyIsGreaterThan</code></li>
@@ -274,70 +168,65 @@ records &lt;- CSW$getRecords(query = query)
 <li><code>PropertyIsNull</code></li>
 <li><code>PropertyIsBetween</code></li>
 <li><code>BBOX</code></li>
-</ul></li>
+</ul>
+</li>
 <li>Combinations of OGC expressions
-
 <ul>
 <li><code>And</code></li>
 <li><code>Or</code></li>
 <li><code>Not</code></li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <p><strong>Query with OGC filter - <code>PropertyIsLike</code></strong></p>
-
-<p>The below example constructs a constraint with an <code>OGCFilter</code> made of a <code>PropertyIsLike</code> predicate on CSW <code>AnyText</code>. The result will be a list of records for which _any text is like &#39;%Physio%&#39; (all records for which the string &#39;Physio&#39; is included):</p>
-
-<pre><code class="R">filter &lt;- OGCFilter$new( PropertyIsLike$new(&quot;csw:AnyText&quot;, &quot;%Physio%&quot;))
+<p>The below example constructs a constraint with an <code>OGCFilter</code> made of a <code>PropertyIsLike</code> predicate on CSW <code>AnyText</code>. The result will be a list of records for which _any text is like ‘%Physio%’ (all records for which the string ‘Physio’ is included):</p>
+<pre><code class="language-R">filter &lt;- OGCFilter$new( PropertyIsLike$new(&quot;csw:AnyText&quot;, &quot;%Physio%&quot;))
 cons &lt;- CSWConstraint$new(filter = filter)
 query &lt;- CSWQuery$new(constraint = cons)
 records &lt;- csw2$getRecords(query = query)
 </code></pre>
-
 <p><strong>Query with OGC filter - <code>PropertyIsEqualTo</code></strong></p>
-
-<pre><code class="R">filter &lt;- OGCFilter$new( PropertyIsEqualTo$new(&quot;csw:AnyText&quot;, &quot;species&quot;))
+<pre><code class="language-R">filter &lt;- OGCFilter$new( PropertyIsEqualTo$new(&quot;csw:AnyText&quot;, &quot;species&quot;))
 cons &lt;- CSWConstraint$new(filter = filter)
 query &lt;- CSWQuery$new(constraint = cons)
 records &lt;- CSW$getRecords(query = query)
 </code></pre>
-
 <h3>Transaction - Insert,Update,Delete (<code>Transaction</code>)</h3>
-
 <p>If the CSW server used supports Transaction operations (Insert, Update, Delete), <code>ows4R</code> allows you to perform these operations. The following examples highlight the different operations available:</p>
-
 <p><strong>Insert</strong></p>
-
-<pre><code class="R">mdfile &lt;- system.file(&quot;extdata/data&quot;, &quot;metadata.xml&quot;, package = &quot;ows4R&quot;)
+<pre><code class="language-R">mdfile &lt;- system.file(&quot;extdata/data&quot;, &quot;metadata.xml&quot;, package = &quot;ows4R&quot;)
 md &lt;- geometa::ISOMetadata$new(xml = XML::xmlParse(mdfile))
 insert &lt;- CSW$insertRecord(record = md)
 insert$getResult() #TRUE if inserted, FALSE otherwise
 </code></pre>
-
 <p><strong>Update (Full)</strong></p>
-
-<pre><code class="R">md$identificationInfo[[1]]$citation$setTitle(&quot;a new title&quot;)
+<pre><code class="language-R">md$identificationInfo[[1]]$citation$setTitle(&quot;a new title&quot;)
 update &lt;- CSW$updateRecord(record = md)
 update$getResult() #TRUE if updated, FALSE otherwise
 </code></pre>
-
 <p><strong>Update (Partial)</strong></p>
-
-<pre><code class="R">recordProperty &lt;- CSWRecordProperty$new(&quot;apiso:Title&quot;, &quot;NEW_TITLE&quot;)
+<pre><code class="language-R">recordProperty &lt;- CSWRecordProperty$new(&quot;apiso:Title&quot;, &quot;NEW_TITLE&quot;)
 filter = OGCFilter$new(PropertyIsEqualTo$new(&quot;apiso:Identifier&quot;, md$fileIdentifier))
 constraint &lt;- CSWConstraint$new(filter = filter)
 update &lt;- CSW$updateRecord(recordProperty = recordProperty, constraint = constraint)
 update$getResult() #TRUE if updated, FALSE otherwise
 </code></pre>
-
 <p><strong>Delete</strong></p>
-
-<pre><code class="R">delete &lt;- CSW$deleteRecordById(md$fileIdentifier)
+<pre><code class="language-R">delete &lt;- CSW$deleteRecordById(md$fileIdentifier)
 delete$getResult() #TRUE if deleted, FALSE otherwise
 </code></pre>
-
 <p>The methods <code>insertRecord</code> and <code>updateRecord</code> also support options to deal with <a href="https://github.com/eblondel/geometa">geometa</a> <code>ISOMetadata</code> objects. The option <code>geometa_validate</code> is set by default to <code>TRUE</code> and operates a validation vs. ISO/TC 19139 schemas. The option <code>geometa_inspire</code> can be enabled to test the metadata with INSPIRE. Records inserted/updated through CSW-T will then include a footer of XML comments containing the validation details. See the <a href="https://github.com/eblondel/geometa/wiki#423-validate-iso-19139-xml-metadata-documents">geometa documentation</a></p>
 
+</div>
+
+<div class="include-after">
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/js/center-img.min.js" async></script>
+<script>
+
+</script>
 </body>
 
 </html>

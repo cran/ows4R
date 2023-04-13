@@ -1,6 +1,6 @@
 Package: ows4R
-Version: 0.3-4
-Date: 2023-03-10
+Version: 0.3-5
+Date: 2023-04-12
 Title: Interface to OGC Web-Services (OWS)
 Authors@R: c(person("Emmanuel", "Blondel", role = c("aut", "cre"), email = "emmanuel.blondel1@gmail.com", comment = c(ORCID = "0000-0002-5870-5762")),
              person("Alexandre", "Bennici", role = c("ctb"), comment = c(ORCID = "0000-0003-2160-3487")),
@@ -21,12 +21,12 @@ URL: https://github.com/eblondel/ows4R,
         https://www.ogc.org/standards/
 BugReports: https://github.com/eblondel/ows4R/issues
 LazyLoad: yes
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2023-03-10 22:43:10 UTC; manub
+Packaged: 2023-04-13 14:37:46 UTC; emman
 Author: Emmanuel Blondel [aut, cre] (<https://orcid.org/0000-0002-5870-5762>),
   Alexandre Bennici [ctb] (<https://orcid.org/0000-0003-2160-3487>),
   Norbert Billet [ctb]
 Repository: CRAN
-Date/Publication: 2023-03-10 23:10:02 UTC
+Date/Publication: 2023-04-13 15:10:02 UTC

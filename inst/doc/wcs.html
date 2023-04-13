@@ -1,309 +1,196 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<title>Create WCS Client</title>
+<title>Use ows4R with OGC WCS (Web Coverage Service)</title>
 
-<script type="text/javascript">
-window.onload = function() {
-  var imgs = document.getElementsByTagName('img'), i, img;
-  for (i = 0; i < imgs.length; i++) {
-    img = imgs[i];
-    // center an image if it is the only element of its parent
-    if (img.parentElement.childElementCount === 1)
-      img.parentElement.style.textAlign = 'center';
-  }
-};
-</script>
-
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.6.0/build/styles/github.min.css">
+<script src="https://cdn.jsdelivr.net/combine/gh/highlightjs/cdn-release@11.6.0/build/highlight.min.js,npm/@xiee/utils/js/load-highlight.js" async></script>
 
 
 
 <style type="text/css">
 body, td {
-   font-family: sans-serif;
-   background-color: white;
-   font-size: 13px;
+  font-family: sans-serif;
+  background-color: white;
+  font-size: 13px;
 }
-
 body {
   max-width: 800px;
   margin: auto;
   padding: 1em;
-  line-height: 20px;
+  line-height: 1.5;
+  box-sizing: border-box;
 }
-
+*, *:before, *:after {
+  box-sizing: inherit;
+}
 tt, code, pre {
-   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+  font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
 }
-
-h1 {
-   font-size:2.2em;
-}
-
-h2 {
-   font-size:1.8em;
-}
-
-h3 {
-   font-size:1.4em;
-}
-
-h4 {
-   font-size:1.0em;
-}
-
-h5 {
-   font-size:0.9em;
-}
-
-h6 {
-   font-size:0.8em;
-}
-
-a:visited {
-   color: rgb(50%, 0%, 50%);
-}
-
-pre, img {
-  max-width: 100%;
-}
-pre {
-  overflow-x: auto;
-}
-pre code {
-   display: block; padding: 0.5em;
-}
-
+a:visited { color: #80007f; }
+pre, img { max-width: 100%; }
 code {
   font-size: 92%;
   border: 1px solid #ccc;
 }
-
-code[class] {
-  background-color: #F8F8F8;
+code[class] { background-color: #F8F8F8; }
+code.language-undefined { background-color: inherit; }
+table {
+  margin: auto;
+  border-top: 1px solid #666;
+  border-bottom: 1px solid #666;
 }
-
-table, td, th {
-  border: none;
-}
-
+table thead th { border-bottom: 1px solid #ddd; }
+th, td { padding: 5px; }
+thead, tfoot, tr:nth-child(even) { background: #eee; }
 blockquote {
-   color:#666666;
-   margin:0;
-   padding-left: 1em;
-   border-left: 0.5em #EEE solid;
+  color:#666;
+  margin:0;
+  padding-left: 1em;
+  border-left: 0.5em #eee solid;
 }
-
-hr {
-   height: 0px;
-   border-bottom: none;
-   border-top-width: thin;
-   border-top-style: dotted;
-   border-top-color: #999999;
-}
+hr { border: 1px #ddd dashed; }
+.frontmatter { text-align: center; }
 
 @media print {
-   * {
-      background: transparent !important;
-      color: black !important;
-      filter:none !important;
-      -ms-filter: none !important;
-   }
-
-   body {
-      font-size:12pt;
-      max-width:100%;
-   }
-
-   a, a:visited {
-      text-decoration: underline;
-   }
-
-   hr {
-      visibility: hidden;
-      page-break-before: always;
-   }
-
-   pre, blockquote {
-      padding-right: 1em;
-      page-break-inside: avoid;
-   }
-
-   tr, img {
-      page-break-inside: avoid;
-   }
-
-   img {
-      max-width: 100% !important;
-   }
-
-   @page :left {
-      margin: 15mm 20mm 15mm 10mm;
-   }
-
-   @page :right {
-      margin: 15mm 10mm 15mm 20mm;
-   }
-
-   p, h2, h3 {
-      orphans: 3; widows: 3;
-   }
-
-   h2, h3 {
-      page-break-after: avoid;
-   }
+  * {
+    background: transparent !important;
+    color: black !important;
+    filter:none !important;
+  }
+  body {
+    font-size: 12pt;
+    max-width: 100%;
+  }
+  a, a:visited { text-decoration: underline; }
+  hr {
+    visibility: hidden;
+    page-break-before: always;
+  }
+  pre, blockquote {
+    padding-right: 1em;
+    page-break-inside: avoid;
+  }
+  tr, img { page-break-inside: avoid; }
+  img { max-width: 100% !important; }
+  @page :left { margin: 15mm 20mm 15mm 10mm; }
+  @page :right { margin: 15mm 10mm 15mm 20mm; }
+  p, h2, h3 { orphans: 3; widows: 3; }
+  h2, h3 { page-break-after: avoid; }
 }
 </style>
-
 
 
 </head>
 
 <body>
+<div class="include-before">
+
+</div>
+
+<div class="frontmatter">
+<div class="title"><h1>Use ows4R with OGC WCS (Web Coverage Service)</h1></div>
+<div class="author"><h2></h2></div>
+<div class="date"><h3></h3></div>
+</div>
+
+<div class="body">
 <p>This vignette shows how to use <a href="https://github.com/eblondel/ows4R">ows4R</a> with a Web Coverage Service (OGC WCS).</p>
-
 <p>An overview of the Web Coverage Service (WCS) can be found on the official OGC webpage: <a href="https://www.ogc.org/standard/wcs/">https://www.ogc.org/standard/wcs/</a></p>
-
-<p><a name="wcs-client"/></p>
-
+<a name="wcs-client"/>
 <h3>Create WCS Client</h3>
-
 <p>In order to operate on a Web Coverage Service, you need to create an interface in R to this WCS. This is done with the class <code>WCSClient</code>, as follows:</p>
-
-<pre><code class="R">WCS &lt;- WCSClient$new(&quot;https://ows.rasdaman.org/rasdaman/ows&quot;, &quot;2.1.0&quot;, logger = &quot;INFO&quot;)
+<pre><code class="language-R">WCS &lt;- WCSClient$new(&quot;https://ows.rasdaman.org/rasdaman/ows&quot;, &quot;2.1.0&quot;, logger = &quot;INFO&quot;)
 </code></pre>
-
-<p>You can define the level of logger: &ldquo;INFO&rdquo; to get ows4R logs, &ldquo;DEBUG&rdquo; for all internal logs (such as as Curl details). It is also possible to define a username and password (<code>user</code> and <code>pwd</code> parameters) in case operations would require an authentication to use the Web Coverage Service. </p>
-
+<p>You can define the level of logger: “INFO” to get ows4R logs, “DEBUG” for all internal logs (such as as Curl details). It is also possible to define a username and password (<code>user</code> and <code>pwd</code> parameters) in case operations would require an authentication to use the Web Coverage Service.</p>
 <p>Note: It is also possible to connect ot a WCS by means of a Central Authentication System (CAS) with the <a href="https://github.com/eblondel/ows4R">ows4R</a> <code>CASClient</code>. To do so, you can pass the CAS URL by means of the <code>cas_url</code> argument.</p>
-
 <h3>Get Capabilities (<code>GetCapabilities</code>)</h3>
-
 <p>When create the <code>WCSClient</code>, <code>ows4R</code> will run a <code>GetCapabilities</code> request. To access the WCS Capabilities and its sections, you can use the following code:</p>
-
-<pre><code class="R">caps &lt;- WCS$getCapabilities()
+<pre><code class="language-R">caps &lt;- WCS$getCapabilities()
 </code></pre>
-
 <h3>Get coverage summaries</h3>
-
 <p>From the capabilities, it is possible to get all coverage summaries by doing <code>caps$getCoverageSummaries()</code>. This method will return a list of objects of class <code>WCSCoverageSummary</code>.</p>
-
 <p>To get/find a specific coverage summary by name, you can run the following method:</p>
-
-<pre><code class="R">chla &lt;- caps$findCoverageSummaryById(&quot;AverageChloroColorScaled&quot;, exact = T)
+<pre><code class="language-R">chla &lt;- caps$findCoverageSummaryById(&quot;AverageChloroColorScaled&quot;, exact = T)
 </code></pre>
-
 <h3>Describe a coverage (<code>DescribeCoverage</code>)</h3>
-
 <p>The description of coverage can be fetched either from a coverage summary or directly from the WCS client. When invoked the first time, an OGC WCS <code>DescribeCoverage</code> request will be done.</p>
-
 <ul>
 <li><em>Get description from a coverage summary</em></li>
 </ul>
-
-<pre><code class="R">chla_des &lt;- cov$getDescription()
+<pre><code class="language-R">chla_des &lt;- cov$getDescription()
 </code></pre>
-
 <ul>
 <li><em>Get description from the WCS client</em></li>
 </ul>
-
-<pre><code class="R">chla_des &lt;- WCS$describeCoverage(&quot;AverageChloroColorScaled&quot;)
+<pre><code class="language-R">chla_des &lt;- WCS$describeCoverage(&quot;AverageChloroColorScaled&quot;)
 </code></pre>
-
 <p>A coverage description corresponds to an exhaustive metadata set describing the coverage characteristics such as the coverage limits in space and time. It is represented by an object of class <code>WCSCoverageDescription</code> including core GML metadata properties usable in R thanks to <a href="https://github.com/eblondel/geometa">geometa</a>.</p>
-
 <ul>
 <li><em>Get list of coverage dimensions</em></li>
 </ul>
-
 <p>Associated with the coverage description, <a href="https://github.com/eblondel/ows4R">ows4R</a> defined a convenient method to list the dimensions of the coverage:</p>
-
-<pre><code class="R">chla_dims &lt;- chla$getDimensions()
+<pre><code class="language-R">chla_dims &lt;- chla$getDimensions()
 </code></pre>
-
 <p>This method is particularly useful for spatio-temporal coverage, allowing to retrieve the temporal extent (with time instants available for the given coverage). In the present example, the coverage is available for download for a certain number of time instants:</p>
-
-<pre><code class="R">chla_time_instants &lt;- chla_dims[[1]]$coefficients
+<pre><code class="language-R">chla_time_instants &lt;- chla_dims[[1]]$coefficients
 </code></pre>
-
 <h3>Get coverage data (<code>GetCoverage</code>)</h3>
-
 <ul>
 <li><em>Get single coverage</em></li>
 </ul>
-
-<p>Having a coverage well-described and its dimensions well-known, it&#39;s then possible to get the coverage data. Similarly to the coverage description, coverage data can be get either from the coverage summary, or directly through the WCS Client (specifying the coverage name as first argument). Note however that because getting data from the WCS, data is not DIRECTLY accessed into R through the web-service, data has to be downloaded as temporary file within the R session temp directory. This is done transparently by ows4R, without any action required by user.</p>
-
+<p>Having a coverage well-described and its dimensions well-known, it’s then possible to get the coverage data. Similarly to the coverage description, coverage data can be get either from the coverage summary, or directly through the WCS Client (specifying the coverage name as first argument). Note however that because getting data from the WCS, data is not DIRECTLY accessed into R through the web-service, data has to be downloaded as temporary file within the R session temp directory. This is done transparently by ows4R, without any action required by user.</p>
 <p>The below examples show how to get coverage from the coverage summary object.</p>
-
 <p>It is then possible to limit the spatial (or spatial-temporal) extent by doing:</p>
-
 <ul>
 <li><em>slicing</em>: to specify a single value for a specific dimension, eg. elevation, time</li>
 <li><em>trimming</em>: to specify min-max values range for a specific dimension, eg. lon/lat</li>
 </ul>
-
-<pre><code class="R">cov_data &lt;- chla$getCoverage(
+<pre><code class="language-R">cov_data &lt;- chla$getCoverage(
   bbox = OWSUtils$toBBOX(-10, -9, 40, 42), 
   time = chla_dims[[1]]$coefficients[[1]]
 )
 </code></pre>
-
 <p>The result of the <code>getCoverage</code> method will be an object of class <code>SpatRaster</code> from <a href="https://cran.r-project.org/package=terra">terra</a> package.</p>
-
 <ul>
 <li><em>Get stack of coverages</em></li>
 </ul>
-
 <p><a href="https://github.com/eblondel/ows4R">ows4R</a> extends on the WCS standard and allows users to download a coverage stack by means of the extra <code>getCoverageStack</code> method (only available from a coverage summary object). The below code shows to download a timeseries of coverages for the latest five time instants available:</p>
-
-<pre><code class="R">cov_stack &lt;- chla$getCoverageStack(
+<pre><code class="language-R">cov_stack &lt;- chla$getCoverageStack(
   bbox = OWSUtils$toBBOX(-10, -9, 40, 42), 
   time = tail(chla_dims[[1]]$coefficients, 5)
 )
 </code></pre>
-
 <h3>Download coverage data files</h3>
-
 <p>The above methods described allow to read coverage data within R with <a href="https://cran.r-project.org/package=terra">terra</a> package without persisting data in specific files named by user, but as temporary file within the R session temp directory. However it is sometimes required or wished to download coverage data files on the file system. <a href="https://github.com/eblondel/ows4R">ows4R</a> allows to download coverage data files both in <code>getCoverage</code> and <code>getCoverageStack</code>.</p>
-
 <ul>
 <li><em>for a single coverage</em></li>
 </ul>
-
 <p>The <code>getCoverage</code> method provides a <code>filename</code> argument that can be used to download the data files:</p>
-
-<pre><code class="R">cov_data &lt;- chla$getCoverage(
+<pre><code class="language-R">cov_data &lt;- chla$getCoverage(
   bbox = OWSUtils$toBBOX(-10, -9, 40, 42), 
   time = chla_dims[[1]]$coefficients[[1]],
   filename = &quot;myfile.tif&quot;
 )
 </code></pre>
-
 <ul>
 <li><em>from a coverage stack</em></li>
 </ul>
-
-<p>To download data files for a coverage stack, it is required to provide a function, handled with the argument <code>filename_handler</code> that will set for each coverage the target file name. Such function should have a set of 
+<p>To download data files for a coverage stack, it is required to provide a function, handled with the argument <code>filename_handler</code> that will set for each coverage the target file name. Such function should have a set of
 mandatory arguments, namely: <code>identifier</code> (coverage identifier), <code>time</code> (time filter), <code>elevation</code> (elevation filter), <code>bbox</code> (bbox filter), <code>format</code> (target format); The output of this function will be filename to be used for the given coverage.
 To simplify the download <a href="https://github.com/eblondel/ows4R">ows4R</a> puts at disposal a ready-to-use filename handler named <code>WCSCoverageFilenameHandler</code> that is enough to add to trigger the data files download.</p>
-
-<pre><code class="R">cov_stack &lt;- chla$getCoverageStack(
+<pre><code class="language-R">cov_stack &lt;- chla$getCoverageStack(
   bbox = OWSUtils$toBBOX(-10, -9, 40, 42), 
   time = tail(chla_dims[[1]]$coefficients, 5),
   filename_handler = WCSCoverageFilenameHandler
 )
 </code></pre>
-
 <h3>Comparing data get from WCS (<code>GetCoverage</code>) vs. WMS (<code>GetFeatureInfo</code>)</h3>
-
 <p>As matter of quality assurance, it is possible to compare raster data values get using the WCS/Getcoverage with the data values get from a WMS/GetFeatureInfo operation (emulating a map click). The below example illustrates this check:</p>
-
-<pre><code class="R">require(terra)
+<pre><code class="language-R">require(terra)
 require(testthat)
 
 #Get data using WCS
@@ -319,7 +206,7 @@ cov_data_stack &lt;- cov$getCoverageStack(
   time = cov$getDimensions()[[3]]$coefficients[1]
 )
 expect_true(terra::compareGeom(cov_data,cov_data_stack))
-
+  
 #compare with data returned by WMS GetFeatureInfo
 vliz_wms &lt;- WMSClient$new(url = &quot;https://geo.vliz.be/geoserver/wms&quot;, service = &quot;1.1.1&quot;, logger = &quot;DEBUG&quot;)
 gfi &lt;- vliz_wms$getFeatureInfo(
@@ -333,6 +220,16 @@ gfi &lt;- vliz_wms$getFeatureInfo(
 expect_equal(terra::values(cov_data)[[1]], gfi$relative_abundance)
 </code></pre>
 
+</div>
+
+<div class="include-after">
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/js/center-img.min.js" async></script>
+<script>
+
+</script>
 </body>
 
 </html>
