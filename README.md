@@ -1,7 +1,7 @@
 [![Build Status](https://github.com/eblondel/ows4R/actions/workflows/r-cmd-check.yml/badge.svg?branch=master)](https://github.com/eblondel/ows4R/actions/workflows/r-cmd-check.yml)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/ows4R)](https://cran.r-project.org/package=ows4R)
 [![cran checks](https://badges.cranchecks.info/worst/ows4R.svg)](https://cran.r-project.org/web/checks/check_results_ows4R.html)
-[![Github_Status_Badge](https://img.shields.io/badge/Github-0.3--5-blue.svg)](https://github.com/eblondel/ows4R)
+[![Github_Status_Badge](https://img.shields.io/badge/Github-0.3--6-blue.svg)](https://github.com/eblondel/ows4R)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1345111.svg)](https://doi.org/10.5281/zenodo.1345111)
 
 **ows4R – R Interface to OGC Web-Services (OWS)**
@@ -40,7 +40,7 @@ _Blue-Cloud has received funding from the European Union's Horizon programme cal
 <div>
 
 <a href="https://emodnet.ec.europa.eu/en/biology" title="EMODnet Biology" style="float:left;"><img height=100 width=300 src="https://sextant.ifremer.fr/geonetwork/srv/api/records/73cd2a45-e0b3-4f70-96aa-c1b2639142d2/attachments/emodnet.png"/></a>
-<a href="https://www.vliz.be" title="VLIZ" style="float:left;"><img height=100 width=100 src="https://www.vliz.be/sites/vliz.be/themes/vliz/img/logo.png"/></a>
+<a href="https://www.vliz.be/nl" title="VLIZ" style="float:left;"><img height=100 width=100 src="https://www.vliz.be/sites/vliz.be/themes/vliz/img/logo.png"/></a>
 
 </div>
 

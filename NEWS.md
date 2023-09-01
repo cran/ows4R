@@ -1,10 +1,21 @@
+## [ows4R 0.3-6](https://github.com/eblondel/ows4R) | [![CRAN_Status_Badge](https://img.shields.io/badge/CRAN-published-blue.svg)](https://github.com/eblondel/ows4R)
+
+
+**Corrections**
+
+- [#110](https://github.com/eblondel/ows4R/issues/110) 'hasGeometry' based on FeatureType description is not enough in case propertyNames is used with geom
+
+**Enhancements**
+
+- [#109](https://github.com/eblondel/ows4R/issues/109) Improve CSV support for WFS
+
 ## [ows4R 0.3-5](https://github.com/eblondel/ows4R) | [![CRAN_Status_Badge](https://img.shields.io/badge/CRAN-published-blue.svg)](https://github.com/eblondel/ows4R)
 
 **Enhancements**
 
 - [#106](https://github.com/eblondel/ows4R/issues/106) ows4R will switch off s2 by default (s2 is not ISO/OGC compliant)
 
-## [ows4R 0.3-4](https://cran.r-project.org/package=ows4R) | [![CRAN_Status_Badge](https://img.shields.io/badge/CRAN-published-blue.svg)](https://cran.r-project.org/package=ows4R)
+## [ows4R 0.3-4](https://cran.r-project.org/src/contrib/Archive/ows4R/ows4R_0.3-4.tar.gz) | [![CRAN_Status_Badge](https://img.shields.io/badge/CRAN-published-blue.svg)](https://cran.r-project.org/src/contrib/Archive/ows4R/ows4R_0.3-4.tar.gz)
 
 **Corrections**
 
@@ -14,7 +25,7 @@
 
 - [#101](https://github.com/eblondel/ows4R/issues/101) WFS - Ensure features CRS are inherited
 
-## [ows4R 0.3-3]((https://cran.r-project.org/src/contrib/Archive/ows4R/ows4R_0.3-3.tar.gz) | [![CRAN_Status_Badge](https://img.shields.io/badge/CRAN-published-blue.svg)]((https://cran.r-project.org/src/contrib/Archive/ows4R/ows4R_0.3-3.tar.gz)
+## [ows4R 0.3-3](https://cran.r-project.org/src/contrib/Archive/ows4R/ows4R_0.3-3.tar.gz) | [![CRAN_Status_Badge](https://img.shields.io/badge/CRAN-published-blue.svg)](https://cran.r-project.org/src/contrib/Archive/ows4R/ows4R_0.3-3.tar.gz)
 
 **Corrections**
 
