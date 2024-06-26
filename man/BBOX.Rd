@@ -5,10 +5,10 @@
 \alias{BBOX}
 \title{BBOX}
 \format{
-\code{\link{R6Class}} object.
+\code{\link[R6]{R6Class}} object.
 }
 \value{
-Object of \code{\link{R6Class}} for modelling an BBOX
+Object of \code{\link[R6]{R6Class}} for modelling an BBOX
 }
 \description{
 BBOX
@@ -35,7 +35,7 @@ Emmanuel Blondel <emmanuel.blondel1@gmail.com>
 \describe{
 \item{\code{PropertyName}}{property name field for XML encoding}
 
-\item{\code{Envelope}}{envelope as object of class \link{GMLEnvelope} from \pkg{geometa}}
+\item{\code{Envelope}}{envelope as object of class \link[geometa]{GMLEnvelope} from \pkg{geometa}}
 }
 \if{html}{\out{</div>}}
 }
@@ -58,6 +58,7 @@ Emmanuel Blondel <emmanuel.blondel1@gmail.com>
 <li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getNamespaceDefinition"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getNamespaceDefinition'><code>ows4R::OGCAbstractObject$getNamespaceDefinition()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="isFieldInheritedFrom"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-isFieldInheritedFrom'><code>ows4R::OGCAbstractObject$isFieldInheritedFrom()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="logger"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-logger'><code>ows4R::OGCAbstractObject$logger()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="print"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-print'><code>ows4R::OGCAbstractObject$print()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCExpression" data-id="getExprVersion"><a href='../../ows4R/html/OGCExpression.html#method-OGCExpression-getExprVersion'><code>ows4R::OGCExpression$getExprVersion()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCExpression" data-id="setExprVersion"><a href='../../ows4R/html/OGCExpression.html#method-OGCExpression-setExprVersion'><code>ows4R::OGCExpression$setExprVersion()</code></a></span></li>
 </ul>

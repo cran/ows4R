@@ -5,10 +5,10 @@
 \alias{WCSCoverageSpatialDomain}
 \title{WCSCoverageSpatialDomain}
 \format{
-\code{\link{R6Class}} object.
+\code{\link[R6]{R6Class}} object.
 }
 \value{
-Object of \code{\link{R6Class}} modelling a WCS coverage spatial domain
+Object of \code{\link[R6]{R6Class}} modelling a WCS coverage spatial domain
 }
 \description{
 WCSCoverageSpatialDomain
@@ -65,6 +65,7 @@ Emmanuel Blondel <emmanuel.blondel1@gmail.com>
 <li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getNamespaceDefinition"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getNamespaceDefinition'><code>ows4R::OGCAbstractObject$getNamespaceDefinition()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="isFieldInheritedFrom"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-isFieldInheritedFrom'><code>ows4R::OGCAbstractObject$isFieldInheritedFrom()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="logger"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-logger'><code>ows4R::OGCAbstractObject$logger()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="print"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-print'><code>ows4R::OGCAbstractObject$print()</code></a></span></li>
 </ul>
 </details>
 }}
@@ -80,7 +81,7 @@ Initializes an object of class \link{WCSCoverageDomain}
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{xmlObj}}{an object of class \link{XMLInternalNode-class} to initialize from XML}
+\item{\code{xmlObj}}{an object of class \link[XML]{XMLInternalNode-class} to initialize from XML}
 
 \item{\code{serviceVersion}}{service version}
 
@@ -101,7 +102,7 @@ Get envelopes. Method that applies to WCS 1.0 only
 }
 
 \subsection{Returns}{
-a list of objects of class \link{GMLEnvelope} or \link{GMLEnvelopeWithTimePeriod}
+a list of objects of class \link[geometa]{GMLEnvelope} or \link[geometa]{GMLEnvelopeWithTimePeriod}
 }
 }
 \if{html}{\out{<hr>}}
@@ -127,7 +128,7 @@ Get grids. Method that applies to WCS 1.0 only
 }
 
 \subsection{Returns}{
-a list of of objects of class \link{GMLGrid} or \link{GMLRectifiedGrid}
+a list of of objects of class \link[geometa]{GMLGrid} or \link[geometa]{GMLRectifiedGrid}
 }
 }
 \if{html}{\out{<hr>}}

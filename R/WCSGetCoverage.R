@@ -3,8 +3,8 @@
 #' @docType class
 #' @export
 #' @keywords OGC WCS GetCoverage
-#' @return Object of \code{\link{R6Class}} for modelling a WCS GetCoverage request
-#' @format \code{\link{R6Class}} object.
+#' @return Object of \code{\link[R6]{R6Class}} for modelling a WCS GetCoverage request
+#' @format \code{\link[R6]{R6Class}} object.
 #' 
 #' @note Class used internally by \pkg{ows4R} to trigger a WCS GetCoverage request
 #' 
@@ -172,10 +172,10 @@ WCSGetCoverage <- R6Class("WCSGetCoverage",
         if(!is.null(gridorigin)) namedParams$gridorigin <- gridorigin
         if(!is.null(gridoffsets)) namedParams$gridoffsets <- gridoffsets
         
-        vendorParams <- list(...)
-        if(length(vendorParams)>0){
-          namedParams <- c(namedParams, vendorParams)
-        }
+        #vendorParams <- list(...)
+        #if(length(vendorParams)>0){
+        #  namedParams <- c(namedParams, vendorParams)
+        #}
         
         mimeType <- format
         if(substr(serviceVersion,1,3)=="1.1") mimeType <- "text/xml"

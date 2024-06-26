@@ -3,125 +3,172 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
 <title>Use ows4R with OGC WCS (Web Coverage Service)</title>
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.6.0/build/styles/github.min.css">
-<script src="https://cdn.jsdelivr.net/combine/gh/highlightjs/cdn-release@11.6.0/build/highlight.min.js,npm/@xiee/utils/js/load-highlight.js" async></script>
-
-
-
 <style type="text/css">
-body, td {
-  font-family: sans-serif;
-  background-color: white;
-  font-size: 13px;
+/**
+ * Prism.s theme ported from highlight.js's xcode style
+ */
+pre code {
+  padding: 1em;
 }
+.token.comment {
+  color: #007400;
+}
+.token.punctuation {
+  color: #999;
+}
+.token.tag,
+.token.selector {
+  color: #aa0d91;
+}
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol {
+  color: #1c00cf;
+}
+.token.property,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin {
+  color: #c41a16;
+}
+.token.inserted {
+  background-color: #ccffd8;
+}
+.token.deleted {
+  background-color: #ffebe9;
+}
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+  color: #9a6e3a;
+}
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+  color: #836c28;
+}
+.token.function,
+.token.class-name {
+  color: #DD4A68;
+}
+.token.regex,
+.token.important,
+.token.variable {
+  color: #5c2699;
+}
+.token.important,
+.token.bold {
+  font-weight: bold;
+}
+.token.italic {
+  font-style: italic;
+}
+</style>
+<style type="text/css">
 body {
+  font-family: sans-serif;
   max-width: 800px;
   margin: auto;
   padding: 1em;
   line-height: 1.5;
   box-sizing: border-box;
 }
+body, .footnotes, code { font-size: .9em; }
+li li { font-size: .95em; }
 *, *:before, *:after {
   box-sizing: inherit;
 }
-tt, code, pre {
-  font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
-}
-a:visited { color: #80007f; }
 pre, img { max-width: 100%; }
-code {
-  font-size: 92%;
-  border: 1px solid #ccc;
+pre, pre:hover {
+  white-space: pre-wrap;
+  word-break: break-all;
 }
-code[class] { background-color: #F8F8F8; }
-code.language-undefined { background-color: inherit; }
+pre code {
+  display: block;
+  overflow-x: auto;
+}
+code { font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace; }
+:not(pre) > code, code[class] { background-color: #F8F8F8; }
+code.language-undefined, pre > code:not([class]) {
+  background-color: inherit;
+  border: 1px solid #eee;
+}
 table {
   margin: auto;
   border-top: 1px solid #666;
-  border-bottom: 1px solid #666;
 }
 table thead th { border-bottom: 1px solid #ddd; }
 th, td { padding: 5px; }
 thead, tfoot, tr:nth-child(even) { background: #eee; }
 blockquote {
-  color:#666;
-  margin:0;
+  color: #666;
+  margin: 0;
   padding-left: 1em;
-  border-left: 0.5em #eee solid;
+  border-left: 0.5em solid #eee;
 }
-hr { border: 1px #ddd dashed; }
+hr, .footnotes::before { border: 1px dashed #ddd; }
 .frontmatter { text-align: center; }
+#TOC .numbered li { list-style: none; }
+#TOC .numbered { padding-left: 0; }
+#TOC .numbered ul { padding-left: 1em; }
+table, .body h2 { border-bottom: 1px solid #666; }
+.body .appendix, .appendix ~ h2 { border-bottom-style: dashed; }
+.footnote-ref a::before { content: "["; }
+.footnote-ref a::after { content: "]"; }
+section.footnotes::before {
+  content: "";
+  display: block;
+  max-width: 20em;
+}
 
 @media print {
-  * {
-    background: transparent !important;
-    color: black !important;
-    filter:none !important;
-  }
   body {
     font-size: 12pt;
     max-width: 100%;
   }
-  a, a:visited { text-decoration: underline; }
-  hr {
-    visibility: hidden;
-    page-break-before: always;
-  }
-  pre, blockquote {
-    padding-right: 1em;
-    page-break-inside: avoid;
-  }
   tr, img { page-break-inside: avoid; }
-  img { max-width: 100% !important; }
-  @page :left { margin: 15mm 20mm 15mm 10mm; }
-  @page :right { margin: 15mm 10mm 15mm 20mm; }
-  p, h2, h3 { orphans: 3; widows: 3; }
-  h2, h3 { page-break-after: avoid; }
+}
+@media only screen and (min-width: 992px) {
+  pre { white-space: pre; }
 }
 </style>
-
-
 </head>
-
 <body>
-<div class="include-before">
-
-</div>
-
 <div class="frontmatter">
 <div class="title"><h1>Use ows4R with OGC WCS (Web Coverage Service)</h1></div>
 <div class="author"><h2></h2></div>
 <div class="date"><h3></h3></div>
 </div>
-
 <div class="body">
 <p>This vignette shows how to use <a href="https://github.com/eblondel/ows4R">ows4R</a> with a Web Coverage Service (OGC WCS).</p>
 <p>An overview of the Web Coverage Service (WCS) can be found on the official OGC webpage: <a href="https://www.ogc.org/standard/wcs/">https://www.ogc.org/standard/wcs/</a></p>
 <a name="wcs-client"/>
-<h3>Create WCS Client</h3>
+<h3 id="create-wcs-client">Create WCS Client</h3>
 <p>In order to operate on a Web Coverage Service, you need to create an interface in R to this WCS. This is done with the class <code>WCSClient</code>, as follows:</p>
 <pre><code class="language-R">WCS &lt;- WCSClient$new(&quot;https://ows.rasdaman.org/rasdaman/ows&quot;, &quot;2.1.0&quot;, logger = &quot;INFO&quot;)
 </code></pre>
 <p>You can define the level of logger: “INFO” to get ows4R logs, “DEBUG” for all internal logs (such as as Curl details). It is also possible to define a username and password (<code>user</code> and <code>pwd</code> parameters) in case operations would require an authentication to use the Web Coverage Service.</p>
 <p>Note: It is also possible to connect ot a WCS by means of a Central Authentication System (CAS) with the <a href="https://github.com/eblondel/ows4R">ows4R</a> <code>CASClient</code>. To do so, you can pass the CAS URL by means of the <code>cas_url</code> argument.</p>
-<h3>Get Capabilities (<code>GetCapabilities</code>)</h3>
+<h3 id="get-capabilities-getcapabilities">Get Capabilities (<code>GetCapabilities</code>)</h3>
 <p>When create the <code>WCSClient</code>, <code>ows4R</code> will run a <code>GetCapabilities</code> request. To access the WCS Capabilities and its sections, you can use the following code:</p>
 <pre><code class="language-R">caps &lt;- WCS$getCapabilities()
 </code></pre>
-<h3>Get coverage summaries</h3>
+<h3 id="get-coverage-summaries">Get coverage summaries</h3>
 <p>From the capabilities, it is possible to get all coverage summaries by doing <code>caps$getCoverageSummaries()</code>. This method will return a list of objects of class <code>WCSCoverageSummary</code>.</p>
 <p>To get/find a specific coverage summary by name, you can run the following method:</p>
 <pre><code class="language-R">chla &lt;- caps$findCoverageSummaryById(&quot;AverageChloroColorScaled&quot;, exact = T)
 </code></pre>
-<h3>Describe a coverage (<code>DescribeCoverage</code>)</h3>
+<h3 id="describe-a-coverage-describecoverage">Describe a coverage (<code>DescribeCoverage</code>)</h3>
 <p>The description of coverage can be fetched either from a coverage summary or directly from the WCS client. When invoked the first time, an OGC WCS <code>DescribeCoverage</code> request will be done.</p>
 <ul>
 <li><em>Get description from a coverage summary</em></li>
 </ul>
-<pre><code class="language-R">chla_des &lt;- cov$getDescription()
+<pre><code class="language-R">chla_des &lt;- chla$getDescription()
 </code></pre>
 <ul>
 <li><em>Get description from the WCS client</em></li>
@@ -138,7 +185,7 @@ hr { border: 1px #ddd dashed; }
 <p>This method is particularly useful for spatio-temporal coverage, allowing to retrieve the temporal extent (with time instants available for the given coverage). In the present example, the coverage is available for download for a certain number of time instants:</p>
 <pre><code class="language-R">chla_time_instants &lt;- chla_dims[[1]]$coefficients
 </code></pre>
-<h3>Get coverage data (<code>GetCoverage</code>)</h3>
+<h3 id="get-coverage-data-getcoverage">Get coverage data (<code>GetCoverage</code>)</h3>
 <ul>
 <li><em>Get single coverage</em></li>
 </ul>
@@ -164,7 +211,7 @@ hr { border: 1px #ddd dashed; }
   time = tail(chla_dims[[1]]$coefficients, 5)
 )
 </code></pre>
-<h3>Download coverage data files</h3>
+<h3 id="download-coverage-data-files">Download coverage data files</h3>
 <p>The above methods described allow to read coverage data within R with <a href="https://cran.r-project.org/package=terra">terra</a> package without persisting data in specific files named by user, but as temporary file within the R session temp directory. However it is sometimes required or wished to download coverage data files on the file system. <a href="https://github.com/eblondel/ows4R">ows4R</a> allows to download coverage data files both in <code>getCoverage</code> and <code>getCoverageStack</code>.</p>
 <ul>
 <li><em>for a single coverage</em></li>
@@ -188,7 +235,7 @@ To simplify the download <a href="https://github.com/eblondel/ows4R">ows4R</a> p
   filename_handler = WCSCoverageFilenameHandler
 )
 </code></pre>
-<h3>Comparing data get from WCS (<code>GetCoverage</code>) vs. WMS (<code>GetFeatureInfo</code>)</h3>
+<h3 id="comparing-data-get-from-wcs-getcoverage-vs-wms-getfeatureinfo">Comparing data get from WCS (<code>GetCoverage</code>) vs. WMS (<code>GetFeatureInfo</code>)</h3>
 <p>As matter of quality assurance, it is possible to compare raster data values get using the WCS/Getcoverage with the data values get from a WMS/GetFeatureInfo operation (emulating a map click). The below example illustrates this check:</p>
 <pre><code class="language-R">require(terra)
 require(testthat)
@@ -219,17 +266,8 @@ gfi &lt;- vliz_wms$getFeatureInfo(
 #final check
 expect_equal(terra::values(cov_data)[[1]], gfi$relative_abundance)
 </code></pre>
-
 </div>
-
-<div class="include-after">
-
-</div>
-
-<script src="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/js/center-img.min.js" async></script>
-<script>
-
-</script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-core.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js" defer></script>
 </body>
-
 </html>

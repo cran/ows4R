@@ -5,10 +5,10 @@
 \alias{OWSWGS84BoundingBox}
 \title{OWSWGS84BoundingBox}
 \format{
-\code{\link{R6Class}} object.
+\code{\link[R6]{R6Class}} object.
 }
 \value{
-Object of \code{\link{R6Class}} for modelling an OGC WS84 BoundingBox
+Object of \code{\link[R6]{R6Class}} for modelling an OGC WS84 BoundingBox
 }
 \description{
 OWSWGS84BoundingBox
@@ -47,6 +47,7 @@ Emmanuel Blondel <emmanuel.blondel1@gmail.com>
 <li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getNamespaceDefinition"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getNamespaceDefinition'><code>ows4R::OGCAbstractObject$getNamespaceDefinition()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="isFieldInheritedFrom"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-isFieldInheritedFrom'><code>ows4R::OGCAbstractObject$isFieldInheritedFrom()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="logger"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-logger'><code>ows4R::OGCAbstractObject$logger()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="print"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-print'><code>ows4R::OGCAbstractObject$print()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSBoundingBox" data-id="decode"><a href='../../ows4R/html/OWSBoundingBox.html#method-OWSBoundingBox-decode'><code>ows4R::OWSBoundingBox$decode()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSBoundingBox" data-id="getBBOX"><a href='../../ows4R/html/OWSBoundingBox.html#method-OWSBoundingBox-getBBOX'><code>ows4R::OWSBoundingBox$getBBOX()</code></a></span></li>
 </ul>
@@ -64,7 +65,7 @@ Initializes an object of class \link{OWSBoundingBox}
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{xml}}{an object of class \link{XMLInternalNode-class} to initialize from XML}
+\item{\code{xml}}{an object of class \link[XML]{XMLInternalNode-class} to initialize from XML}
 
 \item{\code{owsVersion}}{OWS version}
 

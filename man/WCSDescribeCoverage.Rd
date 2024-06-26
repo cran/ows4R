@@ -5,10 +5,10 @@
 \alias{WCSDescribeCoverage}
 \title{WCSDescribeCoverage}
 \format{
-\code{\link{R6Class}} object.
+\code{\link[R6]{R6Class}} object.
 }
 \value{
-Object of \code{\link{R6Class}} for modelling a WCS DescribeCoverage request
+Object of \code{\link[R6]{R6Class}} for modelling a WCS DescribeCoverage request
 }
 \description{
 WCSDescribeCoverage
@@ -46,6 +46,7 @@ Emmanuel Blondel <emmanuel.blondel1@gmail.com>
 <li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getNamespaceDefinition"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getNamespaceDefinition'><code>ows4R::OGCAbstractObject$getNamespaceDefinition()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="isFieldInheritedFrom"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-isFieldInheritedFrom'><code>ows4R::OGCAbstractObject$isFieldInheritedFrom()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="logger"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-logger'><code>ows4R::OGCAbstractObject$logger()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="print"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-print'><code>ows4R::OGCAbstractObject$print()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSHttpRequest" data-id="execute"><a href='../../ows4R/html/OWSHttpRequest.html#method-OWSHttpRequest-execute'><code>ows4R::OWSHttpRequest$execute()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSHttpRequest" data-id="getCapabilities"><a href='../../ows4R/html/OWSHttpRequest.html#method-OWSHttpRequest-getCapabilities'><code>ows4R::OWSHttpRequest$getCapabilities()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSHttpRequest" data-id="getException"><a href='../../ows4R/html/OWSHttpRequest.html#method-OWSHttpRequest-getException'><code>ows4R::OWSHttpRequest$getException()</code></a></span></li>
@@ -54,6 +55,7 @@ Emmanuel Blondel <emmanuel.blondel1@gmail.com>
 <li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSHttpRequest" data-id="getResponse"><a href='../../ows4R/html/OWSHttpRequest.html#method-OWSHttpRequest-getResponse'><code>ows4R::OWSHttpRequest$getResponse()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSHttpRequest" data-id="getResult"><a href='../../ows4R/html/OWSHttpRequest.html#method-OWSHttpRequest-getResult'><code>ows4R::OWSHttpRequest$getResult()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSHttpRequest" data-id="getStatus"><a href='../../ows4R/html/OWSHttpRequest.html#method-OWSHttpRequest-getStatus'><code>ows4R::OWSHttpRequest$getStatus()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSHttpRequest" data-id="hasException"><a href='../../ows4R/html/OWSHttpRequest.html#method-OWSHttpRequest-hasException'><code>ows4R::OWSHttpRequest$hasException()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="ows4R" data-topic="OWSHttpRequest" data-id="setResult"><a href='../../ows4R/html/OWSHttpRequest.html#method-OWSHttpRequest-setResult'><code>ows4R::OWSHttpRequest$setResult()</code></a></span></li>
 </ul>
 </details>

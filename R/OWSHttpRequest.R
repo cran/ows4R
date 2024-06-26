@@ -3,8 +3,8 @@
 #' @docType class
 #' @export
 #' @keywords OGC OWS HTTP Request
-#' @return Object of \code{\link{R6Class}} for modelling a generic OWS http request
-#' @format \code{\link{R6Class}} object.
+#' @return Object of \code{\link[R6]{R6Class}} for modelling a generic OWS http request
+#' @format \code{\link[R6]{R6Class}} object.
 #' 
 #' @note Abstract class used internally by \pkg{ows4R}
 #' 
@@ -24,10 +24,11 @@ OWSHttpRequest <- R6Class("OWSHttpRequest",
     namedParams = list(),
     contentType = "text/xml",
     mimeType = "text/xml",
-    status = NA,
-    response = NA,
-    exception = NA,
-    result = NA,
+    skipXmlComments = TRUE,
+    status = NULL,
+    response = NULL,
+    exception = NULL,
+    result = NULL,
     
     user = NULL,
     pwd = NULL,
@@ -38,11 +39,19 @@ OWSHttpRequest <- R6Class("OWSHttpRequest",
 
     #GET
     #---------------------------------------------------------------
-    GET = function(url, request, namedParams, mimeType){
+    GET = function(url, request, namedParams, mimeType, skipXmlComments = TRUE){
       namedParams <- c(namedParams, request = request)
       params <- paste(names(namedParams), namedParams, sep = "=", collapse = "&")
       req <- url
-      if(!endsWith(url,"?") && nzchar(params)) req <- paste0(req, "?")
+      if(nzchar(params)){
+        if(!endsWith(url,"?")){
+          if(regexpr("\\?", url)>0 & regexpr("/cas?service=", url, fixed = T)<0){
+            req <- paste0(req, "&")
+          }else{
+            req <- paste0(req, "?")
+          }
+        }
+      }
       if(regexpr("/cas?service=", url, fixed = T) > 0) params <- URLencode(params, reserved = TRUE)
       req <- paste0(req, params)
       self$INFO(sprintf("Fetching %s", req))
@@ -67,7 +76,7 @@ OWSHttpRequest <- R6Class("OWSHttpRequest",
       }else{
         if(regexpr("xml",mimeType)>0){
           text <- content(r, type = "text", encoding = "UTF-8")
-          text <- gsub("<!--.*?-->", "", text)
+          if(skipXmlComments) text <- gsub("<!--.*?-->", "", text)
           responseContent <- xmlParse(text)
         }else if(regexpr("json", mimeType)>0){
           responseContent <- content(r, type = "text", encoding = "UTF-8")
@@ -82,7 +91,7 @@ OWSHttpRequest <- R6Class("OWSHttpRequest",
     
     #POST
     #---------------------------------------------------------------    
-    POST = function(url, contentType = "text/xml", mimeType = "text/xml"){
+    POST = function(url, contentType = "text/xml", mimeType = "text/xml", skipXmlComments = TRUE){
       
       #vendor params
       geometa_validate <- if(!is.null(private$namedParams$geometa_validate)) as.logical(private$namedParams$geometa_validate) else TRUE
@@ -123,7 +132,7 @@ OWSHttpRequest <- R6Class("OWSHttpRequest",
       }else{
         if(regexpr("xml",mimeType)>0){
           text <- content(r, type = "text", encoding = "UTF-8")
-          text <- gsub("<!--.*?-->", "", text)
+          if(skipXmlComments) text <- gsub("<!--.*?-->", "", text)
           responseContent <- xmlParse(text)
         }else if(regexpr("json", mimeType)>0){
           responseContent <- content(r, type = "text", encoding = "UTF-8")
@@ -156,13 +165,14 @@ OWSHttpRequest <- R6Class("OWSHttpRequest",
     #'@param attrs attributes
     #'@param contentType content type. Default value is "text/xml"
     #'@param mimeType mime type. Default value is "text/xml"
+    #'@param skipXmlComments Skip XML comments from response
     #'@param logger logger
     #'@param ... any other parameter
     initialize = function(element, namespacePrefix,
                           capabilities, op, type, url, request,
                           user = NULL, pwd = NULL, token = NULL, headers = c(), config = httr::config(),
                           namedParams = NULL, attrs = NULL,
-                          contentType = "text/xml", mimeType = "text/xml",
+                          contentType = "text/xml", mimeType = "text/xml", skipXmlComments = TRUE,
                           logger = NULL, ...) {
       super$initialize(element = element, namespacePrefix = namespacePrefix, logger = logger)
       private$capabilities = capabilities
@@ -172,6 +182,7 @@ OWSHttpRequest <- R6Class("OWSHttpRequest",
       private$namedParams = namedParams
       private$contentType = contentType
       private$mimeType = mimeType
+      private$skipXmlComments = skipXmlComments
       
       #authentication schemes
       if(!is.null(user) && !is.null(pwd)){
@@ -217,8 +228,8 @@ OWSHttpRequest <- R6Class("OWSHttpRequest",
     execute = function(){
       
       req <- switch(private$type,
-                    "GET" = private$GET(private$url, private$request, private$namedParams, private$mimeType),
-                    "POST" = private$POST(private$url, private$contentType, private$mimeType)
+                    "GET" = private$GET(private$url, private$request, private$namedParams, private$mimeType, private$skipXmlComments),
+                    "POST" = private$POST(private$url, private$contentType, private$mimeType, private$skipXmlComments)
       )
       
       private$request <- req$request
@@ -226,21 +237,31 @@ OWSHttpRequest <- R6Class("OWSHttpRequest",
       private$status <- req$status
       private$response <- req$response
       
-      if(private$type == "GET"){
-        if(private$status != 200){
-          private$exception <- sprintf("Error while executing request '%s'", req$request)
-          self$ERROR(private$exception)
-        }
+      #exception handling
+      xmlObj = req$response
+      #service exception is usually returned with a status code 400 but not always!
+      if(is.vector(req$response)){
+        exception_tmp_file = tempfile(fileext = ".xml")
+        writeBin(req$response, exception_tmp_file)
+        xmlObj = try(XML::xmlParse(exception_tmp_file), silent = TRUE)
       }
-      if(private$type == "POST"){
-        if(endsWith(private$mimeType, "xml")) if(!is.null(xmlNamespaces(req$response)$ows)){
-          exception <- getNodeSet(req$response, "//ows:ExceptionText", c(ows = xmlNamespaces(req$response)$ows$uri))
-          if(length(exception)>0){
-            exception <- exception[[1]]
-            private$exception <- xmlValue(exception)
-            self$ERROR(private$exception)
+      if(!is(xmlObj, "try-error")) if(is(xmlObj, "XMLInternalNode")) if(!is.null(xmlNamespaces(xmlObj)$ows)){
+        exception <- getNodeSet(xmlObj, "//ows:Exception", c(ows = xmlNamespaces(xmlObj)$ows$uri))
+        if(length(exception)>0){
+          exception <- OWSException$new(xmlObj = exception[[1]])
+          if(!is.null(exception$getLocator()) & !is.null(exception$getCode())){
+            self$ERROR(sprintf("Exception [locator:'%s' code:'%s']: %s", exception$getLocator(), exception$getCode(), exception$getText()))
+          }else{
+            self$ERROR(sprintf("Exception: %s", exception$getText()))
           }
+          private$exception <- exception
+          private$response <- NULL
+          self$setResult(FALSE)
+        }else{
+          self$setResult(TRUE)
         }
+      }else{
+        self$setResult(TRUE)
       }
     },
     
@@ -278,6 +299,12 @@ OWSHttpRequest <- R6Class("OWSHttpRequest",
     #'@return the request exception
     getException = function(){
       return(private$exception)
+    },
+    
+    #'@description Indicates if it has an exception
+    #'@return \code{TRUE} if it has an exception, \code{FALSE} otherwise
+    hasException = function(){
+      return(!is.null(private$exception))
     },
     
     #'@description Get the result \code{TRUE} if the request is successful, \code{FALSE} otherwise

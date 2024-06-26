@@ -3,8 +3,8 @@
 #' @docType class
 #' @export
 #' @keywords OGC WPS Process
-#' @return Object of \code{\link{R6Class}} modelling a WPS process
-#' @format \code{\link{R6Class}} object.
+#' @return Object of \code{\link[R6]{R6Class}} modelling a WPS process
+#' @format \code{\link[R6]{R6Class}} object.
 #' 
 #' @note Class used internally by \pkg{ows4R}
 #' 
@@ -52,7 +52,7 @@ WPSProcess <- R6Class("WPSProcess",
   public = list(
     
     #'@description Initializes a \link{WPSProcess}
-    #'@param xml object of class \link{XMLInternalNode-class} from \pkg{XML}
+    #'@param xml object of class \link[XML]{XMLInternalNode-class} from \pkg{XML}
     #'@param capabilities object of class \link{WPSCapabilities}
     #'@param version service version
     #'@param logger logger
@@ -105,6 +105,12 @@ WPSProcess <- R6Class("WPSProcess",
       processDescription <- WPSDescribeProcess$new(capabilities = private$capabilities, op = op, private$url, private$version, private$identifier, 
                                                    user = client$getUser(), pwd = client$getPwd(), token = client$getToken(), headers = client$getHeaders(),
                                                    logger = self$loggerType)
+      #exception handling
+      if(processDescription$hasException()){
+        return(processDescription$getException())
+      }
+      
+      #response handling
       xml <- processDescription$getResponse()
       processDescXML <- xmlChildren(xmlChildren(xml)[[1]])[[1]]
       processDesc <- WPSProcessDescription$new(xml = processDescXML, version = private$version)
@@ -139,6 +145,12 @@ WPSProcess <- R6Class("WPSProcess",
                                        storeExecuteResponse = storeExecuteResponse, lineage = lineage, status = lineage,
                                        user = client$getUser(), pwd = client$getPwd(), token = client$getToken(), headers = client$getHeaders(),
                                        logger = self$loggerType)
+      #exception handling
+      if(processExecute$hasException()){
+        return(processExecute$getException())
+      }
+      
+      #response handling
       resp <- NULL
       executeStatus <- processExecute$getStatus()
       if(executeStatus == 200){

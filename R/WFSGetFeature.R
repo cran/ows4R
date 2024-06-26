@@ -3,8 +3,8 @@
 #' @docType class
 #' @export
 #' @keywords OGC WFS GetFeature
-#' @return Object of \code{\link{R6Class}} for modelling a WFS GetFeature request
-#' @format \code{\link{R6Class}} object.
+#' @return Object of \code{\link[R6]{R6Class}} for modelling a WFS GetFeature request
+#' @format \code{\link[R6]{R6Class}} object.
 #' 
 #' @note Class used internally by \pkg{ows4R} to trigger a WFS GetFeature request
 #' 
@@ -75,7 +75,7 @@ WFSGetFeature <- R6Class("WFSGetFeature",
        super$initialize(element = private$xmlElement, namespacePrefix = private$namespacePrefix,
                         capabilities, op, "GET", url, request = "GetFeature",
                         user = user, pwd = pwd, token = token, headers = headers, config = config,
-                        namedParams = namedParams, mimeType = mimeType, logger = logger)
+                        namedParams = namedParams, mimeType = mimeType, skipXmlComments = FALSE, logger = logger)
        self$execute()
      }
    )

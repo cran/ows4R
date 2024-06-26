@@ -3,8 +3,8 @@
 #' @docType class
 #' @export
 #' @keywords OGC WCS Coverage
-#' @return Object of \code{\link{R6Class}} modelling a WCS coverage summary
-#' @format \code{\link{R6Class}} object.
+#' @return Object of \code{\link[R6]{R6Class}} modelling a WCS coverage summary
+#' @format \code{\link[R6]{R6Class}} object.
 #' 
 #' @note Class used internally by ows4R.
 #' 
@@ -107,7 +107,7 @@ WCSCoverageSummary <- R6Class("WCSCoverageSummary",
     BoundingBox = list(),
     
     #'@description Initializes a \link{WCSCoverageSummary} object
-    #'@param xmlObj object of class \link{XMLInternalNode-class} from \pkg{XML}
+    #'@param xmlObj object of class \link[XML]{XMLInternalNode-class} from \pkg{XML}
     #'@param capabilities object of class \link{WCSCapabilities}
     #'@param serviceVersion WCS service version
     #'@param owsVersion version
@@ -176,6 +176,12 @@ WCSCoverageSummary <- R6Class("WCSCoverageSummary",
       covDescription <- WCSDescribeCoverage$new(capabilities = private$capabilities, op = op, url = private$url, 
                                                 serviceVersion = private$version, coverageId = self$CoverageId, 
                                                 logger = self$loggerType)
+      #exception handling
+      if(covDescription$hasException()){
+        return(covDescription$getException())
+      }
+      
+      #response handling
       xmlObj <- covDescription$getResponse()
       wcsNs <- NULL
       if(all(class(xmlObj) == c("XMLInternalDocument","XMLAbstractDocument"))){
@@ -213,7 +219,6 @@ WCSCoverageSummary <- R6Class("WCSCoverageSummary",
             label = "time", uom = "s", type = "temporal",
             coefficients = des$Domain$temporalDomain$instants
           )                
-          
         }
       }
       
@@ -225,7 +230,8 @@ WCSCoverageSummary <- R6Class("WCSCoverageSummary",
           self$ERROR("No 'srsName' envelope attribute for CRS interpretation")
           return(NULL)
         }
-        srsNameXML <- try(XML::xmlParse(srsName))
+        srsName = gsub("http://", "https://", srsName) #attempt to rewrite http to https
+        srsNameXML <- try(XML::xmlParse(httr::content(httr::GET(srsName),"text")), silent = TRUE)
         if(is(srsNameXML,"try-error")){
           self$ERROR(sprintf("Error during CRS interpretation for srsName = '%s'", srsName))
           return(NULL)
@@ -241,8 +247,9 @@ WCSCoverageSummary <- R6Class("WCSCoverageSummary",
             out_crs <- thecrs
             crsHref <- thecrs$attrs[["xlink:href"]]
             if(!is.null(crsHref)){
+              crsHref = gsub("http://", "https://", crsHref) #attempt to rewrite http to https
               self$INFO(sprintf("Try to parse CRS from '%s'", crsHref))
-              crsXML <- try(XML::xmlParse(crsHref))
+              crsXML <- try(XML::xmlParse(httr::content(httr::GET(crsHref),"text")), silent = TRUE)
               if(is(crsXML, "try-error")){
                 self$ERROR(sprintf("Error during parsing CRS '%s'", crsHref))
                 return(NULL)
@@ -478,8 +485,8 @@ WCSCoverageSummary <- R6Class("WCSCoverageSummary",
         if(substr(private$version,1,1)=="2"){
           refEnvelope <- self$getDescription()$boundedBy
           axisLabels <- unlist(strsplit(refEnvelope$attrs$axisLabels, " "))
-          axisLatIdx <- which(axisLabels %in% c("Lat", "y", "Y"))
-          axisLonIdx <- which(axisLabels %in% c("Lon", "Long", "x", "X"))
+          axisLatIdx <- which(axisLabels %in% c("Lat", "y", "Y", "N"))
+          axisLonIdx <- which(axisLabels %in% c("Lon", "Long", "x", "X", "E"))
           if(axisLatIdx < axisLonIdx) bbox <- rbind(bbox[2,],bbox[1,])
           envelope <- GMLEnvelope$new(bbox = bbox)
           
@@ -573,18 +580,14 @@ WCSCoverageSummary <- R6Class("WCSCoverageSummary",
                                                format = format, rangesubset = rangesubset, 
                                                gridbaseCRS = gridbaseCRS, gridtype = gridtype, gridCS = gridCS, 
                                                gridorigin = gridorigin, gridoffsets = gridoffsets, ...)
-      resp <- getCoverageRequest$getResponse()
       
-      if(!is(resp, "raw")){
-        hasError <- xmlName(xmlRoot(resp)) == "ExceptionReport"
-        if(hasError){
-          errMsg <- sprintf("Error while getting coverage: %s", xpathSApply(resp, "//ows:ExceptionText", xmlValue))
-          self$ERROR(errMsg)
-          return(NULL)
-        }
+      #exception handling
+      if(getCoverageRequest$hasException()){
+        return(getCoverageRequest$getException())
       }
       
       #response handling
+      resp <- getCoverageRequest$getResponse()
       if(substr(private$version,1,3)=="1.1"){
         #for WCS 1.1, wrap with WCSCoverage object and get data
         namespaces <- OWSUtils$getNamespaces(xmlRoot(resp))
@@ -622,11 +625,6 @@ WCSCoverageSummary <- R6Class("WCSCoverageSummary",
       if(!is.null(bbox)) title <- paste(title, "| BBOX:", paste(as(bbox,"character"), collapse=","))
       if(!is.null(time)) title <- paste(title," | TIME:", time)
       attr(coverage_data,"title") <- title
-      cov_values <- terra::values(coverage_data)
-      if(!all(is.na(cov_values))){
-        attr(coverage_data, "min") <- min(cov_values, na.rm = TRUE)
-        attr(coverage_data, "max") <- max(cov_values, na.rm = TRUE)
-      }
       
       return(coverage_data)
     },

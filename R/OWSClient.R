@@ -11,10 +11,11 @@
 #' @import geometa
 #' @import keyring
 #' @import parallel
+#' @import crayon
 #' @export
 #' @keywords OGC Common OWS
-#' @return Object of \code{\link{R6Class}} with methods for interfacing a Common OGC web-service.
-#' @format \code{\link{R6Class}} object.
+#' @return Object of \code{\link[R6]{R6Class}} with methods for interfacing a Common OGC web-service.
+#' @format \code{\link[R6]{R6Class}} object.
 #' 
 #' @note Abstract class used internally by \pkg{ows4R}
 #' 
@@ -85,7 +86,7 @@ OWSClient <- R6Class("OWSClient",
           self$INFO(sprintf("User '%s' successfully logged in through CAS endpoint '%s'", user, cas_url))
           self$url <- paste0(cas_url, "?service=", URLencode(self$url, reserved = TRUE))
         }else{
-          self$WARNsprintf("Error during CAS login, check your user/password!")
+          self$WARN("Error during CAS login, check your user/password!")
         }
       }
     },

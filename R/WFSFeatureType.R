@@ -3,8 +3,8 @@
 #' @docType class
 #' @export
 #' @keywords OGC WFS FeatureType
-#' @return Object of \code{\link{R6Class}} modelling a WFS feature type
-#' @format \code{\link{R6Class}} object.
+#' @return Object of \code{\link[R6]{R6Class}} modelling a WFS feature type
+#' @format \code{\link[R6]{R6Class}} object.
 #' 
 #' @note Class used internally by \pkg{ows4R} to trigger a WFS DescribeFeatureType request
 #' 
@@ -117,7 +117,7 @@ WFSFeatureType <- R6Class("WFSFeatureType",
     features = NULL,
     
     #'@description Initializes an object of class \link{WFSFeatureType}
-    #'@param xmlObj an object of class \link{XMLInternalNode-class} to initialize from XML
+    #'@param xmlObj an object of class \link[XML]{XMLInternalNode-class} to initialize from XML
     #'@param capabilities object of class \link{WFSCapabilities}
     #'@param version service version
     #'@param logger logger
@@ -192,11 +192,17 @@ WFSFeatureType <- R6Class("WFSFeatureType",
       ftDescription <- WFSDescribeFeatureType$new(private$capabilities, op = op, private$url, private$version, private$name, 
                                                   user = client$getUser(), pwd = client$getPwd(), token = client$getToken(), headers = client$getHeaders(),
                                                   logger = self$loggerType)
+      #exception handling
+      if(ftDescription$hasException()){
+        return(ftDescription$getException())
+      }
+
+      #response handling
       xmlObj <- ftDescription$getResponse()
       namespaces <- OWSUtils$getNamespaces(xmlObj)
       xsdNs <- OWSUtils$findNamespace(namespaces, "XMLSchema")
       elementXML <- getNodeSet(xmlObj, "//ns:sequence/ns:element", xsdNs)
-      elements <- lapply(elementXML, WFSFeatureTypeElement$new)
+      elements <- lapply(elementXML, WFSFeatureTypeElement$new, namespaces)
       self$description <- elements
       out <- self$description
       if(pretty){
@@ -271,6 +277,7 @@ WFSFeatureType <- R6Class("WFSFeatureType",
     #'@description Get features
     #'@param typeName the name of the feature type
     #'@param ... any other parameter to pass to the \link{WFSGetFeature} request
+    #'@param validate Whether features have to be validated vs. the feature type description. Default is \code{TRUE}
     #'@param outputFormat output format
     #'@param paging paging. Default is \code{FALSE}
     #'@param paging_length number of features to request per page. Default is 1000
@@ -279,6 +286,7 @@ WFSFeatureType <- R6Class("WFSFeatureType",
     #'@param cl optional cluster object for parallel cluster approaches using eg. \code{parallel::makeCluster}
     #'@return features as object of class \code{sf}
     getFeatures = function(..., 
+                           validate = TRUE,
                            outputFormat = NULL,
                            paging = FALSE, paging_length = 1000,
                            parallel = FALSE, parallel_handler = NULL, cl = NULL){
@@ -287,7 +295,9 @@ WFSFeatureType <- R6Class("WFSFeatureType",
       if(is.null(self$description)){
         self$description = self$getDescription()
       }
-      
+      if(is(self$description, "OWSException")){
+        stop("Feature type could not be described, aborting getting features...")
+      }
       vendorParams <- list(...)
       
       if(paging){
@@ -337,6 +347,12 @@ WFSFeatureType <- R6Class("WFSFeatureType",
       ftFeatures <- WFSGetFeature$new(private$capabilities, op = op, private$url, private$version, private$name, outputFormat = outputFormat, 
                                       user = client$getUser(), pwd = client$getPwd(), token = client$getToken(), headers = client$getHeaders(),
                                       logger = self$loggerType, ...)
+      #exception handling
+      if(ftFeatures$hasException()){
+        return(ftFeatures$getException())
+      }
+      
+      #response handling
       obj <- ftFeatures$getResponse()
       
       if(length(vendorParams)>0){
@@ -351,6 +367,8 @@ WFSFeatureType <- R6Class("WFSFeatureType",
           }
         }
       }
+      
+      read_features = TRUE
       
       #write the file to disk
       tempf = tempfile()
@@ -378,9 +396,19 @@ WFSFeatureType <- R6Class("WFSFeatureType",
           "csv" = {
             destfile = paste0(tempf,".csv")
             lcolnames = tolower(colnames(obj))
-            sf::st_write(obj[,!duplicated(lcolnames)], destfile)
+            if(self$getGeometryType() %in% colnames(obj)){
+              sf::st_write(obj[,!duplicated(lcolnames)], destfile)
+            }else{
+              readr::write_csv(obj[,!duplicated(lcolnames)], destfile)
+              read_features = FALSE
+            }
           }
         )
+      }
+      
+      if(!read_features){
+        self$features = obj
+        return(self$features)
       }
       
       #read features
@@ -404,7 +432,7 @@ WFSFeatureType <- R6Class("WFSFeatureType",
       }
         
       #validating attributes vs. schema
-      for(element in self$description){
+      if(validate) for(element in self$description){
         attrType <- element$getType()
         if(!is.null(attrType) && !element$isGeometry()){
           attrName = element$getName()

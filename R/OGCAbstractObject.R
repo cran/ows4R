@@ -2,8 +2,8 @@
 #' @docType class
 #' @export
 #' @keywords OGC Abstract Object
-#' @return Object of \code{\link{R6Class}} for modelling an OGCAbstractObject
-#' @format \code{\link{R6Class}} object.
+#' @return Object of \code{\link[R6]{R6Class}} for modelling an OGCAbstractObject
+#' @format \code{\link[R6]{R6Class}} object.
 #'
 #' @note abstract class used by \pkg{ows4R}
 #' 
@@ -149,7 +149,7 @@ OGCAbstractObject <-  R6Class("OGCAbstractObject",
     attrs = list(),
     
     #'@description Initializes an object extending \link{OGCAbstractObject}
-    #'@param xml object of class \link{XMLInternalNode-class} from \pkg{XML}
+    #'@param xml object of class \link[XML]{XMLInternalNode-class} from \pkg{XML}
     #'@param element element name
     #'@param namespacePrefix namespace prefix for XML encoding
     #'@param attrs list of attributes
@@ -333,7 +333,7 @@ OGCAbstractObject <-  R6Class("OGCAbstractObject",
     #'@param geometa_validate Relates to \pkg{geometa} object ISO validation. Default is \code{TRUE}
     #'@param geometa_inspire Relates to \pkg{geometa} object INSPIRE validation. Default is \code{FALSE}
     #'@param geometa_inspireValidator Relates to \pkg{geometa} object INSPIRE validation. Default is \code{NULL}
-    #'@return an object of class \link{XMLInternalNode-class} from \pkg{XML}
+    #'@return an object of class \link[XML]{XMLInternalNode-class} from \pkg{XML}
     encode = function(addNS = TRUE, geometa_validate = TRUE, 
                       geometa_inspire = FALSE, geometa_inspireValidator = NULL){
       
@@ -496,6 +496,100 @@ OGCAbstractObject <-  R6Class("OGCAbstractObject",
         suppressWarnings(xmlAttrs(out) <- rootXMLAttrs)
       }
       return(out)
+    },
+    
+    #'@description Provides a custom print output (as tree) of the current class
+    #'@param ... args
+    #'@param depth class nesting depth
+    print = function(..., depth = 1){
+      #list of fields to encode as XML
+      fields <- rev(names(self))
+      
+      #fields
+      fields <- fields[!sapply(fields, function(x){
+        (class(self[[x]])[1] %in% c("environment", "function")) ||
+          (x %in% private$system_fields)
+      })]
+      
+      cat(crayon::white(paste0("<", crayon::underline(self$getClassName()), ">")))
+      
+      for(field in fields){
+        fieldObj <- self[[field]]
+        
+        print_attrs <- function(obj){
+          paste(
+            sapply(names(obj$attrs), function(attrName){
+              paste0( crayon::magenta(attrName,"=",sep=""), crayon::green(obj$attrs[[attrName]]))
+            }
+            ), 
+            collapse=",")
+        }
+        
+        #user values management
+        shift <- "...."
+        if(!is.null(fieldObj)){
+          if(is(fieldObj, "OGCAbstractObject")){
+            attrs_str <- ""
+            if(length(fieldObj$attrs)>0){
+              attrs <- print_attrs(fieldObj)
+              attrs_str <- paste0(" [",attrs,"] ")
+            }
+            cat(paste0("\n", paste(rep(shift, depth), collapse=""),"|-- ", crayon::italic(field), " ", attrs_str))
+            fieldObj$print(depth = depth+1)
+          }else if(is(fieldObj, "list")){
+            for(item in fieldObj){
+              if(is(item, "OGCAbstractObject")){
+                attrs_str <- ""
+                if(length(item$attrs)>0){
+                  attrs <- print_attrs(item)
+                  attrs_str <- paste0(" [",attrs,"] ")
+                }
+                cat(paste0("\n", paste(rep(shift, depth), collapse=""),"|-- ", crayon::italic(field), " ", attrs_str))
+                item$print(depth = depth+1)
+              }else if(is(item, "matrix")){
+                m <- paste(apply(item, 1L, function(x){
+                  x <- lapply(x, function(el){
+                    if(is.na(suppressWarnings(as.numeric(el))) & !all(sapply(item,class)=="character")){
+                      el <- paste0("\"",el,"\"")
+                    }else{
+                      if(!is.na(suppressWarnings(as.numeric(el)))){
+                        el <- as.numeric(el)
+                      }
+                    }
+                    return(el)
+                  })
+                  return(paste(x, collapse = " "))
+                }), collapse = " ")
+                cat(paste0("\n",paste(rep(shift, depth), collapse=""),"|-- ", crayon::italic(field), ": ", crayon::bgWhite(m)))
+              }else{
+                cat(paste0("\n", paste(rep(shift, depth), collapse=""),"|-- ", crayon::italic(field), ": ", crayon::bgWhite(item)))
+              }
+            }
+          }else if (is(fieldObj,"matrix")){
+            m <- paste(apply(fieldObj, 1L, function(x){
+              x <- lapply(x, function(el){
+                if(is.na(suppressWarnings(as.numeric(el)))& !all(sapply(fieldObj,class)=="character")){
+                  el <- paste0("\"",el,"\"")
+                }else{
+                  if(!is.na(suppressWarnings(as.numeric(el)))){
+                    el <- as.numeric(el)
+                  }
+                }
+                return(el)
+              })
+              return(paste(x, collapse = " "))
+            }), collapse = " ")
+            cat(paste0("\n",paste(rep(shift, depth), collapse=""),"|-- ", crayon::italic(field), ": ", crayon::bgWhite(m)))
+          }else{
+            fieldObjP <- fieldObj
+            if(is(fieldObjP,"Date")|is(fieldObjP, "POSIXt")){
+              fieldObjP <- private$fromComplexTypes(fieldObjP)
+            }
+            cat(paste0("\n",paste(rep(shift, depth), collapse=""),"|-- ", crayon::italic(field), ": ", crayon::bgWhite(fieldObjP)))
+          }
+        }
+      }
+      invisible(self)
     }
   )
 )

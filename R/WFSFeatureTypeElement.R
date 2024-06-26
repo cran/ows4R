@@ -3,8 +3,8 @@
 #' @docType class
 #' @export
 #' @keywords OGC WFS FeatureType
-#' @return Object of \code{\link{R6Class}} modelling a WFS feature type element
-#' @format \code{\link{R6Class}} object.
+#' @return Object of \code{\link[R6]{R6Class}} modelling a WFS feature type element
+#' @format \code{\link[R6]{R6Class}} object.
 #' 
 #' @note Abstract class used by \pkg{ows4R}
 #' 
@@ -20,7 +20,7 @@ WFSFeatureTypeElement <- R6Class("WFSFeatureTypeElement",
      geometry = FALSE,
      
      #fetchElement
-     fetchElement = function(xmlObj){
+     fetchElement = function(xmlObj, namespaces){
        
        #minOccurs
        elementMinOccurs <- xmlGetAttr(xmlObj, "minOccurs")
@@ -46,8 +46,10 @@ WFSFeatureTypeElement <- R6Class("WFSFeatureTypeElement",
        if(is.null(type)){
          stop(sprintf("Unknown data type for type '%s' while parsing FeatureType description!", type))
        }
-       if(attr(regexpr("gml", type), "match.length") > 0){
-         elementType <- unlist(strsplit(unlist(strsplit(type, "gml:"))[2], "PropertyType"))[1]
+       gml_xmlns = namespaces[regexpr("gml", namespaces$uri)>0,] #may include app-schema GML secondary namespace
+       if(any(startsWith(type, gml_xmlns$id))){
+         gml_xmlns = gml_xmlns[startsWith(type, gml_xmlns$id),]
+         elementType <- unlist(strsplit(unlist(strsplit(type, paste0(gml_xmlns$id,":")))[2], "PropertyType"))[1]
          geometry <- TRUE
        }else{
          baseType <- tolower(type)
@@ -85,9 +87,10 @@ WFSFeatureTypeElement <- R6Class("WFSFeatureTypeElement",
    public = list(
       
      #'@description Initializes a \link{WFSFeatureTypeElement}
-     #'@param xmlObj object of class \link{XMLInternalNode-class} from \pkg{XML}
-     initialize = function(xmlObj){
-       element = private$fetchElement(xmlObj)
+     #'@param xmlObj object of class \link[XML]{XMLInternalNode-class} from \pkg{XML}
+     #'@param namespaces namespaces definitions inherited from parent XML, as \code{data.frame}
+     initialize = function(xmlObj, namespaces){
+       element = private$fetchElement(xmlObj, namespaces)
        private$minOccurs = element$minOccurs
        private$maxOccurs = element$maxOccurs
        private$nillable = element$nillable

@@ -5,10 +5,10 @@
 \alias{WPSComplexOutputDescription}
 \title{WPSComplexOutputDescription}
 \format{
-\code{\link{R6Class}} object.
+\code{\link[R6]{R6Class}} object.
 }
 \value{
-Object of \code{\link{R6Class}} modelling a WPS process complex input description
+Object of \code{\link[R6]{R6Class}} modelling a WPS process complex input description
 }
 \description{
 WPSComplexOutputDescription
@@ -49,6 +49,7 @@ Emmanuel Blondel <emmanuel.blondel1@gmail.com>
 <li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="getNamespaceDefinition"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-getNamespaceDefinition'><code>ows4R::OGCAbstractObject$getNamespaceDefinition()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="isFieldInheritedFrom"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-isFieldInheritedFrom'><code>ows4R::OGCAbstractObject$isFieldInheritedFrom()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="logger"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-logger'><code>ows4R::OGCAbstractObject$logger()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="ows4R" data-topic="OGCAbstractObject" data-id="print"><a href='../../ows4R/html/OGCAbstractObject.html#method-OGCAbstractObject-print'><code>ows4R::OGCAbstractObject$print()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="ows4R" data-topic="WPSParameter" data-id="getAbstract"><a href='../../ows4R/html/WPSParameter.html#method-WPSParameter-getAbstract'><code>ows4R::WPSParameter$getAbstract()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="ows4R" data-topic="WPSParameter" data-id="getIdentifier"><a href='../../ows4R/html/WPSParameter.html#method-WPSParameter-getIdentifier'><code>ows4R::WPSParameter$getIdentifier()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="ows4R" data-topic="WPSParameter" data-id="getTitle"><a href='../../ows4R/html/WPSParameter.html#method-WPSParameter-getTitle'><code>ows4R::WPSParameter$getTitle()</code></a></span></li>
@@ -69,7 +70,7 @@ Initializes a \link{WPSComplexOutputDescription}
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{xml}}{object of class \link{XMLInternalNode-class} from \pkg{XML}}
+\item{\code{xml}}{object of class \link[XML]{XMLInternalNode-class} from \pkg{XML}}
 
 \item{\code{version}}{WPS service version}
 
