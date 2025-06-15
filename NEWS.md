@@ -1,3 +1,16 @@
+## [ows4R 0.5](https://github.com/eblondel/ows4R) | [![CRAN_Status_Badge](https://img.shields.io/badge/CRAN-unavailable-red.svg)](https://github.com/eblondel/ows4R)
+
+**Corrections**
+
+- [#129](https://github.com/eblondel/ows4R/issues/129) WFS FeatureType missing control to inherit element type
+
+**Enhancements**
+
+- [#130](https://github.com/eblondel/ows4R/issues/130) WFS 2.0 - Support count parameter in case maxFeatures is used
+- [#131](https://github.com/eblondel/ows4R/issues/131) WFS Add additional controls for WFS feature type validation
+- [#134](https://github.com/eblondel/ows4R/issues/134) WCS 1.x - support automatic inheritance of WIDTH/HEIGHT parameters
+- [#135](https://github.com/eblondel/ows4R/issues/135) Exception handling - Start tag expected, '<' not found  is returned for vector responses
+
 ## [ows4R 0.4](https://github.com/eblondel/ows4R) | [![CRAN_Status_Badge](https://img.shields.io/badge/CRAN-published-blue.svg)](https://github.com/eblondel/ows4R)
 
 **Corrections**

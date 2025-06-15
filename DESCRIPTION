@@ -1,6 +1,6 @@
 Package: ows4R
-Version: 0.4
-Date: 2024-06-26
+Version: 0.5
+Date: 2025-06-13
 Title: Interface to OGC Web-Services (OWS)
 Authors@R: c(person("Emmanuel", "Blondel", role = c("aut", "cre"), email = "emmanuel.blondel1@gmail.com", comment = c(ORCID = "0000-0002-5870-5762")),
              person("Alexandre", "Bennici", role = c("ctb"), comment = c(ORCID = "0000-0003-2160-3487")),
@@ -8,7 +8,7 @@ Authors@R: c(person("Emmanuel", "Blondel", role = c("aut", "cre"), email = "emma
 Maintainer: Emmanuel Blondel <emmanuel.blondel1@gmail.com>
 Depends: R (>= 3.3.0)
 Imports: methods, R6, httr, openssl, keyring, XML (>= 3.96-1.1),
-        geometa (>= 0.7-1), sf, terra, parallel, crayon
+        geometa (>= 0.9), sf, terra, parallel, crayon
 Suggests: testthat, knitr, markdown
 Description: Provides an Interface to Web-Services defined as standards by the Open Geospatial Consortium (OGC), including Web Feature Service
  (WFS) for vector data, Web Coverage Service (WCS), Catalogue Service (CSW) for ISO/OGC metadata, Web Processing Service (WPS) for data processes,
@@ -24,9 +24,11 @@ LazyLoad: yes
 RoxygenNote: 7.3.1
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2024-06-26 08:52:28 UTC; emman
-Author: Emmanuel Blondel [aut, cre] (<https://orcid.org/0000-0002-5870-5762>),
-  Alexandre Bennici [ctb] (<https://orcid.org/0000-0003-2160-3487>),
+Packaged: 2025-06-13 21:18:06 UTC; emman
+Author: Emmanuel Blondel [aut, cre] (ORCID:
+    <https://orcid.org/0000-0002-5870-5762>),
+  Alexandre Bennici [ctb] (ORCID:
+    <https://orcid.org/0000-0003-2160-3487>),
   Norbert Billet [ctb]
 Repository: CRAN
-Date/Publication: 2024-06-26 09:50:02 UTC
+Date/Publication: 2025-06-15 00:30:06 UTC

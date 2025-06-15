@@ -23,6 +23,7 @@ WFSFeatureType <- R6Class("WFSFeatureType",
     keywords = NA,
     defaultCRS = NA,
     WGS84BoundingBox = NA,
+    features = NULL,
     
     supportedGeomPossibleNames = c("the_geom", "geom", "wkt", "geom_wkt", "wkb", "geom_wkb"),
     supportedXPossibleNames = c("x","lon","long","longitude","decimalLongitude"),
@@ -112,9 +113,7 @@ WFSFeatureType <- R6Class("WFSFeatureType",
   ),
   public = list(
     #'@field description description
-    description = NULL,
-    #'@field features features
-    features = NULL,
+    description = list(),
     
     #'@description Initializes an object of class \link{WFSFeatureType}
     #'@param xmlObj an object of class \link[XML]{XMLInternalNode-class} to initialize from XML
@@ -190,7 +189,8 @@ WFSFeatureType <- R6Class("WFSFeatureType",
       }
       client = private$capabilities$getClient()
       ftDescription <- WFSDescribeFeatureType$new(private$capabilities, op = op, private$url, private$version, private$name, 
-                                                  user = client$getUser(), pwd = client$getPwd(), token = client$getToken(), headers = client$getHeaders(),
+                                                  user = client$getUser(), pwd = client$getPwd(), token = client$getToken(), headers = client$getHeaders(), 
+                                                  config = client$getConfig(),
                                                   logger = self$loggerType)
       #exception handling
       if(ftDescription$hasException()){
@@ -208,8 +208,8 @@ WFSFeatureType <- R6Class("WFSFeatureType",
       if(pretty){
         out <- do.call("rbind", lapply(elements, function(element){
           out_element <- data.frame(
-            name = element$getName(),
-            type = element$getType(),
+            name = ifelse(!is.null(element$getName()), element$getName(), NA),
+            type = ifelse(!is.null(element$getType()), element$getType(), NA),
             minOccurs = ifelse(!is.null(element$getMinOccurs()), element$getMinOccurs(), NA),
             maxOccurs = ifelse(!is.null(element$getMaxOccurs()), element$getMaxOccurs(), NA),
             nillable = ifelse(!is.null(element$isNillable()), element$isNillable(), NA),
@@ -225,14 +225,14 @@ WFSFeatureType <- R6Class("WFSFeatureType",
     #'@description Indicates with feature type has a geometry
     #'@return object of class \link{logical}
     hasGeometry = function(){
-      if(is.null(self$description)) self$description = self$getDescription()
+      if(length(self$description)==0) self$description = self$getDescription()
       any(sapply(self$description, function(x){x$isGeometry()}))
     },
     
     #'@description Get geometry type
     #'@return object of class \link{character} representing the geometry tpe
     getGeometryType = function(){
-      if(is.null(self$description)) self$description = self$getDescription()
+      if(length(self$description)==0) self$description = self$getDescription()
       geomType <- NULL
       if(self$hasGeometry()){
         geomType <- self$description[sapply(self$description, function(x){x$isGeometry()})][[1]]$getType() 
@@ -289,16 +289,19 @@ WFSFeatureType <- R6Class("WFSFeatureType",
                            validate = TRUE,
                            outputFormat = NULL,
                            paging = FALSE, paging_length = 1000,
-                           parallel = FALSE, parallel_handler = NULL, cl = NULL){
-      
+                           parallel = FALSE, parallel_handler = NULL, cl = NULL
+                           ){
       #getdescription
-      if(is.null(self$description)){
+      if(length(self$description)==0){
         self$description = self$getDescription()
       }
       if(is(self$description, "OWSException")){
         stop("Feature type could not be described, aborting getting features...")
       }
       vendorParams <- list(...)
+      if(startsWith(private$version, "2.0")) if("maxfeatures" %in% tolower(names(vendorParams))){
+        names(vendorParams)[tolower(names(vendorParams)) == "maxfeatures"] <- "count"
+      }
       
       if(paging){
         hitParams <- vendorParams
@@ -344,9 +347,18 @@ WFSFeatureType <- R6Class("WFSFeatureType",
       }
       
       client = private$capabilities$getClient()
-      ftFeatures <- WFSGetFeature$new(private$capabilities, op = op, private$url, private$version, private$name, outputFormat = outputFormat, 
-                                      user = client$getUser(), pwd = client$getPwd(), token = client$getToken(), headers = client$getHeaders(),
-                                      logger = self$loggerType, ...)
+      ftFeatures <- do.call(
+        WFSGetFeature$new,
+        c(
+          list(
+            capabilities = private$capabilities, op = op, url = private$url, version = private$version, typeName = private$name, outputFormat = outputFormat, 
+            user = client$getUser(), pwd = client$getPwd(), token = client$getToken(), headers = client$getHeaders(), 
+            config = client$getConfig(),
+            logger = self$loggerType
+          ),
+          vendorParams
+        )
+      )
       #exception handling
       if(ftFeatures$hasException()){
         return(ftFeatures$getException())
@@ -407,8 +419,8 @@ WFSFeatureType <- R6Class("WFSFeatureType",
       }
       
       if(!read_features){
-        self$features = obj
-        return(self$features)
+        private$features = obj
+        return(private$features)
       }
       
       #read features
@@ -433,20 +445,23 @@ WFSFeatureType <- R6Class("WFSFeatureType",
         
       #validating attributes vs. schema
       if(validate) for(element in self$description){
+        attrName = element$getName()
         attrType <- element$getType()
-        if(!is.null(attrType) && !element$isGeometry()){
-          attrName = element$getName()
+        if(!is.null(attrName) & !is.null(attrType) & !element$isGeometry()){
+          test = ftFeatures[[attrName]]
           if(!is.null(ftFeatures[[attrName]])){
-            ftFeatures[[attrName]] <- switch(attrType,
-              "Date" = as.Date(ftFeatures[[attrName]]),
-              "POSIXct" = as.POSIXct(ftFeatures[[attrName]]),
-              as(ftFeatures[[attrName]], attrType)
-            )
+            if(attrType != "character"){
+              ftFeatures[[attrName]] <- switch(attrType,
+                "Date" = as.Date(ftFeatures[[attrName]]),
+                "POSIXct" = as.POSIXct(ftFeatures[[attrName]]),
+                as(ftFeatures[[attrName]], attrType)
+              )
+            }
           }
         }
       }
-      self$features <- ftFeatures
-      return(self$features)
+      private$features <- ftFeatures
+      return(private$features)
     }
   )
 )
